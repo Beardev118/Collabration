@@ -5,10 +5,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -136,12 +135,12 @@ export default function ProminentAppBar() {
                     Shop in: 
                   </Typography>
                 </Grid>
-                <Grid item xs={'auto'}>
+                <Grid item xs={2}>
                   <CountrySelect/>
                 </Grid>
-                <Grid item xs={5} lg = {7}>
+                <Grid item xs={5}>
                 </Grid>
-                  <Grid item xs={'auto'}>
+                  <Grid item xs={4}>
                     <Typography variant = "h6" className={classes.rightMenu} align = "right">
                       <Link className = {classes.menulink} to="/about"  className = {classes.menulink}>
                         About Us  |
@@ -233,44 +232,83 @@ export default function ProminentAppBar() {
   );
 }
 
-function CountrySelect() {
-  const [anchorEl, setAnchorEl] = useState("");
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})(props => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'left',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
 
-  const handleClick = e=>setAnchorEl(e.currentTarget);
-    const handleClose = () => {
+const options = [
+  'Select Country',
+    'United Kingdom',
+    'Czech Republic',
+    'Greece',
+    'Hungary',
+    'Romania',
+    'Austria',
+    'Ireland',
+    'Belgium',
+    'Spain',
+    'Italy',
+    'France',
+    'Netherlands',
+    'Germany',
+];
+
+ function CountrySelect() {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+    // setAnchorEl(null);
+
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedIndex(index);
     setAnchorEl(null);
   };
-  const classes = useStyles();
-  return (
 
-   
-    <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className = {classes.countryButton}>
-        United Kingdom
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
+ 
+
+  return (
+    <div className={classes.root}>
+      <Button onClick  ={handleClick} > {options[selectedIndex]}</Button>
+      <StyledMenu
+        id="lock-menu"
+        anchorEl = {anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        // onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Czech Republic</MenuItem>
-        <MenuItem onClick={handleClose}>Poland</MenuItem>
-        <MenuItem onClick={handleClose}>Greece</MenuItem>
-        <MenuItem onClick={handleClose}>Hungary</MenuItem>
-        <MenuItem onClick={handleClose}>Romania</MenuItem>
-        <MenuItem onClick={handleClose}>Austria</MenuItem>
-        <MenuItem onClick={handleClose}>Ireland</MenuItem>
-        <MenuItem onClick={handleClose}>Belgium</MenuItem>
-        <MenuItem onClick={handleClose}>Spain</MenuItem>
-        <MenuItem onClick={handleClose}>Italy</MenuItem>
-        <MenuItem onClick={handleClose}>France</MenuItem>
-        <MenuItem onClick={handleClose}>Netherlands</MenuItem>
-        <MenuItem onClick={handleClose}>Germany</MenuItem>
-        <MenuItem onClick={handleClose}>United Kingdom</MenuItem>
-        
-      </Menu>
+        {options.map((option, index) => (
+          <MenuItem
+            key={option}
+            disabled={index === 0}
+            selected={index === selectedIndex}
+            onClick={event => handleMenuItemClick(event, index)}
+          >
+            {option}
+          </MenuItem>
+        ))}
+      </StyledMenu>
     </div>
   );
 }

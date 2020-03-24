@@ -1,20 +1,17 @@
 import React,{useState} from "react";
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
+// import Checkbox from '../Checkbox/Checkbox'
 import ExpandLess from "../../asset/img/arrow_down.png";
 import ExpandMore from "../../asset/img/arrow_up.png";
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import GridList from '@material-ui/core/GridList';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import IconButton from '@material-ui/core/IconButton';
-// import  DeleteIcon from '@material-ui/icons';
 import Clear from '@material-ui/icons/Clear'
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {theme} from '@material-ui/core/styles'
+
 
 
 
@@ -101,20 +98,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
-
-export default function MenuBar() {
-    const classes = useStyles();
-  return (
-    <div >
-         <MainMenu/>
-    </div>
-
-    
-  );
-}
-
 const categories = [
   'Bohomoon Ltd',
   'Ciate Ciate',
@@ -137,9 +120,13 @@ const categories = [
 const sortby = ['Relevance','Price(row to high)','Price(row to high)']
 const sizes = ['small','middle','big','extra-big']
 const brands  = ['ARMANI','FENDI','HOUSE OF VERSACE','BURBERRY','RALPH LAUREN','CHANEL','PRADA','HERMES','GUCCI','LOUIS VUITTON']
- 
-function MainMenu() {
-  const [anchorEl, setAnchorEl] = useState("");
+
+
+
+export default function MenuBar() {
+    const classes = useStyles();
+
+    const [anchorEl, setAnchorEl] = useState("");
 
   const [state, setState] = React.useState({
     categoryFlag: false,
@@ -216,18 +203,19 @@ function MainMenu() {
     
   };
 
-  const submenuClick = e =>{
-    setState({ ...state, submenuCheked: !state.submenuCheked&&state.totalFlag });
-  }
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const classes = useStyles();
+  const handleClickAway = () => {
+    toggleDrawer('totalFlag', false);
+  };
 
-  
+  // const classes = useStyles();
   return (
-    
-     <div>
+    <ClickAwayListener onClickAway={toggleDrawer('totalFlag', false)}>
+<ThemeProvider>
+         <div>
         <Hidden mdDown>
 
               <div className = {classes.menubar}>
@@ -255,13 +243,15 @@ function MainMenu() {
                             inputProps={{ 'aria-label': 'checkbox with default color' }}
                           />  
                         <ThemeProvider theme={innertheme}>
-                              <Button aria-controls="simple-menu" aria-haspopup="true" onMouseOver={toggleDrawer('totalFlag',true)}>
+                              <Button aria-controls="simple-menu" aria-haspopup="true" onClick={toggleDrawer('totalFlag',true)}>
                                 CATEGORY
                               </Button>
                           </ThemeProvider>
                           
                           {/* <Typography component = "button" variant = "button" align = "left">CATEGORY</Typography>  */}
-                          <img src = {state.directionImg} className = {classes.expandless}/>
+                          <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                              <img src = {state.directionImg} className = {classes.expandless}/>
+                          </IconButton>
                     </div>
                     <div>
                         <Collapse in = {state.totalFlag} timeout = {1000}>
@@ -286,11 +276,13 @@ function MainMenu() {
                       inputProps={{ 'aria-label': 'checkbox with default color' }}
                     />  
                       <ThemeProvider theme={innertheme}>
-                            <Button aria-controls="simple-menu" aria-haspopup="true" onMouseOver={toggleDrawer('totalFlag',true)}>
+                            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={toggleDrawer('totalFlag',true)}>
                             <span>size   </span>    
                             </Button>
                         </ThemeProvider>
-                        <img src = {state.directionImg} className = {classes.expandless}/>
+                        <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                            <img src = {state.directionImg} className = {classes.expandless}/>
+                        </IconButton>
                   </div>
 
                 
@@ -316,13 +308,16 @@ function MainMenu() {
                           inputProps={{ 'aria-label': 'checkbox with default color' }}
                         /> 
                         <ThemeProvider theme={innertheme}>
-                        <Button aria-controls="simple-menu" aria-haspopup="true" onMouseOver={toggleDrawer('totalFlag', true)}>
+                        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={toggleDrawer('totalFlag', true)}>
                         BRAND
                         </Button>
                         </ThemeProvider> 
                       
                           {/* {anchorEl ? <img src = {ExpandLess} /> : <img src = {ExpandMore} />}   */}
-                          <img src = {state.directionImg} className = {classes.expandless}/>
+
+                          <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                              <img src = {state.directionImg} className = {classes.expandless}/>
+                          </IconButton>
                     </div>
                       <div>
                       
@@ -350,11 +345,13 @@ function MainMenu() {
                             inputProps={{ 'aria-label': 'checkbox with default color' }}
                             />  
                           <ThemeProvider theme={innertheme}>
-                          <Button aria-controls="simple-menu" aria-haspopup="true" onMouseOver={toggleDrawer('totalFlag',true)}>
+                          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={toggleDrawer('totalFlag',true)}>
                           Sort By
                           </Button>
                           </ThemeProvider> 
-                          <img src = {state.directionImg} className = {classes.expandless}/>
+                          <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                              <img src = {state.directionImg} className = {classes.expandless}/>
+                          </IconButton>
                       </div>
 
                       <div>
@@ -412,7 +409,9 @@ function MainMenu() {
                       </ThemeProvider>
                       
                       {/* <Typography component = "button" variant = "button" align = "left">CATEGORY</Typography>  */}
-                      <img src = {state.directionImgC} className = {classes.expandless}/>
+                      <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                          <img src = {state.directionImgC} className = {classes.expandless}/>
+                      </IconButton>
                 </div>
                 <div>
                     <Collapse in = {state.categoryFlag} timeout = {1000}>
@@ -441,7 +440,9 @@ function MainMenu() {
                         <span>size   </span>    
                         </Button>
                     </ThemeProvider>
-                    <img src = {state.directionImgS} className = {classes.expandless}/>
+                    <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                        <img src = {state.directionImgS} className = {classes.expandless}/>
+                    </IconButton>
               </div>
   
               <div>
@@ -472,7 +473,9 @@ function MainMenu() {
                     </ThemeProvider> 
                   
                       {/* {anchorEl ? <img src = {ExpandLess} /> : <img src = {ExpandMore} />}   */}
-                      <img src = {state.directionImgB} className = {classes.expandless}/>
+                      <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                          <img src = {state.directionImgB} className = {classes.expandless}/>
+                      </IconButton>
                 </div>
                   <div>
                   
@@ -504,7 +507,9 @@ function MainMenu() {
                       Sort By
                       </Button>
                       </ThemeProvider> 
-                      <img src = {state.directionImgSo} className = {classes.expandless}/>
+                      <IconButton onClick = {toggleDrawer('totalFlag',false)}>
+                          <img src = {state.directionImgSo} className = {classes.expandless}/>
+                      </IconButton>
                   </div>
 
                   <div>
@@ -530,7 +535,11 @@ function MainMenu() {
 
       </Hidden>
       </div>
-  
+      </ThemeProvider>
+    </ClickAwayListener>
+
+
     
   );
 }
+
