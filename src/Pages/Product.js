@@ -17,6 +17,7 @@ export default function App() {
 
   return (
       <React.Fragment>
+
         <MenuBar/>
         <ProdcutArea/>
         <Grid container spacing={3} direction = "row" justify = "flex-end">
@@ -25,6 +26,16 @@ export default function App() {
             </Grid>
          </Grid>
        
+
+          <div style = {{width:'100%',height:'100%'}}>
+            <div style = {{zIndex:3}}>
+                <MenuBar/>  
+            </div>
+            <div >
+                <ProdcutArea/>
+            </div> 
+          </div>
+
       </React.Fragment>
         
   );
