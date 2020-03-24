@@ -43,7 +43,7 @@ export default function TemporaryDrawer() {
         <React.Fragment key={anchor}>
           <IconButton onClick={toggleDrawer("left", true) } style = {{padding:'0px'}}><MenuIcon/></IconButton>
 
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)} transitionDuration = {1000}>
           <div
             className={clsx(classes.list, {
               [classes.fullList]: anchor === 'top' || anchor === 'bottom',

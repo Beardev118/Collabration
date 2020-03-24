@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box'
 
 function Copyright() {
   return (
@@ -73,7 +74,9 @@ export default function Album() {
         <Container maxWidth="sm">
           <Grid container xs = {12}>
             <Grid item>
-                <Typography component="h2" align="center" color="textPrimary" gutterBottom>
+
+            <Box mt = {8} mb = {4}>
+            <Typography component="h2" align="center" color="textPrimary" gutterBottom>
                 <span variant = "h2">We are polymer.</span><span variant = "h3">SHOP</span>
                 </Typography>
                 <Typography variant="subtitle2" align="center" color="textSecondary" paragraph>
@@ -81,6 +84,9 @@ export default function Album() {
                   Make it short and sweet, but not too short so folks don&apos;t simply skip over it
                   entirely.
                 </Typography>
+            </Box>
+
+               
                 <div className={classes.heroButtons}>
                   <Grid container spacing={2} justify="center">
                     <Grid item>

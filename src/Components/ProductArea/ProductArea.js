@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import clsx from 'clsx';
 import { makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
@@ -11,21 +12,21 @@ import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box'
+import EarthIcon from '@material-ui/icons/LanguageOutlined';
+import Paper from '@material-ui/core/Paper'
+import Link from '@material-ui/core/Link'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/CloseRounded'
 
 
 import contentpicture from '../../asset/img/shoes.jpg';
+import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
-    list: {
-      width: 500,
-    },
+   
     fullList: {
       width: 'auto',
     },
@@ -82,6 +83,15 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(6),
       },
+      relatedItem:{
+        display:'flex',
+        justifyContent:'center',
+        padding:10,
+        marginTop:20
+        // textAlign:'center',
+        
+
+      },
   }));
 
    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
@@ -112,7 +122,7 @@ return (
   function ProductCard() {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
-    const [value, setValue] = React.useState(2);
+    const [value, setValue] = React.useState(5);
 
   
     const toggleDrawer = (open) => event => {
@@ -123,7 +133,10 @@ return (
     };
   
     return (
-      <div> <Card className={classes.root} elevation={3}>
+      <div> 
+  
+        
+        <Card className={classes.root} elevation={3}>
             <CardActionArea onClick = {toggleDrawer(true)}>
               <CardMedia
                 className={classes.media}
@@ -146,14 +159,20 @@ return (
               </Typography>
           
           </Card>
-              <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)}>
+
+          <Hidden mdDown>
+          <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {1000}>
                 <div
                   className={classes.list}
                   role="presentation"
                   // onClick={toggleDrawer(false)}
                   onKeyDown={toggleDrawer(false)}
+                  style = {{width:"500px"}}
                   >
-                  
+                  <IconButton onClick = {toggleDrawer(false)}>
+                    <CloseIcon/>
+                  </IconButton>
+
                   <Card className={classes.root}>
                   
                     <CardMedia
@@ -162,40 +181,143 @@ return (
                       title="Paella dish"
                     />
                     <CardHeader
-                      
-                      action={
-                        <IconButton aria-label="settings">
-                          <MoreVertIcon />
-                        </IconButton>
-                      }
                       title="Shrimp and Chorizo Paella"
-                      subheader="September 14, 2016"
                     />
                     <CardContent>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                      It’s a well made case it’s nice and solid thing I don’t like is the bottom where I place my pinky it feels jaggerd when I’m texting and it leaves marks on my finger.                      </Typography>
+                      
                       <Grid container xs = {12}>
-                        <Grid>
+                        <Grid xs = {5} >
                         <Rating name="read-only" value={value} readOnly />
                         </Grid>
-                        <Grid>
-                        <Typography>$49.5</Typography>
+                        <Grid xs = {2}>
+                        <Typography variant = "subtitle1">$49.5</Typography>
                         </Grid>
-                        <Grid>
-
+                        <Grid xs = {5}>
+                          <Typography variant = "subtitle1">Brand: ALDO </Typography>
                         </Grid>
                       </Grid>
 
+                      <Typography variant="body2" color="textSecondary" component="p">
+                      It’s a well made case it’s nice and solid thing I don’t like is the bottom where I place my pinky it feels jaggerd when I’m texting and it leaves marks on my finger.                      
+                      </Typography>
                       <Box component="fieldset" mb={3} borderColor="transparent">
                       </Box>
                     </CardContent>
                     <CardActions disableSpacing>
                       
-                    </CardActions>
+                  </CardActions>
               
               </Card>
+              <Grid container spacing = {50}>
+              {cards.map(card => (
+              <Grid container xs = {12} spacing = {50}>
+                  <Grid xs = {1}></Grid>
+                    <Grid xs = {10} alignItems = "center" justifyContent = "center">
+                      <Paper className = {classes.relatedItem} square>
+                        <Grid xs = {2}>
+                        <Typography>$44.95</Typography>
+                        </Grid >
+                        <Grid xs = {2}>
+                        <EarthIcon></EarthIcon>
+                        </Grid>
+                         <Grid xs = {6}>
+                         <Link href = "https://bodaskins.com"><Typography>https://bodaskins.com</Typography></Link>
+
+                         </Grid>
+                          
+                      </Paper>
+                        
+                    </Grid>
+                    <Grid xs = {1} ></Grid>
+              </Grid>
+               
+               ))}
+               
+              </Grid>
+                
+                
            </div>
         </Drawer>
+          </Hidden>
+          <Hidden mdUp>
+          <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {1000}>
+                <div
+                  className={classes.list}
+                  role="presentation"
+                  // onClick={toggleDrawer(false)}
+                  onKeyDown={toggleDrawer(false)}
+                  style = {{width:'100%'}}
+                  >
+                  <IconButton onClick = {toggleDrawer(false)}>
+                    <CloseIcon/>
+                  </IconButton>
+                  <Card className={classes.root}>
+                  
+                    <CardMedia
+                      className={classes.media}
+                      image={contentpicture}
+                      title="Paella dish"
+                    />
+                    <CardHeader
+                      title="Shrimp and Chorizo Paella"
+                    />
+                    <CardContent>
+                      
+                      <Grid container xs = {12}>
+                        <Grid xs = {5} >
+                        <Rating name="read-only" value={value} readOnly />
+                        </Grid>
+                        <Grid xs = {2}>
+                        <Typography variant = "subtitle1">$49.5</Typography>
+                        </Grid>
+                        <Grid xs = {5}>
+                          <Typography variant = "subtitle1">Brand: ALDO </Typography>
+                        </Grid>
+                      </Grid>
+
+                      <Typography variant="body2" color="textSecondary" component="p">
+                      It’s a well made case it’s nice and solid thing I don’t like is the bottom where I place my pinky it feels jaggerd when I’m texting and it leaves marks on my finger.                      
+                      </Typography>
+                      <Box component="fieldset" mb={3} borderColor="transparent">
+                      </Box>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                      
+                  </CardActions>
+              
+              </Card>
+              <Grid container spacing = {50}>
+              {cards.map(card => (
+              <Grid container xs = {12} style = {{margin:'10px'}}>
+                 
+                    <Grid xs = {12} alignItems = "center" justifyContent = "center">
+                      <Paper className = {classes.relatedItem} square>
+                        <Grid xs = {3}>
+                        <Typography>$44.95</Typography>
+                        </Grid >
+                        <Grid xs = {1}>
+                        <EarthIcon></EarthIcon>
+                        </Grid>
+                         <Grid xs = {8}>
+                         <Link href = "https://bodaskins.com"><Typography>https://bodaskins.com</Typography></Link>
+
+                         </Grid>
+                          
+                      </Paper>
+                        
+                    </Grid>
+                    
+              </Grid>
+               
+               ))}
+               
+              </Grid>
+                
+                
+           </div>
+        </Drawer>
+          </Hidden>
+              
       </div>
      
     );

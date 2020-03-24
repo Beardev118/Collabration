@@ -65,13 +65,14 @@ export default function SignUp() {
 
   return (
     <Container component="main" maxWidth="md">
-      <div className={classes.paper}>
+     
 
-         <Box mt = {8} mb = {4}>
+      <Box mt = {8} mb = {4}>
           <Typography variant="h4" color="textPrimary" align="center">
           Please Complete Your Information
          </Typography>
       </Box>
+      <div className={classes.paper}>
         <form className={classes.form} noValidate>
           <Grid container spacing={4} alignItems = "center" justify = "flex-start">
             <Grid item xs={12} md = {6} >

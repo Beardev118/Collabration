@@ -170,22 +170,8 @@ export default function ProminentAppBar() {
             <Hidden mdUp>
                 <Paper className={classes.paper}>
                 <Drawer />
-                    {/* <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        // onClick = {()=>}
-                        >
-                          <MenuIcon  className = {classes.menuIcon}/>
-                    </IconButton> */}
                 </Paper>
-                {/* <Drawer /> */}
-                  
-              
             </Hidden>
-          
-          
           </Grid>
           <Grid item xs={10}>
 
@@ -204,12 +190,7 @@ export default function ProminentAppBar() {
                       </Typography>
                     </Link>
                 </Hidden>
-
-                
-
           </Paper>
-            
-              
           </Grid>
           
           <Grid item xs={1} >

@@ -52,7 +52,6 @@ class ControlledExpansionPanels extends React.Component {
           Find the answer you need by clicking on the topics below.
           </Typography>
           </Box>
-
           <Container maxWidth = "md">
           <Box mt = {3}>
           <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
