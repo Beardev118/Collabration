@@ -22,6 +22,8 @@ import { Container, Grid } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import ExpandSearch from './Components/ExpandSearch/ExpandSearch';
 import Drawer from './Components/Drawer/Drawer';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 
@@ -234,43 +236,35 @@ export default function ProminentAppBar() {
 }
 
 function CountrySelect() {
-  const [anchorEl, setAnchorEl] = useState("");
 
-  const handleClick = e=>setAnchorEl(e.currentTarget);
-    const handleClose = () => {
-    setAnchorEl(null);
-  };
   const classes = useStyles();
-  return (
+  const countries = [
+    {
+      name:"Czech Republic",
+      name:"Poland",
+      name:"Greece",
+      name:"Hungary",
+      name:"Romania",
+      name:"Austria",
+      name:"Ireland",
+      name:"Belgium",
+      name:"France",
+      name:"Netherlands",
+      name:"Germany",
+      name:"United Kingdom",
 
-   
-    <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className = {classes.countryButton}>
-        United Kingdom
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Czech Republic</MenuItem>
-        <MenuItem onClick={handleClose}>Poland</MenuItem>
-        <MenuItem onClick={handleClose}>Greece</MenuItem>
-        <MenuItem onClick={handleClose}>Hungary</MenuItem>
-        <MenuItem onClick={handleClose}>Romania</MenuItem>
-        <MenuItem onClick={handleClose}>Austria</MenuItem>
-        <MenuItem onClick={handleClose}>Ireland</MenuItem>
-        <MenuItem onClick={handleClose}>Belgium</MenuItem>
-        <MenuItem onClick={handleClose}>Spain</MenuItem>
-        <MenuItem onClick={handleClose}>Italy</MenuItem>
-        <MenuItem onClick={handleClose}>France</MenuItem>
-        <MenuItem onClick={handleClose}>Netherlands</MenuItem>
-        <MenuItem onClick={handleClose}>Germany</MenuItem>
-        <MenuItem onClick={handleClose}>United Kingdom</MenuItem>
-        
-      </Menu>
-    </div>
+    }
+  ]
+  return (
+    <Autocomplete
+      id="combo-box-demo"
+      options={countries}
+      getOptionLabel={option => option.name}
+      style={{ width: 300 }}
+      renderInput={params => <TextField {...params} label="Combo box" variant="outlined" />}
+    />
   );
+   
+        
+
 }

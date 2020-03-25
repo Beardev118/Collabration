@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+// import Checkbox from '../Checkbox/Checkbox'
 import ExpandLess from "../../asset/img/arrow_down.png";
 import ExpandMore from "../../asset/img/arrow_up.png";
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import IconButton from '@material-ui/core/IconButton';
 import Clear from '@material-ui/icons/Clear'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {theme} from '@material-ui/core/styles'
 
 
 
@@ -201,9 +203,7 @@ export default function MenuBar() {
     
   };
 
-  const submenuClick = e =>{
-    setState({ ...state, submenuCheked: !state.submenuCheked&&state.totalFlag });
-  }
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -214,7 +214,7 @@ export default function MenuBar() {
   // const classes = useStyles();
   return (
     <ClickAwayListener onClickAway={toggleDrawer('totalFlag', false)}>
-
+<ThemeProvider>
          <div>
         <Hidden mdDown>
 
@@ -535,6 +535,7 @@ export default function MenuBar() {
 
       </Hidden>
       </div>
+      </ThemeProvider>
     </ClickAwayListener>
 
 
