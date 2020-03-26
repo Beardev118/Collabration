@@ -5,10 +5,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -22,8 +21,6 @@ import { Container, Grid } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import ExpandSearch from './Components/ExpandSearch/ExpandSearch';
 import Drawer from './Components/Drawer/Drawer';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 
@@ -138,12 +135,12 @@ export default function ProminentAppBar() {
                     Shop in: 
                   </Typography>
                 </Grid>
-                <Grid item xs={'auto'}>
+                <Grid item xs={2}>
                   <CountrySelect/>
                 </Grid>
-                <Grid item xs={5} lg = {7}>
+                <Grid item xs={5}>
                 </Grid>
-                  <Grid item xs={'auto'}>
+                  <Grid item xs={4}>
                     <Typography variant = "h6" className={classes.rightMenu} align = "right">
                       <Link className = {classes.menulink} to="/about"  className = {classes.menulink}>
                         About Us  |
@@ -235,36 +232,83 @@ export default function ProminentAppBar() {
   );
 }
 
-function CountrySelect() {
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})(props => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'left',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
 
+const options = [
+  'Select Country',
+    'United Kingdom',
+    'Czech Republic',
+    'Greece',
+    'Hungary',
+    'Romania',
+    'Austria',
+    'Ireland',
+    'Belgium',
+    'Spain',
+    'Italy',
+    'France',
+    'Netherlands',
+    'Germany',
+];
+
+ function CountrySelect() {
   const classes = useStyles();
-  const countries = [
-    {
-      name:"Czech Republic",
-      name:"Poland",
-      name:"Greece",
-      name:"Hungary",
-      name:"Romania",
-      name:"Austria",
-      name:"Ireland",
-      name:"Belgium",
-      name:"France",
-      name:"Netherlands",
-      name:"Germany",
-      name:"United Kingdom",
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-    }
-  ]
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+    // setAnchorEl(null);
+
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedIndex(index);
+    setAnchorEl(null);
+  };
+
+ 
+
   return (
-    <Autocomplete
-      id="combo-box-demo"
-      options={countries}
-      getOptionLabel={option => option.name}
-      style={{ width: 300 }}
-      renderInput={params => <TextField {...params} label="Combo box" variant="outlined" />}
-    />
+    <div className={classes.root}>
+      <Button onClick  ={handleClick} > {options[selectedIndex]}</Button>
+      <StyledMenu
+        id="lock-menu"
+        anchorEl = {anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        // onClose={handleClose}
+      >
+        {options.map((option, index) => (
+          <MenuItem
+            key={option}
+            disabled={index === 0}
+            selected={index === selectedIndex}
+            onClick={event => handleMenuItemClick(event, index)}
+          >
+            {option}
+          </MenuItem>
+        ))}
+      </StyledMenu>
+    </div>
   );
-   
-        
-
 }
