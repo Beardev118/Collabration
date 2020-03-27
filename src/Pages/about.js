@@ -11,23 +11,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box'
 
-function Copyright() {
-  return (
-    <Grid container xs = {8} justify = 'center' alignItems = 'center'>
-      <Grid item>
-      <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="#">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-      </Grid>
-    </Grid>
-    
-  );
-}
+
 
 const useStyles = makeStyles(theme => ({
   icon: {

@@ -17,7 +17,7 @@ import About from './Pages/about';
 import FAQ from './Pages/Faq';
 import Retailers from './Pages/Retailer';
 import AddFeed from './Pages/AddFeed';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, ClickAwayListener } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import ExpandSearch from './Components/ExpandSearch/ExpandSearch';
 import Drawer from './Components/Drawer/Drawer';
@@ -289,26 +289,29 @@ const options = [
  
 
   return (
-    <div className={classes.root}>
-      <Button onClick  ={handleClick} > {options[selectedIndex]}</Button>
-      <StyledMenu
-        id="lock-menu"
-        anchorEl = {anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        // onClose={handleClose}
-      >
-        {options.map((option, index) => (
-          <MenuItem
-            key={option}
-            disabled={index === 0}
-            selected={index === selectedIndex}
-            onClick={event => handleMenuItemClick(event, index)}
-          >
-            {option}
-          </MenuItem>
-        ))}
-      </StyledMenu>
-    </div>
+    <ClickAwayListener>
+      <div className={classes.root}>
+            <Button onClick  ={handleClick} > {options[selectedIndex]}</Button>
+            <StyledMenu
+              id="lock-menu"
+              anchorEl = {anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              // onClose={handleClose}
+            >
+              {options.map((option, index) => (
+                <MenuItem
+                  key={option}
+                  disabled={index === 0}
+                  selected={index === selectedIndex}
+                  onClick={event => handleMenuItemClick(event, index)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </StyledMenu>
+          </div>
+    </ClickAwayListener>
+    
   );
 }

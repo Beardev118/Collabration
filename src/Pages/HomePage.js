@@ -1,7 +1,6 @@
-import React,{useState} from 'react';
+import React from 'react';
 
 import SearchBar from '../Components/SearchBar/SearchBar'
-import { Grid } from '@material-ui/core';
 export default function HomePage(){
   return(
       // <Container maxWidth ="sm" style = {{ minHeight: '100vh'}} >
