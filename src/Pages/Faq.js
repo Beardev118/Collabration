@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
 import { Container, Grid } from '@material-ui/core';
+import Header from '../Components/Header/Header'
 
 
 const styles = theme => ({
@@ -46,7 +47,10 @@ class ControlledExpansionPanels extends React.Component {
     const { expanded } = this.state;
 
     return (
-      <div className={classes.root}>
+      <React.Fragment>
+
+        <Header/>
+        <div className={classes.root}>
           <Box my = {8}>
           <Typography variant="h4" color="textPrimary" align="center">
           Find the answer you need by clicking on the topics below.
@@ -104,6 +108,8 @@ class ControlledExpansionPanels extends React.Component {
           </Box>
           </Container>
       </div>
+      </React.Fragment>
+      
     );
   }
 }

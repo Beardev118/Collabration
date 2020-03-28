@@ -19,6 +19,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Header from '../Components/Header/Header'
+import Container from '@material-ui/core/Container'
 
 
 function createData(name, URL, email, country) {
@@ -27,20 +29,20 @@ function createData(name, URL, email, country) {
 
 const rows = [
   createData('Leather to Love Forever Ltd', 'https://bodaskins.com/collections/all.atom', 'enquiries@bellsshoes.co.uk', 'United Kingdom'),
-  createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'hello@bodaskins.com', 'United Kingdom'),
-  createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom', 'customerservice@bohomoon.com', 'United Kingdom'),
-  createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom', 'hello@boredofsouthsea.co.uk', 'United Kingdom'),
+  createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'hello@bodaskins.com', 'Greece'),
+  createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom', 'customerservice@bohomoon.com', 'Hungary'),
+  createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom', 'hello@boredofsouthsea.co.uk', 'Romania'),
   createData('Ciate Ciate', 'https://dizzykitten.co.uk/collections/all.atom', 'customer.service@ciatelondon.com', 'United Kingdom'),
   createData('Pink Boutique Ltd', 'https://janesboutique.co.uk/collections/all.atom', 'enquiries@katesclothing.co.uk', 'United Kingdom'),
-  createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+  createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
   createData('Ireland', 'https://beachcomberswimwear.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+  createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Austria'),
   createData('Alighieri Ltd', 'https://flyfashion.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+  createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Belgium'),
+  createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
+  createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'UItaly'),
   createData('The Fashion Parade Ltd', 'https://iwearitalia.co.uk/collections/all.atom  ', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+  createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -276,7 +278,9 @@ export default function EnhancedTable() {
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <div className={classes.root}>
+    <div>
+ <Header/>
+      <Container maxWidth = 'lg'>
       <Paper className={classes.paper}>
         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         <TableContainer style = {{marginTop:'80px'}}>
@@ -285,6 +289,7 @@ export default function EnhancedTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+          
           >
             <EnhancedTableHead
               classes={classes}
@@ -311,6 +316,7 @@ export default function EnhancedTable() {
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
+                      
                     >
                       <TableCell padding="checkbox">
                         {/* <Checkbox
@@ -353,6 +359,8 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+    </Container>
     </div>
+     
   );
 }

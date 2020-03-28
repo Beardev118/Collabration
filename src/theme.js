@@ -9,13 +9,20 @@ const theme = createMuiTheme({
     primary: {
       // main: '#FFF',
       main: '#1a1919',
-      light:'#EDDFDF',
-      dark:'#CECECE',
-      contrastText:'#1A1919'
+      light:'#474747',
+      dark:'#000000',
+      contrastText:'#FFFFFF'
+    },
+
+    accent:{
+      main:'#1A1919'
     },
     
     secondary: {
-      main: '#616161',
+      main: '#1a1919',
+      light:'#474747',
+      dark:'#000000',
+      contrastText:'#FFFFFF'
     },
     error: {
       main: red.A400,
@@ -24,6 +31,8 @@ const theme = createMuiTheme({
       default: '#fff',
       paper:'#FFFFFF',
     },
+   
+
     
   },
 

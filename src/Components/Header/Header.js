@@ -1,24 +1,18 @@
 import React,{useState,useEffect} from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Home from './Pages/Home';
-import Product from './Pages/Product';
-import About from './Pages/about';
-import FAQ from './Pages/Faq';
-import Retailers from './Pages/Retailer';
-import AddFeed from './Pages/AddFeed';
-// import AddFeed from './Pages/AddFeed/AddFeed'
 import { Container, Grid, ClickAwayListener } from '@material-ui/core';
-import Admin from './Pages/Admin/Admin'
-// import TermsOfService from './Pages/TermsOfService'
+import Hidden from '@material-ui/core/Hidden';
+import ExpandSearch from '../ExpandSearch/ExpandSearch';
+import Drawer from '../Drawer/Drawer';
 
 
 
@@ -34,9 +28,9 @@ const useStyles = makeStyles(theme => ({
     fontWeight:'normal',
 
   },
-  pageContainer:{
+  topBarContainer:{
     msOverflowX:'hidden',
-    marginRight: 'calc(-1 * (100vw - 100%))',
+    // marginLeft: 'calc(100vw - 100%)',
   },
   appbar:{
     boxShadow:'none',
@@ -125,44 +119,90 @@ export default function ProminentAppBar() {
  
 
   return (
-    <Router>
-      
-     <div className = {classes.pageContainer}>
-     
-            <Switch>
-            {/* <Container maxWidth = 'lg'> */}
-                  <Route exact path="/">
-                    <Home/>
-                  </Route>
-                  <Route exact path = "/faq">
-                    <FAQ/>
-                  </Route>
-                  <Route exact path="/about">
-                    <About />
-                  </Route>
-                  <Route exact path="/retailers">
-                    <Retailers/>
-                  </Route>
-                  <Route exact path = '/add_feed'>
-                    <AddFeed/>
-                  </Route>
-                  <Route exact path="/product">
-                    <Product/>
-                  </Route>
-                  <Route exact path="/admin">
-                <Admin/>
-              </Route>
-              {/* </Container> */}
-              
-            </Switch>
+    <div style = {{width:'100%'}}>
+ <div className = {classes.topBarContainer}>
+        <Container maxWidth="lg">
 
-     
-       
-     </div>
+          <Hidden smDown>
+              <Grid container direction = "row" justify = "center" alignItems = "center" spacing = {1}> 
+                <Grid item xs={'auto'}>
+                  <Typography  align = "left" variant ="h5">
+                    Shop in: 
+                  </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <CountrySelect/>
+                </Grid>
+                <Grid item xs={5}>
+                </Grid>
+                  <Grid item xs={4}>
+                    <Typography variant = "h6" className={classes.rightMenu} align = "right">
+                      <Link className = {classes.menulink} to="/about"  className = {classes.menulink}>
+                        About Us  |
+                      </Link >
+                      <Link className = {classes.menulink} to="/faq"  >
+                        FAQ  |
+                      </Link >
+                      <Link className = {classes.menulink} to="/add_feed">
+                        Add Feed  |
+                      </Link >
+                      <Link className = {classes.menulink} to="/retailers">
+                        Retailers
+                      </Link >
+                    </Typography>
+                  </Grid>
+              </Grid>
+          </Hidden >
+          <Hidden mdUp>
+            <Grid className = {classes.topSpace}></Grid>  
+          </Hidden>  
+
+
+        <Grid container direction = "row" justify = "center" alignItems = "flex-end" spacing = {0}>
+          <Grid item xs={1}>
+
+            <Hidden mdUp>
+                <Paper className={classes.paper}>
+                <Drawer />
+                </Paper>
+            </Hidden>
+          </Grid>
+          <Grid item xs={10}>
+
+          <Paper className={classes.paper}>
+              <Hidden smDown>
+                    <Link to = "/" className = {classes.logoLink}>
+                      <Typography   variant ="h1" >
+                        We are <b>Polymer.</b><span className = {classes.logoSmall}>SHOP</span>
+                      </Typography>
+                    </Link>
+                </Hidden>
+                <Hidden mdUp>
+                    <Link to = "/" className = {classes.logoLink}>
+                      <Typography   variant ="h1" className = {classes.lg_logoLarge}>
+                        We are <b>Polymer.</b><span className = {classes.lg_logoSmall}>SHOP</span>
+                      </Typography>
+                    </Link>
+                </Hidden>
+          </Paper>
+          </Grid>
+          
+          <Grid item xs={1} >
+
+            <Paper className={classes.paper}>
+              <ExpandSearch/>
+            </Paper>
+              
+          </Grid>
+
+        </Grid>
+      </Container>
       
+
+      </div>
+    </div>
      
-     {/* <Fetch/> */}
-    </Router>
+     
   );
 }
 

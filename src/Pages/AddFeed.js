@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
@@ -17,10 +16,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Paper } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import AddCircle from '@material-ui/icons/AddCircle'
+import AddCircle from '@material-ui/icons/AddCircle';
+import Header from '../Components/Header/Header'
 
 
-// import InputBox from '../Components/InputBox/InputBox'
 
 function Copyright() {
   return (
@@ -50,9 +49,9 @@ const useStyles = makeStyles(theme => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+  // submit: {
+  //   margin: theme.spacing(3, 0, 2),
+  // },
   inputLabel:{
     marginBottom:5,
   },
@@ -60,179 +59,214 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
-export default function SignUp() {
+
+
+export default function AddFeed() {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
+  const [termsOfServiceError, setTermsOfServiceError] = useState(false);
 
   return (
-    <Container component="main" maxWidth="md">
+    <div>
+
+      <Header/>
+<Container component="main" maxWidth="md">
      
 
-      <Box mt = {8} mb = {4}>
-          <Typography variant="h4" color="textPrimary" align="center">
-          Please Complete Your Information
-         </Typography>
-      </Box>
-      <div className={classes.paper}>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={4} alignItems = "center" justify = "flex-start">
-            <Grid item xs={12} md = {6} >
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                    Business Name
-                </InputLabel>  
-                <TextField
-                  id="outlined-bare"
-                  fullWidth
-                  className={classes.textField}
-                  variant="outlined"
-                  inputProps={{ 'aria-label': 'bare' }}
-                />
-              </Grid>
-              
+     <Box mt = {8} mb = {4}>
+         <Typography variant="h4" color="textPrimary" align="center">
+         Please Complete Your Information
+        </Typography>
+     </Box>
+     <div className={classes.paper}>
+       <form className={classes.form} noValidate>
+         <Grid container spacing={4} alignItems = "center" justify = "flex-start">
+           <Grid item xs={12} md = {6} >
+               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
+                   Business Name
+               </InputLabel>   */}
+               <TextField
+                 id="outlined-bare"
+                 fullWidth
+                 required
+                 label = "Business Name"
+                 autoFocus
+                 autoComplete="off"
+                 type="name"
                 
-              <Grid item xs={12} sm = {6} >
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                  Website
-                </InputLabel>
-                <TextField
-                  id="outlined-bare"
-                  fullWidth
-                  className={classes.textField}
-                  variant="outlined"
-                  inputProps={{ 'aria-label': 'bare' }}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm = {6}>
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                  First Name
-                </InputLabel>
-                <TextField
-                  id="outlined-bare"
-                  fullWidth
-                  className={classes.textField}
-                  variant="outlined"
-                  inputProps={{ 'aria-label': 'bare' }}
-                />
-              </Grid>
-                
-              <Grid item xs={12} sm = {6}>
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                  Last Name
-                </InputLabel>
-                <TextField
-                    id="outlined-bare"
-                    className={classes.textField}
-                    fullWidth
-                    variant="outlined"
-                    inputProps={{ 'aria-label': 'bare' }}
-                  />
-              </Grid>
-              <Grid item xs={12} sm = {6}>
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                  Email
-                </InputLabel>
-                <TextField
-                    id="outlined-bare"
-                    className={classes.textField}
-                    fullWidth
-                    variant="outlined"
-                    inputProps={{ 'aria-label': 'bare' }}
-                  />
-              </Grid>
-              <Grid item xs={12} sm = {6}>
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                  Country
-                </InputLabel>
-                <TextField
-                    id="outlined-bare"
-                    className={classes.textField}
-                    fullWidth
-                    variant="outlined"
-                    inputProps={{ 'aria-label': 'bare' }}
-                  />
-              </Grid>
-              <Grid item xs={12} sm = {6}>
-                <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                  Phone
-                </InputLabel>
-                <TextField
-                    id="outlined-bare"
-                    className={classes.textField}
-                    fullWidth
-                    variant="outlined"
-                    inputProps={{ 'aria-label': 'bare' }}
-                  />
-              </Grid>
-              <Grid xs = {12}>
-                <FormControl component="fieldset">
-                    <FormLabel component="legend">Prefferred Upload Method</FormLabel>
-                    <RadioGroup row aria-label="position" name="position" defaultValue="top">
-
-                      <FormControlLabel 
-                      value="first" 
-                      control={<Radio color="primary" />} 
-                      label="Google Shopping Feed" />
-
-                      <FormControlLabel 
-                      value="second" 
-                      control={<Radio color="primary" />} 
-                      label="Shopify Product Feed" />
-                  </RadioGroup>
-                </FormControl>
-               </Grid>
+                 variant="outlined"
+                 // inputProps={{ 'aria-label': 'bare' }}
+               />
+             </Grid>
              
-               <Container maxWidth = {"sm"} >
-                 <Paper className = {classes.paper} >
+               
+             <Grid item xs={12} sm = {6} >
+               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
+                 Website
+               </InputLabel> */}
+               <TextField
+                 id="outlined-bare"
+                 fullWidth
+                 required
+                 label = "Website URL"
+                 variant="outlined"
 
-                   <Grid container xs = {12}  justify = "center">
-                        <Grid item xs = {10}>
-                            Feed 1
-                        </Grid>
-                        <Grid item xs = {2}>
-                        <IconButton aria-label="delete">
-                          <DeleteIcon />
-                        </IconButton>
-                        </Grid>
-                        <Grid xs = {6}>
-                        <TextField id="feed-url" label="Feed URL" />
-                        </Grid>
-                        <Grid>
-                        <TextField id="contry" label="Contry" />
-                        </Grid>
-                   </Grid>
-                 </Paper>
-               </Container>
-               <Container maxWidth = {"sm"} >
-                <Grid xs = {8}>
-                  <IconButton aria-label="add">
-                  <AddCircle/>
-                  </IconButton>
-                </Grid>
-                </Container>
+                 inputProps={{ 'aria-label': 'bare' }}
+               />
+             </Grid>
 
-               <Grid item xs={12}>
-                  <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="default" />}
-                    label="I agree with terms and conditions."
-                  />
+             <Grid item xs={12} sm = {6}>
+               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
+                 First Name
+               </InputLabel> */}
+               <TextField
+                 id="outlined-bare"
+                 fullWidth
+                 required
+                 label= 'First Name'
+                
+                 variant="outlined"
+                 inputProps={{ 'aria-label': 'bare' }}
+               />
+             </Grid>
+               
+             <Grid item xs={12} sm = {6}>
+               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
+                 Last Name
+               </InputLabel> */}
+               <TextField
+                   id="outlined-bare"
+                  
+                   required
+                   fullWidth
+                   label = "Last Name"
+                   variant="outlined"
+                   inputProps={{ 'aria-label': 'bare' }}
+                 />
+             </Grid>
+             <Grid item xs={12} sm = {6}>
+               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
+                 Email
+               </InputLabel> */}
+               <TextField
+                 variant="outlined"
+                 margin="normal"
+                 required
+                 fullWidth
+                 // error={status === "invalidEmail"}
+                 label="Email Address"
+                 inputRef={node => {
+                   // this.registerEmail = node;
+                 }}
+                 // autoFocus
+                 autoComplete="off"
+                 type="email"
+                 // onChange={() => {
+                 //   if (status === "invalidEmail") {
+                 //     setStatus(null);
+                 //   }
+                 // }}
+                 FormHelperTextProps={{ error: true }}
+           />
+             </Grid>
+             <Grid item xs={12} sm = {6}>
+               
+               <TextField
+                   id="outlined-bare"
+                  
+                   fullWidth
+                   required
+                   label = 'Country'
+                   variant="outlined"
+                   inputProps={{ 'aria-label': 'bare' }}
+                 />
+             </Grid>
+             <Grid item xs={12} sm = {6}>
+              
+               <TextField
+                   id="outlined-bare"
+                  
+                   fullWidth
+                   required
+                   label = 'Phone'
+                   variant="outlined"
+                   inputProps={{ 'aria-label': 'bare' }}
+                 />
+             </Grid>
+             <Grid xs = {12}>
+               <FormControl component="fieldset">
+                   <FormLabel component="legend">Prefferred Upload Method</FormLabel>
+                   <RadioGroup row aria-label="position" name="position" defaultValue="top">
+
+                     <FormControlLabel 
+                     value="first" 
+                     control={<Radio color="primary" />} 
+                     label="Google Shopping Feed" />
+
+                     <FormControlLabel 
+                     value="second" 
+                     control={<Radio color="primary" />} 
+                     label="Shopify Product Feed" />
+                 </RadioGroup>
+               </FormControl>
               </Grid>
-          </Grid>
- 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="default"
-            className={classes.submit}
-          >
-           Submit
-          </Button>
-          
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
+            
+              <Container maxWidth = {"sm"} >
+                <Paper className = {classes.paper} >
+
+                  <Grid container xs = {12}  justify = "center">
+                       <Grid item xs = {10}>
+                           Feed 1
+                       </Grid>
+                       <Grid item xs = {2}>
+                       <IconButton aria-label="delete">
+                         <DeleteIcon />
+                       </IconButton>
+                       </Grid>
+                       <Grid xs = {6}>
+                       <TextField id="feed-url" required label="Feed URL" />
+                       </Grid>
+                       <Grid>
+                       <TextField id="contry" required label="Contry" />
+                       </Grid>
+                  </Grid>
+                </Paper>
+              </Container>
+              <Container maxWidth = {"sm"} >
+               <Grid xs = {8}>
+                 <IconButton aria-label="add">
+                 <AddCircle/>
+                 </IconButton>
+               </Grid>
+               </Container>
+
+              <Grid item xs={12}>
+                 <FormControlLabel
+                   control={<Checkbox value="allowExtraEmails" color="default" />}
+                   label="I agree with terms and conditions."
+                 />
+             </Grid>
+         </Grid>
+
+         <Button
+           type="submit"
+           fullWidth
+           variant="contained"
+           color="primary"
+           className={classes.submit}
+         >
+          Submit
+         </Button>
+         
+      
+         
+       </form>
+     </div>
+     <Box mt={5}>
+       <Copyright />
+     </Box>
+   </Container>
+    </div>
+    
   );
 }
