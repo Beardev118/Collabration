@@ -22,7 +22,7 @@ import Contact from './Pages/Contactus'
 import Privacy from './Pages/Privacy'
 import Fetch from './Components/Fetch/fetch'
 // import TermsOfService from './Pages/TermsOfService'
-
+//test
 
 
 
