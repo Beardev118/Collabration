@@ -219,10 +219,6 @@ export default function AddFeed() {
               name="RadioGroup"
               control={control}
             />
-
-      
-           
-           
         </div>
 
         <ButtonsResult {...{ data, reset, defaultValues }} />

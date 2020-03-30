@@ -72,17 +72,7 @@ export default function Album() {
                 </Typography>
             </Box>
 
-               
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
-                      <Button variant="contained" color="default">
-                        Go to Search
-                      </Button>
-               </Grid>
               
-            </Grid>
-          </div>
             </Grid>
           </Grid>
           

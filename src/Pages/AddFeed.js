@@ -26,7 +26,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="#">
-        Your Website
+        We are Polymer
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -82,9 +82,7 @@ export default function AddFeed() {
        <form className={classes.form} noValidate>
          <Grid container spacing={4} alignItems = "center" justify = "flex-start">
            <Grid item xs={12} md = {6} >
-               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                   Business Name
-               </InputLabel>   */}
+               
                <TextField
                  id="outlined-bare"
                  fullWidth
@@ -95,15 +93,12 @@ export default function AddFeed() {
                  type="name"
                 
                  variant="outlined"
-                 // inputProps={{ 'aria-label': 'bare' }}
                />
              </Grid>
              
                
              <Grid item xs={12} sm = {6} >
-               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                 Website
-               </InputLabel> */}
+              
                <TextField
                  id="outlined-bare"
                  fullWidth
@@ -116,9 +111,7 @@ export default function AddFeed() {
              </Grid>
 
              <Grid item xs={12} sm = {6}>
-               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                 First Name
-               </InputLabel> */}
+              
                <TextField
                  id="outlined-bare"
                  fullWidth
@@ -145,9 +138,7 @@ export default function AddFeed() {
                  />
              </Grid>
              <Grid item xs={12} sm = {6}>
-               {/* <InputLabel  htmlFor="bootstrap-input" className = {classes.inputLabel}>
-                 Email
-               </InputLabel> */}
+              
                <TextField
                  variant="outlined"
                  margin="normal"
@@ -253,7 +244,6 @@ export default function AddFeed() {
            fullWidth
            variant="contained"
            color="primary"
-           className={classes.submit}
          >
           Submit
          </Button>
@@ -270,3 +260,4 @@ export default function AddFeed() {
     
   );
 }
+

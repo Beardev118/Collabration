@@ -18,6 +18,9 @@ import AddFeed from './Pages/AddFeed';
 // import AddFeed from './Pages/AddFeed/AddFeed'
 import { Container, Grid, ClickAwayListener } from '@material-ui/core';
 import Admin from './Pages/Admin/Admin'
+import Contact from './Pages/Contactus'
+import Privacy from './Pages/Privacy'
+
 // import TermsOfService from './Pages/TermsOfService'
 
 
@@ -150,8 +153,14 @@ export default function ProminentAppBar() {
                     <Product/>
                   </Route>
                   <Route exact path="/admin">
-                <Admin/>
-              </Route>
+                    <Admin/>
+                  </Route>
+                  <Route exact path="/privacy">
+                    <Privacy/>
+                  </Route>
+                  <Route exact path="/contact">
+                    <Contact/>
+                  </Route>
               {/* </Container> */}
               
             </Switch>

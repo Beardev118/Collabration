@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
         margin:'auto',
        
     },
-
     
     root: {
         maxWidth: '100%',
@@ -95,26 +94,23 @@ const useStyles = makeStyles(theme => ({
    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
 
 export default function ProdcutArea(){
-const classes = useStyles();
-
-return (
-
-
-  <div className={classes.productArea}>
-    
-    <Container className={classes.cardGrid} maxWidth="xl">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map(card => (
-              <Grid item key={card} xs={12} sm={6} md={3}>
-                <ProductCard/>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-    
-  </div>
-);
+      const classes = useStyles();
+      return (
+        <div className={classes.productArea}>
+          
+          <Container className={classes.cardGrid} maxWidth="xl">
+                {/* End hero unit */}
+                <Grid container spacing={4}>
+                  {cards.map(card => (
+                    <Grid item key={card} xs={12} sm={6} md={3}>
+                      <ProductCard/>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Container>
+          
+        </div>
+      );
 
 }
   function ProductCard() {
@@ -219,7 +215,7 @@ return (
                         <EarthIcon></EarthIcon>
                         </Grid>
                          <Grid xs = {6}>
-                         <Link href = "https://bodaskins.com"><Typography>https://bodaskins.com</Typography></Link>
+                         <Link href = "https://bodaskins.com" target="_blank"><Typography>https://bodaskins.com</Typography></Link>
 
                          </Grid>
                           

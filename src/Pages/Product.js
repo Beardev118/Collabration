@@ -5,6 +5,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { Grid } from '@material-ui/core';
 import Header from '../Components/Header/Header'
 import Container from '@material-ui/core/Container'
+import Footer from '../Components/Footer/Footer'
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
             <Pagination count={10} shape="rounded"/>
             </Grid>
          </Grid>
+         <Footer/>
          </Container>
       </React.Fragment>
         

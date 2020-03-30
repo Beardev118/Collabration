@@ -62,6 +62,7 @@ const useStyles = makeStyles(theme => ({
     textTransform:'none',
     fontStyle:'normal',
     fontWeight:'normal',
+   
 
   },
   logoLargebold:{
@@ -104,7 +105,9 @@ const useStyles = makeStyles(theme => ({
     height:'30px',
   },
   menulink:{
-    color: "#1A1919"
+    // color: "#1A1919",
+    color: 'inherit',
+    textDecoration: 'inherit',
   }
   
 }));
@@ -114,9 +117,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProminentAppBar() {
   const classes = useStyles();
-  // const preventDefault = (event: sss) => event.preventDefault();
-  const preventDefault = "sss";
- 
 
   return (
     <div style = {{width:'100%'}}>
@@ -190,7 +190,9 @@ export default function ProminentAppBar() {
           <Grid item xs={1} >
 
             <Paper className={classes.paper}>
-              <ExpandSearch/>
+
+              { !(window.location.pathname==="/") && <ExpandSearch/>}
+              
             </Paper>
               
           </Grid>
@@ -250,7 +252,6 @@ const options = [
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
-    // setAnchorEl(null);
 
   };
 
@@ -265,9 +266,12 @@ const options = [
  
 
   return (
+    
     <ClickAwayListener onClickAway = {()=>{setAnchorEl(null);}}>
-      <div className={classes.root}>
-            <Button onClick  ={handleClick} > {options[selectedIndex]}</Button>
+    
+      <div  >
+        <p> </p>
+            <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {options[selectedIndex] }</Button>
             <StyledMenu
               id="lock-menu"
               anchorEl = {anchorEl}

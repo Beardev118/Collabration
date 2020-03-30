@@ -329,7 +329,7 @@ export default function EnhancedTable() {
                       </TableCell>
                       
                         <TableCell > 
-                        <Link href = {row.URL}>{row.URL}</Link>
+                        <Link href = {row.URL} target="_blank">{row.URL}</Link>
                         </TableCell>
                       
                       <TableCell >{row.email}</TableCell>

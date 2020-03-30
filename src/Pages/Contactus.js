@@ -10,6 +10,21 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import TextField from '@material-ui/core/TextField'
+import Container from '@material-ui/core/Container'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormLabel from '@material-ui/core/FormLabel';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import AddCircle from '@material-ui/icons/AddCircle';
+import Header from '../Components/Header/Header'
+
 
 function Copyright() {
   return (
@@ -17,13 +32,14 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="#">
-        Your Website
+        We are Polymer
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -64,85 +80,109 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-    case 1:
-    case 2:
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
-export default function Checkout() {
+export default function Contact_us() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
-                </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        </Paper>
-        <Copyright />
-      </main>
+     <Header/>
+      <Container maxWidth = "md">
+       
+        <Box mt = {20}> 
+        
+        <form>
+        {/* <Typography >If you have business or other questions, please fill out the following form to contact us. Thank you.</Typography> */}
+            <Grid container spacing={4} alignItems = "center" justify = "flex-start">
+              <Grid item xs={12} md = {6} >
+                  
+                  <TextField
+                    id="outlined-bare"
+                    fullWidth
+                    required
+                    label = "Business Name"
+                    autoFocus
+                    autoComplete="off"
+                    type="name"
+                    
+                    variant="outlined"
+                  />
+                </Grid>
+                  
+                <Grid item xs={12} sm = {6} >
+                  
+                  <TextField
+                    id="outlined-bare"
+                    fullWidth
+                    required
+                    label = "Website URL"
+                    variant="outlined"
+                    inputProps={{ 'aria-label': 'bare' }}
+                  />
+                </Grid>
+
+                
+                <Grid item xs={12} sm = {12}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Email Address"
+                    inputRef={node => {
+                    }}
+                    autoComplete="off"
+                    type="email"
+        
+                    FormHelperTextProps={{ error: true }}
+              />
+                </Grid>
+                <Grid item xs={12} sm = {12}>
+                  
+                  <TextField
+                      id="outlined-bare"
+                      
+                      fullWidth
+                      required
+                      label = 'Subject'
+                      variant="outlined"
+                      inputProps={{ 'aria-label': 'bare' }}
+                    />
+                </Grid>
+            
+            
+
+         </Grid>
+              <Box display="flex" flexDirection="column" mt = {5}>
+                <Box mb={1} my = {5}>
+                  <TextField
+                    variant="outlined"
+                    multiline
+                    placeholder="Get in touch with us"
+                    inputProps={{ "aria-label": "Get in Touch" }}
+                    InputProps={{
+                      className: classes.whiteBg
+                    }}
+                    rows={4}
+                    fullWidth
+                    required
+                  />
+                </Box>
+               <Button
+                 type="submit"
+                 fullWidth
+                 variant="contained"
+                 color="primary"
+                >
+                  Send Message
+                </Button>
+              </Box>
+            </form>
+        </Box>
+     
+      </Container>
+           
     </React.Fragment>
   );
 }
