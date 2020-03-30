@@ -20,7 +20,7 @@ import { Container, Grid, ClickAwayListener } from '@material-ui/core';
 import Admin from './Pages/Admin/Admin'
 import Contact from './Pages/Contactus'
 import Privacy from './Pages/Privacy'
-
+import Fetch from './Components/Fetch/fetch'
 // import TermsOfService from './Pages/TermsOfService'
 
 
@@ -131,7 +131,7 @@ export default function ProminentAppBar() {
     <Router>
       
      <div className = {classes.pageContainer}>
-     
+     <Fetch/>
             <Switch>
             {/* <Container maxWidth = 'lg'> */}
                   <Route exact path="/">
@@ -162,7 +162,7 @@ export default function ProminentAppBar() {
                     <Contact/>
                   </Route>
               {/* </Container> */}
-              
+              <Fetch/>
             </Switch>
 
      
