@@ -9,16 +9,16 @@ function Fetch(props) {
 
 
     useEffect( async() => {
-        const response  = await fetch('https://api.randomuser.me/');
+        const response  = await fetch('http://192.168.1.192:3000/');
         const data = await response.json();
         const [item] = data.results;
         setPerson(item);
-        // console.log(data);
+        console.log(data);
     },[]);
     return (
         <div>
             {/* <div>{person}</div> */}
-        {person&&<div>{person.name.first}</div>}
+        {person&&<div>{person.data}</div>}
         </div>
     );
 };

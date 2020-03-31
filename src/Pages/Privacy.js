@@ -2,12 +2,20 @@ import React from 'react'
 import Header from '../Components/Header/Header'
 import { Container, Typography, Box } from '@material-ui/core'
 import Link from '@material-ui/core/Link'
+import MetaTags from 'react-meta-tags';
+
 
 
 
 export default function Privacy() {
     return (
         <div>
+          <MetaTags>
+            <title>Privacy Policy | ModaCompris Comparison Shopping Site </title>
+            <meta name="description" content="Description: This is the privacy policy for ModaCompris which is a comparison shopping site (CSS) run by London based online performance agency We are Polymer." />
+            <meta property="og:title" content="Privacy Policy | ModaCompris Comparison Shopping Site " />
+            <meta property="og:image" content="path/to/image.jpg" />
+          </MetaTags>
             <Header/>
             <Container maxWidth = "lg">
                 <Box mt = {10}>

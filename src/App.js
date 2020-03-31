@@ -131,9 +131,7 @@ export default function ProminentAppBar() {
     <Router>
       
      <div className = {classes.pageContainer}>
-     <Fetch/>
             <Switch>
-            {/* <Container maxWidth = 'lg'> */}
                   <Route exact path="/">
                     <Home/>
                   </Route>
@@ -149,7 +147,7 @@ export default function ProminentAppBar() {
                   <Route exact path = '/add_feed'>
                     <AddFeed/>
                   </Route>
-                  <Route exact path="/product">
+                  <Route exact path="/search">
                     <Product/>
                   </Route>
                   <Route exact path="/admin">
@@ -161,7 +159,6 @@ export default function ProminentAppBar() {
                   <Route exact path="/contact">
                     <Contact/>
                   </Route>
-              {/* </Container> */}
               <Fetch/>
             </Switch>
 

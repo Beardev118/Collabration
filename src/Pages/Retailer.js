@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -23,27 +23,31 @@ import Header from '../Components/Header/Header'
 import Container from '@material-ui/core/Container'
 
 
-function createData(name, URL, email, country) {
-  return { name, URL, email, country };
-}
+// function createData(vendor_businessname, vendor_websiteurl, vendor_email, vendor_country) {
+//   return { vendor_businessname, vendor_websiteurl, vendor_email, vendor_country };
+// }
 
-const rows = [
-  createData('Leather to Love Forever Ltd', 'https://bodaskins.com/collections/all.atom', 'enquiries@bellsshoes.co.uk', 'United Kingdom'),
-  createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'hello@bodaskins.com', 'Greece'),
-  createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom', 'customerservice@bohomoon.com', 'Hungary'),
-  createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom', 'hello@boredofsouthsea.co.uk', 'Romania'),
-  createData('Ciate Ciate', 'https://dizzykitten.co.uk/collections/all.atom', 'customer.service@ciatelondon.com', 'United Kingdom'),
-  createData('Pink Boutique Ltd', 'https://janesboutique.co.uk/collections/all.atom', 'enquiries@katesclothing.co.uk', 'United Kingdom'),
-  createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
-  createData('Ireland', 'https://beachcomberswimwear.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Austria'),
-  createData('Alighieri Ltd', 'https://flyfashion.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Belgium'),
-  createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
-  createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'UItaly'),
-  createData('The Fashion Parade Ltd', 'https://iwearitalia.co.uk/collections/all.atom  ', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
-];
+
+// const rows = [
+//   createData('Leather to Love Forever Ltd', 'https://bodaskins.com/collections/all.atom', 'enquiries@bellsshoes.co.uk', 'United Kingdom'),
+//   createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'hello@bodaskins.com', 'Greece'),
+//   createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom', 'customerservice@bohomoon.com', 'Hungary'),
+//   createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom', 'hello@boredofsouthsea.co.uk', 'Romania'),
+//   createData('Ciate Ciate', 'https://dizzykitten.co.uk/collections/all.atom', 'customer.service@ciatelondon.com', 'United Kingdom'),
+//   createData('Pink Boutique Ltd', 'https://janesboutique.co.uk/collections/all.atom', 'enquiries@katesclothing.co.uk', 'United Kingdom'),
+//   createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
+//   createData('Ireland', 'https://beachcomberswimwear.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+//   createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Austria'),
+//   createData('Alighieri Ltd', 'https://flyfashion.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+//   createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Belgium'),
+//   createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
+//   createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'UItaly'),
+//   createData('The Fashion Parade Ltd', 'https://iwearitalia.co.uk/collections/all.atom  ', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
+//   createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
+// ];
+
+
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -71,29 +75,35 @@ function stableSort(array, comparator) {
   return stabilizedThis.map(el => el[0]);
 }
 
-const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Bussiness Name' },
-  { id: 'URL', numeric: false, disablePadding: false, label: 'Website URL' },
-  { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'country', numeric: false, disablePadding: false, label: 'Country' },
-];
+
 
 function EnhancedTableHead(props) {
+
+  
+
+  const headCells = [
+    { id: 'vendor_businessname', numeric: false, disablePadding: true, label: 'Bussiness Name' },
+    { id: 'vendor_websiteurl', numeric: false, disablePadding: false, label: 'Website URL' },
+    { id: 'vendor_email', numeric: false, disablePadding: false, label: 'Email' },
+    { id: 'vendor_country', numeric: false, disablePadding: false, label: 'Country' },
+  ];
+
+
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
 
+   
+
+  
   return (
     <TableHead>
+     
+
       <TableRow>
         <TableCell padding="checkbox">
-          {/* <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
-          /> */}
+         
         </TableCell>
         {headCells.map(headCell => (
           <TableCell
@@ -218,8 +228,19 @@ const useStyles = makeStyles(theme => ({
 
 export default function EnhancedTable() {
   const classes = useStyles();
+  const [rows, setRows] = useState([]);
+  
+  useEffect( async() => {
+    const response  = await fetch('http://192.168.1.192:3000/vendors/all');
+    const rows = await response.json();
+    setRows(rows);
+  },[]);
+
+  {console.log("Data from Table")}
+  {console.log(rows)}
+
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('URL');
+  const [orderBy, setOrderBy] = React.useState('vendor_websiteurl');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -233,19 +254,19 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = rows.map(n => n.name);
+      const newSelecteds = rows.map(n => n.vendor_businessname);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, vendor_businessname) => {
+    const selectedIndex = selected.indexOf(vendor_businessname);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, vendor_businessname);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -273,7 +294,7 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = name => selected.indexOf(name) !== -1;
+  const isSelected = vendor_businessname => selected.indexOf(vendor_businessname) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -304,7 +325,7 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.vendor_businessname);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -314,26 +335,23 @@ export default function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.vendor_businessname}
                       selected={isItemSelected}
                       
                     >
                       <TableCell padding="checkbox">
-                        {/* <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        /> */}
+                       
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.name}
+                        {row.vendor_businessname}
                       </TableCell>
                       
                         <TableCell > 
-                        <Link href = {row.URL} target="_blank">{row.URL}</Link>
+                        <Link href = {row.vendor_websiteurl} target="_blank">{row.vendor_websiteurl}</Link>
                         </TableCell>
                       
-                      <TableCell >{row.email}</TableCell>
-                      <TableCell >{row.country}</TableCell>
+                      <TableCell >{row.vendor_email}</TableCell>
+                      <TableCell >{row.vendor_country}</TableCell>
                     </TableRow>
                   );
                 })}

@@ -14,16 +14,8 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Container from '@material-ui/core/Container'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import FormLabel from '@material-ui/core/FormLabel';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import AddCircle from '@material-ui/icons/AddCircle';
-import Header from '../Components/Header/Header'
+import Header from '../Components/Header/Header';
+import MetaTags from 'react-meta-tags';
 
 
 function Copyright() {
@@ -86,6 +78,12 @@ export default function Contact_us() {
 
   return (
     <React.Fragment>
+      <MetaTags>
+            <title>Contact  ModaCompris Comparison Shopping Site CSS</title>
+            <meta name="description" content="Contact ModaCompris comparison shopping site (CSS) to find out more about how you can get more traffic to your e-commerce website." />
+            <meta property="og:title" content="Contact  ModaCompris Comparison Shopping Site CSS" />
+            <meta property="og:image" content="path/to/image.jpg" />
+          </MetaTags>
       <CssBaseline />
      <Header/>
       <Container maxWidth = "md">

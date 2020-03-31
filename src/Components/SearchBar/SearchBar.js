@@ -40,7 +40,7 @@ export default function SerchBar(){
                 placeholder="What are you looking for?"
                 inputProps={{ 'aria-label': 'What are you looking for?' }}
               />
-              <IconButton type="submit" className={classes.iconButton} aria-label="search" component = {Link} to="/product">
+              <IconButton type="submit" className={classes.iconButton} aria-label="search" component = {Link} to="/search">
                 <SearchIcon />
               </IconButton>
               <Divider className={classes.divider} orientation="vertical" />

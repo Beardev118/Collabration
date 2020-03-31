@@ -8,9 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box'
-import Header from '../Components/Header/Header'
+import Box from '@material-ui/core/Box';
+import Header from '../Components/Header/Header';
+import MetaTags from 'react-meta-tags';
+
+
 
 
 
@@ -54,6 +56,12 @@ export default function Album() {
 
   return (
     <React.Fragment style = {{overflowY:"scroll"}}>
+      <MetaTags>
+            <title>ModaCompris Comparison Shopping Site by We are Polymer</title>
+            <meta name="description" content="ModaCompris is a comparison shopping site (CSS) run by London based online performance agency We are Polymer." />
+            <meta property="og:title" content="ModaCompris Comparison Shopping Site by We are Polymer" />
+            <meta property="og:image" content="path/to/image.jpg" />
+          </MetaTags>
       <Header/>
       <main>
 {/* Hero unit */}

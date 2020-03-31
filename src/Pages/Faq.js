@@ -8,7 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
 import { Container, Grid } from '@material-ui/core';
-import Header from '../Components/Header/Header'
+import Header from '../Components/Header/Header';
+import MetaTags from 'react-meta-tags';
+
 
 
 const styles = theme => ({
@@ -48,6 +50,13 @@ class ControlledExpansionPanels extends React.Component {
 
     return (
       <React.Fragment>
+
+          <MetaTags>
+            <title>: FAQ | ModaCompris Comparison Shopping Site </title>
+            <meta name="description" content="Description: Frequently asked questions for the ModaCompris comparison shopping site (CSS)." />
+            <meta property="og:title" content=": FAQ | ModaCompris Comparison Shopping Site " />
+            <meta property="og:image" content="path/to/image.jpg" />
+          </MetaTags>
 
         <Header/>
         <div className={classes.root}>
