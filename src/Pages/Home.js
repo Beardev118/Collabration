@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import { Typography, Link } from '@material-ui/core';
 import MetaTags from 'react-meta-tags';
-import Logo from '../asset/img/MetaLogo.png'
 
 export default function Home(){
   return(
@@ -16,7 +15,7 @@ export default function Home(){
             <title>ModaCompris Comparison Shopping Site CSS</title>
             <meta name="description" content="ModaCompris is a comparison shopping site (CSS) run by London based online performance agency We are Polymer." />
             <meta property="og:title" content="ModaCompris Comparison Shopping Site CSS" />
-            <meta property="og:image" content={Logo} />
+            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
             <Header/>
               <div style = {{height:"30vh"}}></div>

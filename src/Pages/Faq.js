@@ -55,7 +55,7 @@ class ControlledExpansionPanels extends React.Component {
             <title>: FAQ | ModaCompris Comparison Shopping Site </title>
             <meta name="description" content="Description: Frequently asked questions for the ModaCompris comparison shopping site (CSS)." />
             <meta property="og:title" content=": FAQ | ModaCompris Comparison Shopping Site " />
-            <meta property="og:image" content="path/to/image.jpg" />
+            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
 
         <Header/>

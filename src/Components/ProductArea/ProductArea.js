@@ -20,7 +20,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/CloseRounded'
 
 
-import contentpicture from '../../asset/img/shoes.jpg';
+import contentpicture from '../../asset/img/shoes.jpg'; 
 import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
