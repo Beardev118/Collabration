@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { makeStyles, theme, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: theme) =>
 
 export default function SerchBar(){
   const classes = useStyles();
+  const [parm, setParm] = useState('');
 
   return(
          <Grid container  xs = {12} justify = "center" alignItems = "center" >
