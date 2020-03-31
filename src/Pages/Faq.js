@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import { Container, Grid } from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
+import Footer from '../Components/Footer/Footer'
 
 
 
@@ -19,7 +20,7 @@ const styles = theme => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
+    flexBasis: '66%',
     flexShrink: 0,
   },
   secondaryHeading: {
@@ -68,53 +69,52 @@ class ControlledExpansionPanels extends React.Component {
           <Box mt = {3}>
           <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>What is Lorem Ipsum?</Typography>
-            <Typography className={classes.secondaryHeading}>I am here to help you</Typography>
+            <Typography className={classes.heading}>Do you charge for adding my feed?</Typography>
+            {/* <Typography className={classes.secondaryHeading}>I am here to help you</Typography> */}
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-            It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes fro
+            No. If you want us to distribute your feed to Google Shopping then there would be an extra cost, contact us to find out more.
             </Typography>
           </ExpansionPanelDetails>
           </ExpansionPanel>
           <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Why do we use it?</Typography>
-            <Typography className={classes.secondaryHeading}>
-            e majority have suffered alteration in some form, by injected humour,
-            </Typography>
+            <Typography className={classes.heading}>Can I remove my feed?</Typography>
+           
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-            t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+            Yes, you can remove it at any time, just contact us.
             </Typography>
           </ExpansionPanelDetails>
           </ExpansionPanel>
           <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Where can I get some?</Typography>
-            <Typography className={classes.secondaryHeading}>
-            It has roots in a piece of classical Latin literature from 
-            </Typography>
+            <Typography className={classes.heading}>Is this site indexed by Google?</Typography>
+           
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-            It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The fir
+            Yes, your products will be indexed by Google and any visitors to this site are able to click directly to your product page to buy it.
             </Typography>
           </ExpansionPanelDetails>
           </ExpansionPanel>
           <ExpansionPanel expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Where does it come from?</Typography>
+            <Typography className={classes.heading}>Do you provide other services?</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-            It has roots in a piece of classical Latin literature from
+            We are Polymer, the agency that runs this site offers a wide range of services including PPC, SEO and paid social, get in touch to find out more.
             </Typography>
           </ExpansionPanelDetails>
           </ExpansionPanel>
           </Box>
+          <Footer/>
+
           </Container>
+
       </div>
       </React.Fragment>
       

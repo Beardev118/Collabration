@@ -19,7 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircle from '@material-ui/icons/AddCircle';
 import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
-
+import Footer from '../Components/Footer/Footer'
 
 
 function Copyright() {
@@ -77,11 +77,15 @@ export default function AddFeed() {
       <Header/>
       <Container component="main" maxWidth="md">
 
-          <Box mt = {8} mb = {4}>
-              <Typography variant="h4" color="textPrimary" align="center">
-              Please Complete Your Information
-              </Typography>
-          </Box>
+          <Grid xs = {12} container justify = 'center' alignItems = 'center' >
+            <Grid xs = {10} item >
+              <Box  mt = {8} mb = {4}>
+                  <Typography variant="h5" color="textPrimary" align="center">
+                  By submitting your feed you give to us the  necessary rights to permit Google to access, index, cache or crawl the landing-page URL(s) of your site and the content available through such URL(s), and to display the information associated with the product ads that you submit. 
+                  </Typography>
+                </Box>
+            </Grid>
+          </Grid> 
           <div className={classes.paper}>
             <form className={classes.form} noValidate>
               <Grid container spacing={4} alignItems = "center" justify = "flex-start">
@@ -238,7 +242,7 @@ export default function AddFeed() {
                     <Grid item xs={12}>
                       <FormControlLabel
                         control={<Checkbox value="allowExtraEmails" color="default" />}
-                        label="I agree with terms and conditions."
+                        label="I agree with privacy and policy."
                       />
                   </Grid>
               </Grid>
@@ -256,9 +260,7 @@ export default function AddFeed() {
               
             </form>
           </div>
-          <Box mt={5}>
-          <Copyright />
-        </Box>
+          <Footer/>
       </Container>
     </div>
     

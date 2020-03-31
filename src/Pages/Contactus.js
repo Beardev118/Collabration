@@ -16,6 +16,7 @@ import TextField from '@material-ui/core/TextField'
 import Container from '@material-ui/core/Container'
 import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
+import Footer from '../Components/Footer/Footer'
 
 
 function Copyright() {
@@ -177,7 +178,7 @@ export default function Contact_us() {
               </Box>
             </form>
         </Box>
-     
+        <Footer/>            
       </Container>
            
     </React.Fragment>

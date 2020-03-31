@@ -133,20 +133,15 @@ const theme = createMuiTheme({
       fontWeight:'normal',
       lineHeight:'0.833',
       fontStyle: 'normal',
-      
-      
      
     },
     h1:{
       fontFamily: [
         '"Libre Baskerville"',
-      
       ].join(','),
       fontSize:'70px',
       letterSpacing: '0.15px',
       fontWeight:540,
-      // lineHeight:'1px',
-     
       whiteSpace:'nowrap',
     },
     h2:{
@@ -157,8 +152,6 @@ const theme = createMuiTheme({
       fontSize:'70px',
       letterSpacing: '0.15px',
       fontWeight:700,
-      // lineHeight:'1px',
-      
       whiteSpace:'nowrap',
     },
     h3:{
@@ -198,7 +191,7 @@ const theme = createMuiTheme({
       fontSize:'12px',
       letterSpacing: '0.75px',
       fontWeight:'normal',
-      lineHeight:'0.833',
+      lineHeight:'1.5',
       fontStyle: 'normal',
       
       

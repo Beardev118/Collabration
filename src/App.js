@@ -19,7 +19,7 @@ import AddFeed from './Pages/AddFeed';
 import { Container, Grid, ClickAwayListener } from '@material-ui/core';
 import Admin from './Pages/Admin/Admin'
 import Contact from './Pages/Contactus'
-import Privacy from './Pages/Privacy'
+import Privacy from './Pages/Privacy/Privacy'
 import Fetch from './Components/Fetch/fetch'
 // import TermsOfService from './Pages/TermsOfService'
 //test

@@ -1,9 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +6,9 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
+import Footer from '../Components/Footer/Footer'
+import Aboutus from '../asset/img/about.jpg'
+import Paper from '@material-ui/core/Paper'
 
 
 
@@ -64,59 +62,39 @@ export default function Album() {
       <Header/>
       <main>
 {/* Hero unit */}
-        <Container maxWidth="sm">
-          <Grid container xs = {12}>
-            <Grid item>
+        <Container maxWidth="lg">
+          <Grid container justify = "center" alignItems = "center">
+            <Grid xs = {8} style = {{marginTop:"30px"}}>
+              <img src = {Aboutus} style = {{width:"100%"}}/>
+            </Grid>
+            <Grid xs = {7} item>
+              <Box  mt = {8} mb = {4}>
+                  
+                    <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                    The ModaCompris comparison shopping site is run by London based online specialist performance marketing agency We are Polymer Ltd. 
 
-            <Box mt = {8} mb = {4}>
-            <Typography component="h2" align="center" color="textPrimary" gutterBottom>
-                <span variant = "h2">We are polymer.</span><span variant = "h3">SHOP</span>
-                </Typography>
-                <Typography variant="subtitle2" align="center" color="textSecondary" paragraph>
-                  Something short and leading about the collection below—its contents, the creator, etc.
-                  Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-                  entirely.
-                </Typography>
-            </Box>
+                    Founded in early 2020. We are Polymer was created by an industry veteran with over one billion pounds of online marketing spend experience. 
+
+                    This site provides a brand safe comparison service to retailers who are looking to expand their e-commerce activities.
+
+                    Get in touch with We are Polymer to find out how we can help you drive more online sales.
+                    </Typography>
+              </Box>
 
               
+              </Grid>
             </Grid>
-          </Grid>
+           <Footer/>
           
         </Container>
 
     </main>
 
-<Container className={classes.cardGrid} maxWidth="md">
   {/* End hero unit */}
-  <Grid container spacing={4}>
-    {cards.map(card => (
-      <Grid item key={card} xs={12} sm={6} md={4}>
-        <Card className={classes.card}>
-          <CardMedia
-            className={classes.cardMedia}
-            image="https://source.unsplash.com/random"
-            title="Image title"
-          />
-          <CardContent className={classes.cardContent}>
-            <Typography gutterBottom variant="h5" component="h2">
-            Lorem Ipsum is simply dummy text 
-            </Typography>
-            <Typography>
-            xt ever since the 1500s, when an unknown printer took a galley of 
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small" color="primary">
-              Readmore
-            </Button>
+ 
+  
 
-          </CardActions>
-        </Card>
-      </Grid>
-    ))}
-  </Grid>
-</Container>
+ 
     </React.Fragment>
   );
 }
