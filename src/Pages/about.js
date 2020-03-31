@@ -47,7 +47,6 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
   const classes = useStyles();
@@ -67,17 +66,17 @@ export default function Album() {
             <Grid xs = {8} style = {{marginTop:"30px"}}>
               <img src = {Aboutus} style = {{width:"100%"}}/>
             </Grid>
-            <Grid xs = {7} item>
+            <Grid xs = {10} item>
               <Box  mt = {8} mb = {4}>
                   
-                    <Typography variant="h5" align="center" color="textSecondary" paragraph>
-                    The ModaCompris comparison shopping site is run by London based online specialist performance marketing agency We are Polymer Ltd. 
+                    <Typography variant="h5" align="center" color="primary" paragraph>
+                    The ModaCompris comparison shopping site is run by London based online specialist performance marketing agency We are Polymer Ltd.
 
-                    Founded in early 2020. We are Polymer was created by an industry veteran with over one billion pounds of online marketing spend experience. 
+                    Founded in early 2020.<br/>  We are Polymer was created by an industry veteran with over one billion pounds of online marketing spend experience.<br/>  
 
-                    This site provides a brand safe comparison service to retailers who are looking to expand their e-commerce activities.
+                    This site provides a brand safe comparison service to retailers who are looking to expand their e-commerce activities.<br/> 
 
-                    Get in touch with We are Polymer to find out how we can help you drive more online sales.
+                    Get in touch with We are Polymer to find out how we can help you drive more online sales.<br/> 
                     </Typography>
               </Box>
 

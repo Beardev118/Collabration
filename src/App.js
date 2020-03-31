@@ -159,7 +159,7 @@ export default function ProminentAppBar() {
                   <Route exact path="/contact">
                     <Contact/>
                   </Route>
-              <Fetch/>
+              {/* <Fetch/> */}
             </Switch>
 
      

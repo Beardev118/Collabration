@@ -21,6 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Header from '../Components/Header/Header'
 import Container from '@material-ui/core/Container'
+import Footer from '../Components/Footer/Footer'
 
 
 function createData(vendor_businessname, vendor_websiteurl, vendor_email, vendor_country) {
@@ -377,6 +378,7 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+      <Footer/>
     </Container>
     </div>
      

@@ -61,7 +61,7 @@ class ControlledExpansionPanels extends React.Component {
         <Header/>
         <div className={classes.root}>
           <Box my = {8}>
-          <Typography variant="h4" color="textPrimary" align="center">
+          <Typography variant="h5" color="textPrimary" align="center">
           Find the answer you need by clicking on the topics below.
           </Typography>
           </Box>

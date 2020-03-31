@@ -149,7 +149,7 @@ function WeFooter(props) {
       <Divider variant="middle" style = {{marginBottom:'30px'}}/>
         <Grid container spacing={isWidthUp("md", width) ? 10 : 5}>
        
-          <Hidden mdDown>
+          {/* <Hidden mdDown> */}
             <Grid item xs={12} md={6} lg={6}>
               <Box display="flex" justifyContent="center">
                 <div>
@@ -173,13 +173,13 @@ function WeFooter(props) {
                 </div>
               </Box>
             </Grid>
-          </Hidden>
+          {/* </Hidden> */}
           <Grid item xs={12} md={6} lg={6}>
-            <Typography variant="h6" paragraph className="text-white">
-              Company Info
+            <Typography variant="h5" paragraph className="text-white">
+            Registered Company Details:
             </Typography>
-            <Typography style={{ color: "#8f9296" }} paragraph>
-            ModaCompris.com is run by We Are Polymer Ltd. Registered in England. Company Number 12354769. Registered Address 71-75 Shelton Street, London, WC2H 9JQ
+            <Typography  paragraph>
+           We Are Polymer Ltd. Registered in England.<br/> Company Number 12354769.<br/>VAT No. GB340101275<br/> Registered Address 71-75 Shelton Street, London, WC2H 9JQ
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (
@@ -201,6 +201,7 @@ function WeFooter(props) {
           </Grid>
         </Grid>
       </div>
+      <Copyright/>
     </footer>
   );
 }

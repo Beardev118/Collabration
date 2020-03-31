@@ -87,8 +87,23 @@ export default function Contact_us() {
       <CssBaseline />
      <Header/>
       <Container maxWidth = "md">
-       
-        <Box mt = {20}> 
+            <Grid xs = {12} container justify = 'center' alignItems = 'center' >
+                <Grid xs = {10} item >
+                  <Box  mt = {8} mb = {4}>
+                      <Typography variant="h5" color="textPrimary" align="center">
+                      To add your feed to this site please use the form <Link href = "/add_feed" underline = "always" >here.</Link><br/>
+
+                      To remove your feed from this site please send an email to shopping@wearepolymer.com<br/>
+                      For other support please use the following contact details.<br/>
+                      Email: shopping@wearepolymer.com<nbsp/> Telephone: +44 20 3920 7456
+                      
+
+
+                      </Typography>
+                    </Box>
+                </Grid>
+              </Grid> 
+        <Box> 
         
         <form>
         {/* <Typography >If you have business or other questions, please fill out the following form to contact us. Thank you.</Typography> */}
@@ -119,7 +134,6 @@ export default function Contact_us() {
                     inputProps={{ 'aria-label': 'bare' }}
                   />
                 </Grid>
-
                 
                 <Grid item xs={12} sm = {12}>
                   <TextField
