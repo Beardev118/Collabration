@@ -60,7 +60,6 @@ export default function Album() {
             <title>ModaCompris Comparison Shopping Site by We are Polymer</title>
             <meta name="description" content="ModaCompris is a comparison shopping site (CSS) run by London based online performance agency We are Polymer." />
             <meta property="og:title" content="ModaCompris Comparison Shopping Site by We are Polymer" />
-            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
       <Header/>
       <main>

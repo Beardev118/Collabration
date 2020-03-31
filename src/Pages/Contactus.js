@@ -82,7 +82,6 @@ export default function Contact_us() {
             <title>Contact  ModaCompris Comparison Shopping Site CSS</title>
             <meta name="description" content="Contact ModaCompris comparison shopping site (CSS) to find out more about how you can get more traffic to your e-commerce website." />
             <meta property="og:title" content="Contact  ModaCompris Comparison Shopping Site CSS" />
-            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
       <CssBaseline />
      <Header/>

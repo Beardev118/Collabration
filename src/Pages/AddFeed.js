@@ -73,7 +73,6 @@ export default function AddFeed() {
             <title>Submit your feed to ModaCompris Comparison Shopping Site CSS</title>
             <meta name="description" content="Submit your shopping feed to ModaCompris comparison shopping site (CSS) today to get more traffic to your e-commerce website." />
             <meta property="og:title" content="Submit your feed to ModaCompris Comparison Shopping Site CSS" />
-            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
       <Header/>
       <Container component="main" maxWidth="md">

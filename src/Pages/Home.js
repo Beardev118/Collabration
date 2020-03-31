@@ -15,7 +15,6 @@ export default function Home(){
             <title>ModaCompris Comparison Shopping Site CSS</title>
             <meta name="description" content="ModaCompris is a comparison shopping site (CSS) run by London based online performance agency We are Polymer." />
             <meta property="og:title" content="ModaCompris Comparison Shopping Site CSS" />
-            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
             <Header/>
               <div style = {{height:"30vh"}}></div>

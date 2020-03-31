@@ -14,7 +14,6 @@ export default function Privacy() {
             <title>Privacy Policy | ModaCompris Comparison Shopping Site </title>
             <meta name="description" content="Description: This is the privacy policy for ModaCompris which is a comparison shopping site (CSS) run by London based online performance agency We are Polymer." />
             <meta property="og:title" content="Privacy Policy | ModaCompris Comparison Shopping Site " />
-            <meta property="og:image" content="%PUBLIC_URL%/MetaLogo.png" />
           </MetaTags>
             <Header/>
             <Container maxWidth = "lg">
