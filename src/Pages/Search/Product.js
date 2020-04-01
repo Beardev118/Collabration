@@ -35,9 +35,10 @@ export default function App() {
   useEffect(() => {
     let ignore = false;
     async function fetchProduct() {
-      const response = await fetch('/products/search?search_q=a&country=null&category=null&size=null&brand=null');
+      const response = await fetch('http://3.10.195.126:3000/products/search?search_q=a&country=null&category=null&size=null&brand=null');
       const json = await response.json();
-      const [item] = json.products;
+      const [item] = json;
+      console.log(json);
       setIsloading(true);
       if (!ignore) setProducts(item);
     }
@@ -49,6 +50,7 @@ export default function App() {
   return (
       <React.Fragment>
         <Header/>
+        {/* {console.log(products)} */}
         {products==null?<Loading/>:(<Container maxWidth = 'lg'>
         <MenuBar/>
        <ProdcutArea products = {products}/>
