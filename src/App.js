@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Home from './Pages/Home';
-import Product from './Pages/Product';
+import Product from './Pages/Search/Product';
 import About from './Pages/about';
 import FAQ from './Pages/Faq';
 import Retailers from './Pages/Retailer';
@@ -20,7 +20,6 @@ import { Container, Grid, ClickAwayListener } from '@material-ui/core';
 import Admin from './Pages/Admin/Admin'
 import Contact from './Pages/Contactus'
 import Privacy from './Pages/Privacy/Privacy'
-import Fetch from './Components/Fetch/fetch'
 // import TermsOfService from './Pages/TermsOfService'
 //test
 

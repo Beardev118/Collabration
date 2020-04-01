@@ -1,6 +1,8 @@
 
 import React from "react";
 import { makeStyles} from "@material-ui/core/styles";
+import PropTypes from 'prop-types';
+
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -93,19 +95,26 @@ const useStyles = makeStyles(theme => ({
 
    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
 
-export default function ProdcutArea(){
+export default function ProdcutArea(props){
       const classes = useStyles();
+      const {products} = props;
+     
+     console.log(products);
+     
+      
+     
       return (
         <div className={classes.productArea}>
           
           <Container className={classes.cardGrid} maxWidth="xl">
-                {/* End hero unit */}
+
                 <Grid container spacing={4}>
-                  {cards.map(card => (
-                    <Grid item key={card} xs={12} sm={6} md={3}>
-                      <ProductCard/>
+                 
+                  {products.map(product => (
+                    <Grid item  xs={12} sm={6} md={3}>
+                      <ProductCard product ={product} />
                     </Grid>
-                  ))}
+                   ))} 
                 </Grid>
               </Container>
           
@@ -113,11 +122,18 @@ export default function ProdcutArea(){
       );
 
 }
-  function ProductCard() {
+
+ProdcutArea.prototype = {
+    products: PropTypes.array,
+}
+
+
+
+  function ProductCard(props) {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
     const [value, setValue] = React.useState(5);
-
+    const {product} = props
   
     const toggleDrawer = (open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -127,29 +143,29 @@ export default function ProdcutArea(){
     };
   
     return (
+
       <div> 
-  
         
         <Card className={classes.root} elevation={3}>
             <CardActionArea onClick = {toggleDrawer(true)}>
               <CardMedia
                 className={classes.media}
-                image={contentpicture}
+                image={product.product_imgurl}
                 title="content picture"
               />
               <CardContent>
                 <Typography  variant="subtitle1" component="h4" align = "left">
-                SCARPE DA GIARDINO verde
+                {product.product_title}
                 </Typography>
               </CardContent>
             </CardActionArea >
             
             
               <Typography variant="body1" align = {"left"} className = {classes.priceInfo}> 
-                $44.95
+                {product.product_currency}{product.product_price}
               </Typography>
               <Typography variant="body2" align = {"left"} className = {classes.urlInfo}>
-              www.frugo.at
+              {product.product_url}
               </Typography>
           
           </Card>
@@ -171,7 +187,7 @@ export default function ProdcutArea(){
                   
                     <CardMedia
                       className={classes.media}
-                      image={contentpicture}
+                      image={product.product_imgurl}
                       title="Paella dish"
                     />
                     <CardHeader
@@ -184,7 +200,7 @@ export default function ProdcutArea(){
                         <Rating name="read-only" value={value} readOnly />
                         </Grid>
                         <Grid xs = {2}>
-                        <Typography variant = "subtitle1">$49.5</Typography>
+                        <Typography variant = "subtitle1">${product.product_price} </Typography>
                         </Grid>
                         <Grid xs = {5}>
                           <Typography variant = "subtitle1">Brand: ALDO </Typography>
@@ -228,7 +244,6 @@ export default function ProdcutArea(){
                ))}
                
               </Grid>
-                
                 
            </div>
         </Drawer>
@@ -300,19 +315,19 @@ export default function ProdcutArea(){
                       </Paper>
                         
                     </Grid>
-                    
               </Grid>
-               
                ))}
                
               </Grid>
                 
-                
            </div>
         </Drawer>
           </Hidden>
-              
       </div>
      
     );
+  }
+
+  ProductCard.prototype = {
+    product: PropTypes.object
   }

@@ -230,12 +230,15 @@ const useStyles = makeStyles(theme => ({
 export default function EnhancedTable() {
   const classes = useStyles();
   // const [rows, setRows] = useState([]);
+  const [data, setData] = useState();
   
-  // useEffect( async() => {
-  //   const response  = await fetch('http://192.168.1.192:3000/vendors/all');
-  //   const rows = await response.json();
-  //   setRows(rows);
-  // },[]);
+  useEffect( async() => {
+    const response  = await fetch('https://api.randomuser.me/');
+    // const rows = await response.json();
+    const data = response.json();
+    setData(data);
+    // setRows(data);
+  },[]);
 
   // {console.log("Data from Table")}
   // {console.log(rows)}
@@ -303,6 +306,8 @@ export default function EnhancedTable() {
     <div>
  <Header/>
       <Container maxWidth = 'lg'>
+        {console.log(data)}
+  {/* <p>{data}&&{console.log(data.name.firstname)}</p> */}
       <Paper className={classes.paper}>
         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         <TableContainer style = {{marginTop:'80px'}}>
