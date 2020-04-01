@@ -35,7 +35,7 @@ export default function App() {
   useEffect(() => {
     let ignore = false;
     async function fetchProduct() {
-      const response = await fetch('http://localhost:3000/products/search?search_q=Frost+Grey&country=United%20Kingdom&category=Accessories*Footwear&size=UK%203*EU%2036*US%205&brand=Earth%20Spirit');
+      const response = await fetch('http://localhost:3000/products/search?search_q=a&country=null&category=null&size=null&brand=null');
       const json = await response.json();
       const [item] = json.products;
       setIsloading(true);
