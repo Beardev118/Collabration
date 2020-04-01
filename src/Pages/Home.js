@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import { Typography, Link } from '@material-ui/core';
 import MetaTags from 'react-meta-tags';
+import Logo from '../Components/Logo/Logo'
 
 export default function Home(){
   return(
@@ -19,8 +20,14 @@ export default function Home(){
             <Header/>
               <div style = {{height:"30vh"}}></div>
             <Container maxWidth = "lg">
-              <Grid container xs = {12} direction = "row">
-              <SearchBar/>
+              <Grid container xs = {12} direction = 'column' spacing = {3}>
+                <Grid item>
+                 <Logo/>
+                </Grid>
+                <Grid item>
+                  <SearchBar/>
+                </Grid>
+
                 <Grid xs = {10} md = {12}>
                 </Grid>
                 <Grid container xs = {11} md = {9} justify = 'flex-end'style ={{marginTop:"10px"}}>

@@ -7,56 +7,58 @@ import Header from '../../Components/Header/Header'
 import Container from '@material-ui/core/Container'
 import Footer from '../../Components/Footer/Footer'
 import * as productData from './productdata'
+import Loading from '../../Components/Loading/Loading'
 
 
 export default function App() {
 
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(async() => {
-  //   const response = await fetch("http://192.168.1.192:3000/products/search?search_q=Frost+Grey&country=United%20Kingdom&category=Accessories*Footwear&size=UK%203*EU%2036*US%205&brand=Earth%20Spirit");
-  //   const data = await response.json();
-  //   const [item] = data.products;
-  //   setProducts(item);
-  //   return () => {
-  //   }
-  // }, [])
 
   const [products, setProducts] = useState(null);
   const [isloading, setIsloading] = useState(false)
+ 
 
-  useEffect(async() => {
-    const response = await fetch("http://192.168.1.192:3000/products/search?search_q=Frost+Grey&country=United%20Kingdom&category=Accessories*Footwear&size=UK%203*EU%2036*US%205&brand=Earth%20Spirit");
-    const data = await response.json();
-    const [item] = data.products;
-    setProducts(item);
-    setIsloading(true);
-  }, [])
-
+  // useEffect(async() => {
+  //   let ignore = false;
+  //   const response = await fetch("http://192.168.1.192:3000/products/search?search_q=Frost+Grey&country=United%20Kingdom&category=Accessories*Footwear&size=UK%203*EU%2036*US%205&brand=Earth%20Spirit");
+  //   const data = await response.json();
+  //   const [item] = data.products;
+  //   setIsloading(true);
+  //   if (!ignore) {
+  //     setProducts(item);
+  //   }
+  //   isloading&&setProducts(item);
+  //   return () => {
+  //     ignore = true;
+  //   }
+  // }, [])
     
-    // console.log(products)
+  useEffect(() => {
+    let ignore = false;
+    async function fetchProduct() {
+      const response = await fetch('http://192.168.1.192:3000/products/search?search_q=Frost+Grey&country=United%20Kingdom&category=Accessories*Footwear&size=UK%203*EU%2036*US%205&brand=Earth%20Spirit');
+      const json = await response.json();
+      const [item] = json.products;
+      setIsloading(true);
+      if (!ignore) setProducts(item);
+    }
 
-    // console.log(products)
-    // for(var i in products){
-    //   console.log(products[i].product_id);
-    //   console.log(i);
-    //   console.log(products[0]);
-    // }
-    // // products.map((item)=>())
+    fetchProduct();
+    return () => { ignore = true };
+  }, []);
   
   return (
       <React.Fragment>
         <Header/>
-        <Container maxWidth = 'lg'>
+        {products==null?<Loading/>:(<Container maxWidth = 'lg'>
         <MenuBar/>
-        {isloading&&<ProdcutArea products = {products}/>}
+       <ProdcutArea products = {products}/>
         <Grid container spacing={3} direction = "row" justify = "flex-end">
             <Grid item>
             <Pagination count={10} shape="rounded"/>
             </Grid>
          </Grid>
          <Footer/>
-         </Container>
+         </Container>)}
       </React.Fragment>
         
   );

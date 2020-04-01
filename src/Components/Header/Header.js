@@ -13,6 +13,7 @@ import { Container, Grid, ClickAwayListener } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import ExpandSearch from '../ExpandSearch/ExpandSearch';
 import Drawer from '../Drawer/Drawer';
+import Logo from '../../Components/Logo/Logo'
 
 
 
@@ -37,10 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 
  
-  toolbar: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-  },
+
 
   searchiconbut:{
 
@@ -169,22 +167,8 @@ export default function ProminentAppBar() {
           </Grid>
           <Grid item xs={10}>
 
-          <Paper className={classes.paper}>
-              <Hidden smDown>
-                    <Link to = "/" className = {classes.logoLink}>
-                      <Typography   variant ="h1" >
-                        We are <b>Polymer.</b><span className = {classes.logoSmall}>SHOP</span>
-                      </Typography>
-                    </Link>
-                </Hidden>
-                <Hidden mdUp>
-                    <Link to = "/" className = {classes.logoLink}>
-                      <Typography   variant ="h1" className = {classes.lg_logoLarge}>
-                        We are <b>Polymer.</b><span className = {classes.lg_logoSmall}>SHOP</span>
-                      </Typography>
-                    </Link>
-                </Hidden>
-          </Paper>
+            {!(window.location.pathname==="/") &&<Logo/>}
+            
           </Grid>
           
           <Grid item xs={1} >
