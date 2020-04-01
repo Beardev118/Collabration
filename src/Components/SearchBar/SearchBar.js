@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: theme) =>
   createStyles({
@@ -16,8 +17,8 @@ const useStyles = makeStyles((theme: theme) =>
 
     },
     input: {
-      marginLeft: theme.spacing(1),
       flex: 1,
+      paddingLeft:'10px'
     },
 
     divider: {
@@ -33,24 +34,27 @@ export default function SerchBar(){
   const [parm, setParm] = useState('');
 
   return(
-         <Grid container  xs = {12} justify = "center" alignItems = "center" >
-           <Grid xs = {10} md = {6}>
-            <Paper component="form" className={classes.root} >
-              <InputBase
-                className={classes.input}
-                placeholder="What are you looking for?"
-                inputProps={{ 'aria-label': 'What are you looking for?' }}
-              />
-              <IconButton type="submit" className={classes.iconButton} aria-label="search" component = {Link} to="/search">
-                <SearchIcon />
-              </IconButton>
-              <Divider className={classes.divider} orientation="vertical" />
-            </Paper>
-            
-            </Grid>
-       
-           </Grid>
+      <Container maxWidth = 'lg'>
+          <Grid container justify = "center" >
+              <Grid xs = {11} md = {9}>
+                <Paper component="form" className={classes.root} >
+                  <InputBase
+                    className={classes.input}
+                    placeholder="What are you looking for?"
+                    inputProps={{ 'aria-label': 'What are you looking for?' }}
+                  />
+                  <IconButton type="submit" className={classes.iconButton} aria-label="search" component = {Link} to="/search">
+                    <SearchIcon />
+                  </IconButton>
+                  <Divider className={classes.divider} orientation="vertical" />
+                </Paper>
+                
+                </Grid>
+          
+              </Grid>
       
+      </Container>
+        
   );
 
 }

@@ -9,7 +9,6 @@ import Logo from '../Components/Logo/Logo'
 
 export default function Home(){
   return(
-      // <Container maxWidth ="sm" style = {{ minHeight: '100vh'}} >
     <React.Fragment>
 
           <MetaTags>
@@ -18,23 +17,19 @@ export default function Home(){
             <meta property="og:title" content="ModaCompris Comparison Shopping Site CSS" />
           </MetaTags>
             <Header/>
-              <div style = {{height:"30vh"}}></div>
+              <div style = {{height:"25vh"}}></div>
             <Container maxWidth = "lg">
-              <Grid container xs = {12} direction = 'column' spacing = {3}>
-                <Grid item>
-                 <Logo/>
+              <Grid container spacing = {7} justify = 'center' alignItems = 'center'>
+                <Grid item xs = {12}>
+                   <Logo/>
                 </Grid>
-                <Grid item>
+                <Grid item xs = {12}>
                   <SearchBar/>
                 </Grid>
-
-                <Grid xs = {10} md = {12}>
-                </Grid>
-                <Grid container xs = {11} md = {9} justify = 'flex-end'style ={{marginTop:"10px"}}>
+                <Grid container xs = {9} md = {8} justify = 'flex-end'>
                   <Grid >
                      <Typography variant = "h6"> <Link href = "/privacy">Privacy Policy</Link>/<Link href = "/contact">Contact Us</Link></Typography>
                   </Grid>
-
                 </Grid>
               </Grid>
              

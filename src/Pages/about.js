@@ -11,9 +11,6 @@ import Aboutus from '../asset/img/about.jpg'
 import Paper from '@material-ui/core/Paper'
 
 
-
-
-
 const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: theme.spacing(2),
