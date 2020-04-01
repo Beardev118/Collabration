@@ -35,7 +35,7 @@ export default function App() {
   useEffect(() => {
     let ignore = false;
     async function fetchProduct() {
-      const response = await fetch('http://localhost:3000/products/search?search_q=a&country=null&category=null&size=null&brand=null');
+      const response = await fetch('/products/search?search_q=a&country=null&category=null&size=null&brand=null');
       const json = await response.json();
       const [item] = json.products;
       setIsloading(true);
