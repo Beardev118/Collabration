@@ -10,11 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography'
-import { Container, Collapse, Box} from '@material-ui/core'
+import { Container, Collapse, Box, Fade} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Divider from '@material-ui/core/Divider'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +23,8 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
     margin: theme.spacing(0.5),
+    transitionDuration:'1s',
+    
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -93,10 +94,12 @@ export default function App() {
   const [sortCallaps, setSortCallaps] = useState(false);
   const [categoryCallaps, setCategoryCallaps] = useState(false);
   const [hrVisible, setHrVisible] = useState(false);
+  const [chipappear, setChipappear] = useState(true);
 
   const handleChange = key=>{
     const newmenuData = [...menuData];
     newmenuData.find(category => category.key === key).selected = !newmenuData.find(category => category.key === key).selected;
+
     // Set menuData
     setmenuData(newmenuData);
 
@@ -115,6 +118,13 @@ export default function App() {
     } else if(menuName === "Sort")
     {
       numSelected===0?setSort(false): setSort(true);
+    }
+
+    if (category||size||brand||sort) {
+      setChipappear(true);
+    }
+    else{
+      setChipappear(false)
     }
   }
 
@@ -190,6 +200,8 @@ const matches = useMediaQuery('(min-width:600px)');
       setBrandCallaps(!categoryCallaps);
       setSortCallaps(!categoryCallaps);
       }
+
+      
     }
   
   const classes = useStyles();
@@ -199,8 +211,9 @@ const matches = useMediaQuery('(min-width:600px)');
              <ClickAwayListener onClickAway = {closeColapse}>
             <Container maxWidth = "lg" style = {{marginTop:"50px"}}>
               <Paper  className = {classes.menuContainer}>
+              
                 <Grid xs = {12} md = {12}>
-                          
+                <Paper  className = {classes.menuContainer}>
                           {/* <Paper className={classes.root}> */}
                             {
                             menuData.map(data => {
@@ -214,12 +227,14 @@ const matches = useMediaQuery('(min-width:600px)');
                                     label={data.label}
                                     onDelete={handleDelete(data.key)}
                                     className={classes.chip}
+                                    outlined
                                   />
                                 );
                               }
                             })}
-                          {/* </Paper> */}
+                      </Paper>
                     </Grid>
+
                     {/* <Divider variant = "middle" style = {{visibility:false}} /> */}
               <Grid container xs = {12} >
               <Grid item xs = {12} md = {2}>

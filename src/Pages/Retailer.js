@@ -24,27 +24,27 @@ import Container from '@material-ui/core/Container'
 import Footer from '../Components/Footer/Footer'
 
 
-function createData(vendor_businessname, vendor_websiteurl, vendor_email, vendor_country) {
-  return { vendor_businessname, vendor_websiteurl, vendor_email, vendor_country };
+function createData(vendor_businessname, vendor_websiteurl, vendor_country) {
+  return { vendor_businessname, vendor_websiteurl,  vendor_country };
 }
 
 
 const rows = [
-  createData('Leather to Love Forever Ltd', 'https://bodaskins.com/collections/all.atom', 'enquiries@bellsshoes.co.uk', 'United Kingdom'),
-  createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'hello@bodaskins.com', 'Greece'),
-  createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom', 'customerservice@bohomoon.com', 'Hungary'),
-  createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom', 'hello@boredofsouthsea.co.uk', 'Romania'),
-  createData('Ciate Ciate', 'https://dizzykitten.co.uk/collections/all.atom', 'customer.service@ciatelondon.com', 'United Kingdom'),
-  createData('Pink Boutique Ltd', 'https://janesboutique.co.uk/collections/all.atom', 'enquiries@katesclothing.co.uk', 'United Kingdom'),
-  createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
-  createData('Ireland', 'https://beachcomberswimwear.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Austria'),
-  createData('Alighieri Ltd', 'https://flyfashion.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Belgium'),
-  createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
-  createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'UItaly'),
-  createData('The Fashion Parade Ltd', 'https://iwearitalia.co.uk/collections/all.atom  ', 'shop@kissmedeadly.co.uk', 'United Kingdom'),
-  createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom', 'shop@kissmedeadly.co.uk', 'Netherlands'),
+  createData('Leather to Love Forever Ltd', 'https://bodaskins.com/collections/all.atom', 'United Kingdom'),
+  createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'Greece'),
+  createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom',  'Hungary'),
+  createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom',  'Romania'),
+  createData('Ciate Ciate', 'https://dizzykitten.co.uk/collections/all.atom',  'United Kingdom'),
+  createData('Pink Boutique Ltd', 'https://janesboutique.co.uk/collections/all.atom',  'United Kingdom'),
+  createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom',  'Netherlands'),
+  createData('Ireland', 'https://beachcomberswimwear.co.uk/collections/all.atom',  'United Kingdom'),
+  createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom',  'Austria'),
+  createData('Alighieri Ltd', 'https://flyfashion.co.uk/collections/all.atom',  'United Kingdom'),
+  createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom',  'Belgium'),
+  createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom',  'Netherlands'),
+  createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom',  'UItaly'),
+  createData('The Fashion Parade Ltd', 'https://iwearitalia.co.uk/collections/all.atom  ',  'United Kingdom'),
+  createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom',  'Netherlands'),
 ];
 
 
@@ -85,7 +85,6 @@ function EnhancedTableHead(props) {
   const headCells = [
     { id: 'vendor_businessname', numeric: false, disablePadding: true, label: 'Bussiness Name' },
     { id: 'vendor_websiteurl', numeric: false, disablePadding: false, label: 'Website URL' },
-    { id: 'vendor_email', numeric: false, disablePadding: false, label: 'Email' },
     { id: 'vendor_country', numeric: false, disablePadding: false, label: 'Country' },
   ];
 
@@ -325,7 +324,7 @@ export default function EnhancedTable() {
 
       <Container maxWidth = 'lg'>
   {/* <p>{data}&&{console.log(data.name.firstname)}</p> */}
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style = {{width:'80%',margin:'auto'}}>
         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         <TableContainer style = {{marginTop:'80px'}}>
           <Table
@@ -373,7 +372,6 @@ export default function EnhancedTable() {
                         <Link href = {row.vendor_websiteurl} target="_blank">{row.vendor_websiteurl}</Link>
                         </TableCell>
                       
-                      <TableCell >{row.vendor_email}</TableCell>
                       <TableCell >{row.vendor_country}</TableCell>
                     </TableRow>
                   );
