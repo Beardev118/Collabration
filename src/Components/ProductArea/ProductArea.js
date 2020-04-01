@@ -152,7 +152,7 @@ ProdcutArea.prototype = {
               />
               <CardContent>
                 <Typography  variant="subtitle1" component="h4" align = "left">
-                {product.product_title}
+                {product.product_title.replace(/(.{25})..+/, "$1…")}
                 </Typography>
               </CardContent>
             </CardActionArea >
@@ -162,7 +162,7 @@ ProdcutArea.prototype = {
                 {product.product_currency}{product.product_price}
               </Typography>
               <Typography variant="body2" align = {"left"} className = {classes.urlInfo}>
-              {product.product_url}
+              {product.product_url.replace(/(.{40})..+/, "$1…")}
               </Typography>
           
           </Card>
