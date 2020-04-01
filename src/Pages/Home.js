@@ -19,7 +19,7 @@ export default function Home(){
             <Header/>
               <div style = {{height:"25vh"}}></div>
             <Container maxWidth = "lg">
-              <Grid container spacing = {7} justify = 'center' alignItems = 'center'>
+              <Grid container spacing = {4} justify = 'center' alignItems = 'center'>
                 <Grid item xs = {12}>
                    <Logo/>
                 </Grid>
