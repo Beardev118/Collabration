@@ -1,405 +1,81 @@
-import React,{useEffect,useState} from 'react';
+import React,{useState} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import { Typography, Link } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography'
+import ButtonBase from '@material-ui/core/ButtonBase'
 import Header from '../Components/Header/Header'
-import Container from '@material-ui/core/Container'
 import Footer from '../Components/Footer/Footer'
+import Container from '@material-ui/core/Container' 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    width:'100%',
+    margin:'auto',
+  },
+
+  buttonbase:{
+    textAlign: 'center',
+    width:'100%'
+
+  }
+}));
 
 
 function createData(vendor_businessname, vendor_websiteurl, vendor_country) {
   return { vendor_businessname, vendor_websiteurl,  vendor_country };
 }
 
-
-const rows = [
-  createData('Leather to Love Forever Ltd', 'https://bodaskins.com/collections/all.atom', 'United Kingdom'),
-  createData('Bohomoon Ltd', 'https://bohomoon.com/collections/all.atom', 'Greece'),
-  createData('Italy', 'https://boredofsouthsea.co.uk/collections/all.atom',  'Hungary'),
-  createData('Bored Ltd', 'https://ciatelondon.com/collections/all.atom',  'Romania'),
-  createData('Ciate Ciate', 'https://dizzykitten.co.uk/collections/all.atom',  'United Kingdom'),
-  createData('Pink Boutique Ltd', 'https://janesboutique.co.uk/collections/all.atom',  'United Kingdom'),
-  createData('Universal Works', 'https://jaggerylondon.co.uk/collections/all.atom',  'Netherlands'),
-  createData('Ireland', 'https://beachcomberswimwear.co.uk/collections/all.atom',  'United Kingdom'),
-  createData('Pavers Ltd', 'https://fortune46.co.uk/collections/all.atom',  'Austria'),
-  createData('Alighieri Ltd', 'https://flyfashion.co.uk/collections/all.atom',  'United Kingdom'),
-  createData('Indoi Ltd', 'https://flvrapparel.co.uk/collections/all.atom',  'Belgium'),
-  createData('emaillip Limited ', 'https://fancyfashions.co.uk/collections/all.atom',  'Netherlands'),
-  createData('iamVibes Ltd', 'https://danniboutique.co.uk/collections/all.atom',  'UItaly'),
-  createData('The Fashion Parade Ltd', 'https://iwearitalia.co.uk/collections/all.atom  ',  'United Kingdom'),
-  createData('Imogen Belfield Ltd', 'https://itsinyourjeans.co.uk/collections/all.atom',  'Netherlands'),
-];
-
-
-
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map(el => el[0]);
-}
-
-
-
-function EnhancedTableHead(props) {
-
-  
-
-  const headCells = [
-    { id: 'vendor_businessname', numeric: false, disablePadding: true, label: 'Bussiness Name' },
-    { id: 'vendor_websiteurl', numeric: false, disablePadding: false, label: 'Website URL' },
-    { id: 'vendor_country', numeric: false, disablePadding: false, label: 'Country' },
-  ];
-
-
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-  const createSortHandler = property => event => {
-    onRequestSort(event, property);
-  };
-
-   
-
-  
-  return (
-    <TableHead>
-     
-
-      <TableRow>
-        <TableCell padding="checkbox">
-         
-        </TableCell>
-        {headCells.map(headCell => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-const useToolbarStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
-
-const EnhancedTableToolbar = props => {
-  const classes = useToolbarStyles();
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle">
-          Nutrition
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
-  },
-}));
-
-export default function EnhancedTable() {
-  const classes = useStyles();
-  // const [rows, setRows] = useState([]);
-  const [Product, setProduct] = useState(null)
-  
-
-
-  // useEffect(
-  //   async() => {
-  //   const response  = await fetch('https://api.randomuser.me/');
-  //   // const rows = await response.json();
-  //   // setData(data);
-  //   return () => {
-      
-  //   }
-  // }, [])
-
-  useEffect(() => {
-    let ignore = false;
-    async function fetchProduct() {
-      const response = await fetch('https://api.randomuser.me/');
-      const json = await response.json();
-      if (!ignore) setProduct(json);
-    }
-
-    fetchProduct();
-    return () => { ignore = true };
-  }, []);
-
-  {console.log("Data from Table")}
-  {console.log(Product)}
-  // {console.log(rows)}
-
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('vendor_websiteurl');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = event => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map(n => n.vendor_businessname);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, vendor_businessname) => {
-    const selectedIndex = selected.indexOf(vendor_businessname);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, vendor_businessname);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = vendor_businessname => selected.indexOf(vendor_businessname) !== -1;
-
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+export default function Retailers(){
+  const [rows, setRows] = useState([
+    {business_name:'Leather to Love Forever Ltd', website_url:'https://bodaskins.com/collections/all.atom'},
+    {business_name:'Bohomoon Ltd', website_url:'https://bohomoon.com/collections/all.atom'},
+    {business_name:'Italy', website_url:'https://boredofsouthsea.co.uk/collections/all.atom'},
+    {business_name:'Bored Ltd', website_url:'https://ciatelondon.com/collections/all.atom'},
+    {business_name:'Ciate Ciate', website_url:'https://dizzykitten.co.uk/collections/all.atom'},
+    {business_name:'Pink Boutique Ltd', website_url:'https://janesboutique.co.uk/collections/all.atom'},
+    {business_name:'Universal Works', website_url:'https://jaggerylondon.co.uk/collections/all.atom'},
+    {business_name:'Ireland', website_url:'https://beachcomberswimwear.co.uk/collections/all.sssssssssssssssssssssssssssssssssssssssatom'},
+    {business_name:'Pavers Ltd', website_url:'https://fortune46.co.uk/collections/all.atom'},
+    {business_name:'Alighieri Ltd', website_url:'https://flyfashion.co.uk/collections/all.atom'},
+    {business_name:'Indoi Ltd', website_url:'https://flvrapparel.co.uk/collections/all.atom'},
+    {business_name:'emaillip Limited ', website_url:'https://fancyfashions.co.uk/collections/all.atom'},
+    {business_name:'iamVibes Ltd', website_url:'https://danniboutique.co.uk/collections/all.atom'},
+    {business_name:'The Fashion Parade Ltd', website_url:'https://iwearitalia.co.uk/collections/all.atom'},
+    {business_name:'Imogen Belfield Ltd', website_url:'https://itsinyourjeans.co.uk/collections/all.atom'},
+  ])
+const classes = useStyles();
 
   return (
     <div>
- <Header/>
-
-      <Container maxWidth = 'lg'>
-  {/* <p>{data}&&{console.log(data.name.firstname)}</p> */}
-      <Paper className={classes.paper} style = {{width:'80%',margin:'auto'}}>
-        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-        <TableContainer style = {{marginTop:'80px'}}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
+      <Header/>
+            <Container maxWidth = 'lg' style = {{marginTop:'10vh'}}>
+                  <Grid container spacing={3} >
+                    {rows.map((item)=>(
+                      <Grid item xs={12} sm={6} md = {4} lg = {3} >
+                        <ButtonBase className = {classes.buttonbase} href = {item.website_url} target="_blank">
+                          <Paper className={classes.paper} elevation = {4}>
+                                <Typography gutterBottom variant="subtitle1" color = 'primary'>
+                                  {item.business_name.replace(/(.{30})..+/, "$1…")}
+                                </Typography>
+                                <Typography variant="body2" gutterBottom>
+                               {/* {item.website_url} */}
+                               {item.website_url.replace(/(.{40})..+/, "$1…")}
+                                </Typography>
+                            </Paper>
+                            </ButtonBase>
+                    </Grid>
+                    ))}
+                  </Grid>
           
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.vendor_businessname);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
-                    <TableRow
-                      hover
-                      // onClick={event => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.vendor_businessname}
-                      selected={isItemSelected}
-                      
-                    >
-                      <TableCell padding="checkbox">
-                       
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.vendor_businessname}
-                      </TableCell>
-                      
-                        <TableCell > 
-                        <Link href = {row.vendor_websiteurl} target="_blank">{row.vendor_websiteurl}</Link>
-                        </TableCell>
-                      
-                      <TableCell >{row.vendor_country}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-      <Footer/>
-    </Container>
+            <Footer/>
+          </Container>
     </div>
      
   );

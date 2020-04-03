@@ -18,6 +18,7 @@ import Paper from '@material-ui/core/Paper'
 import Link from '@material-ui/core/Link'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/CloseRounded'
+import Markdown from 'markdown-to-jsx';
 
 import { Hidden } from "@material-ui/core";
 
@@ -72,6 +73,7 @@ const useStyles = makeStyles(theme => ({
       cardMedia: {
         paddingTop: '56.25%', // 16:9
       },
+     
       cardContent: {
         flexGrow: 1,
       },
@@ -88,6 +90,13 @@ const useStyles = makeStyles(theme => ({
         
 
       },
+      cardMediaDrawer:{
+        paddingTop:'56.25%',
+      },
+      mediaDrawer:{
+        height: 500,
+        zIndex:-1,
+      },
   }));
 
    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
@@ -96,9 +105,6 @@ export default function ProdcutArea(props){
       const classes = useStyles();
       const {products} = props;
      
-     console.log(products);
-     
-      
      
       return (
         <div className={classes.productArea}>
@@ -170,25 +176,23 @@ ProdcutArea.prototype = {
           <Hidden mdDown>
           <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {1000}>
                 <div
-                  className={classes.list}
                   role="presentation"
-                  // onClick={toggleDrawer(false)}
                   onKeyDown={toggleDrawer(false)}
                   style = {{width:"500px"}}
                   >
-                  <IconButton onClick = {toggleDrawer(false)}>
-                    <CloseIcon/>
-                  </IconButton>
+                 
 
                   <Card className={classes.root}>
-                  
+                  <IconButton onClick = {toggleDrawer(false)} style = {{zIndex:2}}>
+                    <CloseIcon/>
+                  </IconButton>
                     <CardMedia
-                      className={classes.media}
+                      className={classes.mediaDrawer}
                       image={product.product_imgurl}
-                      title="Paella dish"
+                      title={product.product_title}
                     />
                     <CardHeader
-                      title="Shrimp and Chorizo Paella"
+                      title={product.product_title}
                     />
                     <CardContent>
                       
@@ -197,15 +201,17 @@ ProdcutArea.prototype = {
                         <Rating name="read-only" value={value} readOnly />
                         </Grid>
                         <Grid xs = {2}>
-                        <Typography variant = "subtitle1">${product.product_price} </Typography>
+                        <Typography variant = "subtitle1">{product.product_currency}{product.product_price} </Typography>
                         </Grid>
                         <Grid xs = {5}>
-                          <Typography variant = "subtitle1">Brand: ALDO </Typography>
+                          <Typography variant = "subtitle1">{product.product_brand} </Typography>
                         </Grid>
                       </Grid>
 
                       <Typography variant="body2" color="textSecondary" component="p">
-                      It’s a well made case it’s nice and solid thing I don’t like is the bottom where I place my pinky it feels jaggerd when I’m texting and it leaves marks on my finger.                      
+                        <Markdown>
+                          {product.product_detail}
+                        </Markdown>
                       </Typography>
                       <Box component="fieldset" mb={3} borderColor="transparent">
                       </Box>
@@ -215,11 +221,11 @@ ProdcutArea.prototype = {
                   </CardActions>
               
               </Card>
-              <Grid container spacing = {50}>
+              <Grid container>
               {cards.map(card => (
-              <Grid container xs = {12} spacing = {50}>
+              <Grid container xs = {12} >
                   <Grid xs = {1}></Grid>
-                    <Grid xs = {10} alignItems = "center" justifyContent = "center">
+                    <Grid xs = {10} >
                       <Paper className = {classes.relatedItem} square>
                         <Grid xs = {2}>
                         <Typography>$44.95</Typography>
@@ -248,24 +254,25 @@ ProdcutArea.prototype = {
           <Hidden mdUp>
           <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {1000}>
                 <div
-                  className={classes.list}
                   role="presentation"
-                  // onClick={toggleDrawer(false)}
                   onKeyDown={toggleDrawer(false)}
                   style = {{width:'100%'}}
                   >
-                  <IconButton onClick = {toggleDrawer(false)}>
-                    <CloseIcon/>
-                  </IconButton>
+                 
                   <Card className={classes.root}>
                   
                     <CardMedia
                       className={classes.media}
                       image={product.product_imgurl}
-                      title="Paella dish"
-                    />
+                      title={product.product_title}
+                      style = {{position:"absolute", top:'0px'}}
+                    >
+                    <IconButton onClick = {toggleDrawer(false)} style = {{position:"relative"}}>
+                         <CloseIcon/>
+                   </IconButton>
+                    </CardMedia>
                     <CardHeader
-                      title="Shrimp and Chorizo Paella"
+                      title={product.product_title}
                     />
                     <CardContent>
                       
@@ -274,15 +281,17 @@ ProdcutArea.prototype = {
                         <Rating name="read-only" value={value} readOnly />
                         </Grid>
                         <Grid xs = {2}>
-                        <Typography variant = "subtitle1">$49.5</Typography>
+                        <Typography variant = "subtitle1">{product.product_currency} {product.product_price} </Typography>
                         </Grid>
                         <Grid xs = {5}>
-                          <Typography variant = "subtitle1">Brand: ALDO </Typography>
+                          <Typography variant = "subtitle1">{product.product_brand} </Typography>
                         </Grid>
                       </Grid>
 
                       <Typography variant="body2" color="textSecondary" component="p">
-                      It’s a well made case it’s nice and solid thing I don’t like is the bottom where I place my pinky it feels jaggerd when I’m texting and it leaves marks on my finger.                      
+                      <Markdown>
+                          {product.product_detail}
+                        </Markdown>
                       </Typography>
                       <Box component="fieldset" mb={3} borderColor="transparent">
                       </Box>
@@ -292,11 +301,11 @@ ProdcutArea.prototype = {
                   </CardActions>
               
               </Card>
-              <Grid container spacing = {50}>
+              <Grid container>
               {cards.map(card => (
               <Grid container xs = {12} style = {{margin:'10px'}}>
                  
-                    <Grid xs = {12} alignItems = "center" justifyContent = "center">
+                    <Grid xs = {12} >
                       <Paper className = {classes.relatedItem} square>
                         <Grid xs = {3}>
                         <Typography>$44.95</Typography>

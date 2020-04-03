@@ -14,6 +14,7 @@ import AddFeed from './Pages/AddFeed';
 import Admin from './Pages/Admin/Admin'
 import Contact from './Pages/Contactus'
 import Privacy from './Pages/Privacy/Privacy'
+import {SearchProvider} from './Components/SearchBar/SearchBarContext'
 // import { Router, Link } from "@reach/router"
 
 const useStyles = makeStyles(theme => ({
@@ -30,6 +31,8 @@ export default function ProminentAppBar() {
 
   return (
      <div className = {classes.pageContainer}>
+       <SearchProvider>
+
         <Router>
             <Switch>
                   <Route exact path="/" component = {Home}/>
@@ -47,6 +50,8 @@ export default function ProminentAppBar() {
                   <Product path="/register" />
                   <About path = "/about"/> */} 
         </Router>
+       </SearchProvider>
+
      </div>
   );
 }
