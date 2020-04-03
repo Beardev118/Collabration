@@ -57,7 +57,7 @@ export default function SerchBar(){
           pathname: '/search',
           search: usp.toString()
         })
-        window.location.reload(false);
+        // window.location.reload(false);
         setSearchQuery(searchTerm);
         console.log("This is context part");
         // console.log(searchTerm);

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
@@ -14,6 +14,8 @@ import { Container, Collapse, Box, Fade} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import PropTypes from 'prop-types';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,40 +52,43 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function App() {
-  const [menuData, setmenuData] = useState([
-    { key: 0, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-    { key: 1, label: 'Ciate Ciate',selected:false,menuKind:'Category' },
-    { key: 2, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 3, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 4, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-    { key: 5, label: 'Small',selected:false ,menuKind:'Size'},
-    { key: 6, label: 'Middle',selected:false ,menuKind:'Size'},
-    { key: 7, label: 'Clothing.ly',selected:false ,menuKind:'Brand'},
-    { key: 8, label: 'HATORY',selected:false ,menuKind:'Brand'},
-    { key: 9, label: 'Dyest',selected:false ,menuKind:'Brand'},
-    { key: 10, label: 'Chingo',selected:false ,menuKind:'Brand'},
-    { key: 11, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-    { key: 12, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 13, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 14, label: 'Price(Low to High)',selected:false ,menuKind:'Sort'},
-    { key: 15, label: 'Price(High to Low)',selected:false ,menuKind:'Sort'},
-    { key: 16, label: 'Washya',selected:false ,menuKind:'Brand'},
-    { key: 17, label: 'powel',selected:false ,menuKind:'Brand'},
-    { key: 18, label: 'sarte',selected:false ,menuKind:'Brand'},
-    { key: 19, label: 'washoe',selected:false ,menuKind:'Brand'},
-    { key: 20, label: 'Bohomo Ltd',selected:false,menuKind:'Category' },
-    { key: 21, label: 'Ciate Ciate',selected:false,menuKind:'Category' },
-    { key: 22, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 23, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 24, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-    { key: 25, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-    { key: 26, label: 'Ciate sCiate',selected:false,menuKind:'Category' },
-    { key: 27, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 28, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 29, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-    { key: 30, label: 'Large',selected:false ,menuKind:'Size'},
-  ]);
+export default function (props)=> {
+  // const [menuDataq, setmenuDataq] = useState([
+  //   { key: 'category0', label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
+  //   { key: 'category1', label: 'Ciate Ciate',selected:false,menuKind:'Category' },
+  //   { key: 'category2', label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
+  //   { key: 'category3', label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
+  //   { key: 'category4', label: 'Univeral Works',selected:false ,menuKind:'Category'},
+  //   { key: 'category5', label: 'Small',selected:false ,menuKind:'Size'},
+  //   { key: 'category6', label: 'Middle',selected:false ,menuKind:'Size'},
+  //   { key: 'category7', label: 'Clothing.ly',selected:false ,menuKind:'Brand'},
+  //   { key: 'category8', label: 'HATORY',selected:false ,menuKind:'Brand'},
+  //   { key: 9, label: 'Dyest',selected:false ,menuKind:'Brand'},
+  //   { key: 10, label: 'Chingo',selected:false ,menuKind:'Brand'},
+  //   { key: 11, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
+  //   { key: 12, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
+  //   { key: 13, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
+  //   // { key: 14, label: 'Price(Low to High)',selected:false ,menuKind:'Sort'},
+  //   // { key: 15, label: 'Price(High to Low)',selected:false ,menuKind:'Sort'},
+  //   { key: 16, label: 'Washya',selected:false ,menuKind:'Brand'},
+  //   { key: 17, label: 'powel',selected:false ,menuKind:'Brand'},
+  //   { key: 18, label: 'sarte',selected:false ,menuKind:'Brand'},
+  //   { key: 19, label: 'washoe',selected:false ,menuKind:'Brand'},
+  //   { key: 20, label: 'Bohomo Ltd',selected:false,menuKind:'Category' },
+  //   { key: 21, label: 'Ciate Ciate',selected:false,menuKind:'Category' },
+  //   { key: 22, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
+  //   { key: 23, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
+  //   { key: 24, label: 'Univeral Works',selected:false ,menuKind:'Category'},
+  //   { key: 25, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
+  //   { key: 26, label: 'Ciate sCiate',selected:false,menuKind:'Category' },
+  //   { key: 27, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
+  //   { key: 28, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
+  //   { key: 29, label: 'Univeral Works',selected:false ,menuKind:'Category'},
+  //   { key: 30, label: 'Large',selected:false ,menuKind:'Size'},
+  // ]);
+
+  const [menuDataq, setmenuDataq] = useState(props.menu);
+  console.log(props);
 
   const [category, setCategory] = useState(false);
   const [size, setSize] = useState(false);
@@ -96,16 +101,20 @@ export default function App() {
   const [hrVisible, setHrVisible] = useState(false);
   const [chipappear, setChipappear] = useState(true);
 
-  const handleChange = key=>{
-    const newmenuData = [...menuData];
-    newmenuData.find(category => category.key === key).selected = !newmenuData.find(category => category.key === key).selected;
+  // useEffect(() => {
+  //   setmenuDataq(menu)
+  // }, [menu]);
 
-    // Set menuData
-    setmenuData(newmenuData);
+  const handleChange = key=>{
+    const newmenuDataq = [...menuDataq];
+    newmenuDataq.find(category => category.key === key).selected = !newmenuDataq.find(category => category.key === key).selected;
+
+    // Set menuDataq
+    setmenuDataq(newmenuDataq);
 
     //Get menu name selected and get number of selected menu and if 0 then set the parent menu to uncheck.
-    var menuName = newmenuData.find(category => category.key === key).menuKind;
-    var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
+    var menuName = newmenuDataq.find(category => category.key === key).menuKind;
+    var numSelected =newmenuDataq.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
     console.log(numSelected);
     if (menuName === "Category") {
       numSelected===0?setCategory(false):setCategory(true);
@@ -131,11 +140,11 @@ export default function App() {
 
   const handleDelete = (key) => () => {
    
-    const newmenuData = [...menuData];
-    newmenuData.find(v => v.key === key).selected = false;
-    setmenuData(newmenuData);
-    var menuName = newmenuData.find(category => category.key === key).menuKind;
-    var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
+    const newmenuDataq = [...menuDataq];
+    newmenuDataq.find(v => v.key === key).selected = false;
+    setmenuDataq(newmenuDataq);
+    var menuName = newmenuDataq.find(category => category.key === key).menuKind;
+    var numSelected =newmenuDataq.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
     console.log(numSelected);
     if (menuName === "Category") {
       numSelected===0?setCategory(false):setCategory(true);
@@ -161,8 +170,8 @@ export default function App() {
 
   // const handleChangeMenuCheck = e=>{
   //   setCategory(!category);
-  //   var newmenuData =  menuData.map(category => category.menuKind === e.target.name?{ ...category, selected: true }:category);
-  //   setmenuData(newmenuData);
+  //   var newmenuDataq =  menuDataq.map(category => category.menuKind === e.target.name?{ ...category, selected: true }:category);
+  //   setmenuDataq(newmenuDataq);
 
   // }
 
@@ -208,6 +217,7 @@ const matches = useMediaQuery('(min-width:600px)');
   
   return (
           <div>
+            {console.log(menuDataq)}
              <ClickAwayListener onClickAway = {closeColapse}>
             <Container maxWidth = "lg" style = {{marginTop:"50px"}}>
               <Paper  className = {classes.menuContainer}>
@@ -216,7 +226,7 @@ const matches = useMediaQuery('(min-width:600px)');
                 <Paper  className = {classes.menuContainer}>
                           {/* <Paper className={classes.root}> */}
                             {
-                            menuData.map(data => {
+                            menuDataq.map(data => {
                               let icon;
 
                               if (data.selected === true) {
@@ -273,7 +283,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Category').map((item,index)=>(
+                              menuDataq.filter((item) => item.menuKind === 'Category').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -324,7 +334,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <Grid  spacing = {1} style = {{maxHeight:'30vh',marginLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Size').map((item,index)=>(
+                              menuDataq.filter((item) => item.menuKind === 'Size').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -374,7 +384,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Brand').map((item,index)=>(
+                              menuDataq.filter((item) => item.menuKind === 'Brand').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -425,7 +435,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Sort').map((item,index)=>(
+                              menuDataq.filter((item) => item.menuKind === 'Sort').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -457,3 +467,5 @@ const matches = useMediaQuery('(min-width:600px)');
 
   )
 }
+
+export default Menu;
