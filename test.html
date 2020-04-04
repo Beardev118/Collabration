@@ -3,78 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>Document</title>
 </head>
 <body>
-    Smart high-quality leather boot. Versatile look derby boot\nfeaturing quality leather laced upper. PU lining and padded\nsock. Durable anti-slip TPR sole unit. Available in black\nand brown.\n\n * Black leather upper\n * Lace-up fastening\n * Non slip durable rubber sole\n * 100% Real Leather Upper\n\nProtect the leather with aFamaco Multi Plus Protector\n[https://www.redfootshoes.com/products/multi-plus-protects-and-conditions-leathers]
     <script>
-        var categories = [
-            "UK 3 / EU 36 / US 5",
-            "UK 4 / EU 37 / US 6",
-            "UK 5 / EU 38 / US 7",
-            "UK 6 / EU 39 / US 8",
-            "UK 7 / EU 40 / US 9",
-            "UK 8 / EU 41 / US 10",
-            "UK 9 / EU 42 / US 11"
-        ]
 
-        var sizes = [
-        "UK 5 / EU 38 / US 7",
-            "UK 6 / EU 39 / US 8",
-            "UK 7 / EU 40 / US 9",
-            "UK 8 / EU 41 / US 10",
-            "UK 9 / EU 42 / US 11"
-        ]
-        var brands = [
-        "UK 7 / EU 40 / US 9",
-            "UK 8 / EU 41 / US 10",
-            "UK 9 / EU 42 / US 11"
-        ]
+        let new_url = new URL('http://localhost:3000/search?q=white&country=United+KingdomeCategory=Bags&Category=Homeware&Size=UK+12+%2F+EU+46-47+%2F+US+13&Size=UK+8+%2F+EU+42+%2F+US+9&Brand=Polar+Skate+Co&Brand=Earth+Spirit&Size=UK+6+%2F+EU+39+%2F+US+7');
+        let cus_params = new URLSearchParams(new_url.search.slice(1));
 
-        // console.info(categories.map((label,index) => ({"key":index, "label":label,"selected":false,"menuKind":"category" })))
-      var category = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
-       var sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
-       var brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
-       var menuData = category.concat(sizeData,brandData);
+        var country = cus_params.get('Country')
+        var arr_category = cus_params.getAll('Category')
+        var arr_brand = cus_params.getAll('Brand')
+        var arr_size =  cus_params.getAll('Size')
+        
+        var  q_size = 'size=';
+        arr_size.forEach(element => {
+            q_size =q_size+element+'*';
+        });
+        
+        var q_category = 'category=';
+        arr_category.forEach(element => {
+            q_category =q_category+element+'*';
+        });
+        
+        var q_brand = 'brand=';
+        arr_brand.forEach(element => {
+            q_brand =q_brand+element+'*';
+        });
+        
+        var all_search_qurey = "country="+country+"&"+q_category.slice(0,-1)+"&"+q_size.slice(0,-1)+"&"+q_brand.slice(0,-1);
 
+        let backendQuery = new URLSearchParams(all_search_qurey);
+        console.log(all_search_qurey);
+        console.log(backendQuery.toString());
 
-    var  testMenu = [
-    { key: 'category0', label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-    { key: 'category1', label: 'Ciate Ciate',selected:false,menuKind:'Category' },
-    { key: 'category2', label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 'category3', label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 'category4', label: 'Univeral Works',selected:false ,menuKind:'Category'},
-    { key: 'category5', label: 'Small',selected:false ,menuKind:'Size'},
-    { key: 'category6', label: 'Middle',selected:false ,menuKind:'Size'},
-    { key: 'category7', label: 'Clothing.ly',selected:false ,menuKind:'Brand'},
-    { key: 'category8', label: 'HATORY',selected:false ,menuKind:'Brand'},
-    { key: 9, label: 'Dyest',selected:false ,menuKind:'Brand'},
-    { key: 10, label: 'Chingo',selected:false ,menuKind:'Brand'},
-    { key: 11, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-    { key: 12, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 13, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    // { key: 14, label: 'Price(Low to High)',selected:false ,menuKind:'Sort'},
-    // { key: 15, label: 'Price(High to Low)',selected:false ,menuKind:'Sort'},
-    { key: 16, label: 'Washya',selected:false ,menuKind:'Brand'},
-    { key: 17, label: 'powel',selected:false ,menuKind:'Brand'},
-    { key: 18, label: 'sarte',selected:false ,menuKind:'Brand'},
-    { key: 19, label: 'washoe',selected:false ,menuKind:'Brand'},
-    { key: 20, label: 'Bohomo Ltd',selected:false,menuKind:'Category' },
-    { key: 21, label: 'Ciate Ciate',selected:false,menuKind:'Category' },
-    { key: 22, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 23, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 24, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-    { key: 25, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-    { key: 26, label: 'Ciate sCiate',selected:false,menuKind:'Category' },
-    { key: 27, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-    { key: 28, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-    { key: 29, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-    { key: 30, label: 'Large',selected:false ,menuKind:'Size'},
-  ];
-
-       console.log(menuData);
-       console.log (testMenu);
-       
     </script>
 </body>
 </html>

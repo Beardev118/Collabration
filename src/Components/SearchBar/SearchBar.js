@@ -35,7 +35,7 @@ export default function SerchBar(){
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocussed, setFocussed] = useState(false);
-  const [searchQuery,setSearchQuery] = useContext(SearchContext)
+  // const [searchQuery,setSearchQuery] = useContext(SearchContext)
   const history = useHistory()
 
   const onSearch = (event) => {
@@ -57,11 +57,10 @@ export default function SerchBar(){
           pathname: '/search',
           search: usp.toString()
         })
-        // window.location.reload(false);
-        setSearchQuery(searchTerm);
+        window.location.reload(false);
+        // setSearchQuery(searchTerm);
         console.log("This is context part");
         // console.log(searchTerm);
-        console.log(searchQuery);
       }
       
     }else{
@@ -72,20 +71,13 @@ export default function SerchBar(){
           pathname: '/search',
           search: usp.toString()
         })
-        setSearchQuery(searchTerm);
+        // setSearchQuery(searchTerm);
         console.log("This is context part");
         // console.log(searchTerm);
-        console.log(searchQuery);
        } 
     }
    
-   
-     
-    
-   
   }
-  
-
 
   return(
       <Container maxWidth = 'lg'>
@@ -103,9 +95,9 @@ export default function SerchBar(){
                     autoFocus
                     style = {{minHeight:'50px'}}
                   />
-                  {/* {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" component = {Link} to={"/search?"+usp.toString()}> */}
+                  {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {hanldEnterDown}>
                     <SearchIcon />
-                  {/* </IconButton>} */}
+                  </IconButton>}
                   <Divider className={classes.divider} orientation="vertical" />
                 </Paper>
                 

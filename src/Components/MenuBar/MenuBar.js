@@ -15,6 +15,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import PropTypes from 'prop-types';
+import { useHistory } from "react-router-dom";
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,43 +54,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function (props)=> {
-  // const [menuDataq, setmenuDataq] = useState([
-  //   { key: 'category0', label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-  //   { key: 'category1', label: 'Ciate Ciate',selected:false,menuKind:'Category' },
-  //   { key: 'category2', label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-  //   { key: 'category3', label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-  //   { key: 'category4', label: 'Univeral Works',selected:false ,menuKind:'Category'},
-  //   { key: 'category5', label: 'Small',selected:false ,menuKind:'Size'},
-  //   { key: 'category6', label: 'Middle',selected:false ,menuKind:'Size'},
-  //   { key: 'category7', label: 'Clothing.ly',selected:false ,menuKind:'Brand'},
-  //   { key: 'category8', label: 'HATORY',selected:false ,menuKind:'Brand'},
-  //   { key: 9, label: 'Dyest',selected:false ,menuKind:'Brand'},
-  //   { key: 10, label: 'Chingo',selected:false ,menuKind:'Brand'},
-  //   { key: 11, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-  //   { key: 12, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-  //   { key: 13, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-  //   // { key: 14, label: 'Price(Low to High)',selected:false ,menuKind:'Sort'},
-  //   // { key: 15, label: 'Price(High to Low)',selected:false ,menuKind:'Sort'},
-  //   { key: 16, label: 'Washya',selected:false ,menuKind:'Brand'},
-  //   { key: 17, label: 'powel',selected:false ,menuKind:'Brand'},
-  //   { key: 18, label: 'sarte',selected:false ,menuKind:'Brand'},
-  //   { key: 19, label: 'washoe',selected:false ,menuKind:'Brand'},
-  //   { key: 20, label: 'Bohomo Ltd',selected:false,menuKind:'Category' },
-  //   { key: 21, label: 'Ciate Ciate',selected:false,menuKind:'Category' },
-  //   { key: 22, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-  //   { key: 23, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-  //   { key: 24, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-  //   { key: 25, label: 'Bohomoon Ltd',selected:false,menuKind:'Category' },
-  //   { key: 26, label: 'Ciate sCiate',selected:false,menuKind:'Category' },
-  //   { key: 27, label: 'Kates Clothing Ltd',selected:false,menuKind:'Category' },
-  //   { key: 28, label: 'Pink Boutique Ltd',selected:false,menuKind:'Category' },
-  //   { key: 29, label: 'Univeral Works',selected:false ,menuKind:'Category'},
-  //   { key: 30, label: 'Large',selected:false ,menuKind:'Size'},
-  // ]);
+export default function Menu(props) {
+  
+  const [menuData, setmenuData] = useState(props.menu)
+  console.log("This is menubar")
+  console.log(menuData);
 
-  const [menuDataq, setmenuDataq] = useState(props.menu);
-  console.log(props);
+    useEffect(() => {
+        setmenuData(props.menu);
+    }, [props.menu])
+
 
   const [category, setCategory] = useState(false);
   const [size, setSize] = useState(false);
@@ -100,21 +75,18 @@ export default function (props)=> {
   const [categoryCallaps, setCategoryCallaps] = useState(false);
   const [hrVisible, setHrVisible] = useState(false);
   const [chipappear, setChipappear] = useState(true);
-
-  // useEffect(() => {
-  //   setmenuDataq(menu)
-  // }, [menu]);
-
+  const history = useHistory()
+  
   const handleChange = key=>{
-    const newmenuDataq = [...menuDataq];
-    newmenuDataq.find(category => category.key === key).selected = !newmenuDataq.find(category => category.key === key).selected;
-
-    // Set menuDataq
-    setmenuDataq(newmenuDataq);
+    const newmenuData = [...menuData];
+    newmenuData.find(category => category.key === key).selected = !newmenuData.find(category => category.key === key).selected;
+    
+    // Set menuData
+    setmenuData(newmenuData);
 
     //Get menu name selected and get number of selected menu and if 0 then set the parent menu to uncheck.
-    var menuName = newmenuDataq.find(category => category.key === key).menuKind;
-    var numSelected =newmenuDataq.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
+    var menuName = newmenuData.find(category => category.key === key).menuKind;
+    var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
     console.log(numSelected);
     if (menuName === "Category") {
       numSelected===0?setCategory(false):setCategory(true);
@@ -135,16 +107,31 @@ export default function (props)=> {
     else{
       setChipappear(false)
     }
-  }
 
+    // var query =menuData.filter(item => item.selected === true).map((item)=>({'key':item.menuKind,'value':item.label}))
+    //   console.log('this is query')
+    //   console.log(query)
+
+    const query_key = newmenuData.find(category => category.key === key).menuKind;
+    const query_value = newmenuData.find(category => category.key === key).label;
+
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    params.append(query_key,query_value); 
+    history.push({
+      pathname: '/search',
+      search: params.toString()
+    })
+    window.location.reload(false);
+  }
 
   const handleDelete = (key) => () => {
    
-    const newmenuDataq = [...menuDataq];
-    newmenuDataq.find(v => v.key === key).selected = false;
-    setmenuDataq(newmenuDataq);
-    var menuName = newmenuDataq.find(category => category.key === key).menuKind;
-    var numSelected =newmenuDataq.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
+    const newmenuData = [...menuData];
+    newmenuData.find(v => v.key === key).selected = false;
+    setmenuData(newmenuData);
+    var menuName = newmenuData.find(category => category.key === key).menuKind;
+    var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
     console.log(numSelected);
     if (menuName === "Category") {
       numSelected===0?setCategory(false):setCategory(true);
@@ -170,8 +157,8 @@ export default function (props)=> {
 
   // const handleChangeMenuCheck = e=>{
   //   setCategory(!category);
-  //   var newmenuDataq =  menuDataq.map(category => category.menuKind === e.target.name?{ ...category, selected: true }:category);
-  //   setmenuDataq(newmenuDataq);
+  //   var newmenuData =  menuData.map(category => category.menuKind === e.target.name?{ ...category, selected: true }:category);
+  //   setmenuData(newmenuData);
 
   // }
 
@@ -209,6 +196,7 @@ const matches = useMediaQuery('(min-width:600px)');
       setBrandCallaps(!categoryCallaps);
       setSortCallaps(!categoryCallaps);
       }
+      
 
       
     }
@@ -217,7 +205,7 @@ const matches = useMediaQuery('(min-width:600px)');
   
   return (
           <div>
-            {console.log(menuDataq)}
+            {console.log(menuData)}
              <ClickAwayListener onClickAway = {closeColapse}>
             <Container maxWidth = "lg" style = {{marginTop:"50px"}}>
               <Paper  className = {classes.menuContainer}>
@@ -226,7 +214,7 @@ const matches = useMediaQuery('(min-width:600px)');
                 <Paper  className = {classes.menuContainer}>
                           {/* <Paper className={classes.root}> */}
                             {
-                            menuDataq.map(data => {
+                            menuData.map(data => {
                               let icon;
 
                               if (data.selected === true) {
@@ -283,7 +271,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
                               {
                               
-                              menuDataq.filter((item) => item.menuKind === 'Category').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'Category').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -331,10 +319,10 @@ const matches = useMediaQuery('(min-width:600px)');
 
 
                         <Collapse in = {sizeCallaps} timeout = {1000}>
-                        <Grid  spacing = {1} style = {{maxHeight:'30vh',marginLeft:"30px",marginTop:'10px'}}>
+                        <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
                               {
                               
-                              menuDataq.filter((item) => item.menuKind === 'Size').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'Size').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -352,7 +340,7 @@ const matches = useMediaQuery('(min-width:600px)');
                                 
                               ))
                             }
-                          </Grid>
+                          </GridList>
                           </Collapse>
 
                     </Grid>
@@ -384,7 +372,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuDataq.filter((item) => item.menuKind === 'Brand').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'Brand').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -435,7 +423,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuDataq.filter((item) => item.menuKind === 'Sort').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'Sort').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -463,9 +451,9 @@ const matches = useMediaQuery('(min-width:600px)');
             </Container>
             </ClickAwayListener>
           </div>
-          
-
   )
 }
 
-export default Menu;
+Menu.prototype = {
+  menuData: PropTypes.array,
+}

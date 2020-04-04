@@ -13,38 +13,60 @@ import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
 export default function App() {
 
   const [products, setProducts] = useState(null);
-  const [menuData, setMenuData] = useState({}); 
+  const [menu_Data, setMenu_Data] = useState({}); 
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(10);
   const [isProduct, setIsProduct] = useState("")
   const [searchQuery, setsearchQuery] = useState('')
 
+  const getBackenQuery = (url_query)=>{
+    console.log(url_query.toString());
+    let backendQuery = new URLSearchParams();
+    var searchTerm = url_query.get('q')
+    var country = url_query.get('Country')
+    var arr_category = url_query.getAll('Category')
+    var arr_brand = url_query.getAll('Brand')
+    var arr_size =  url_query.getAll('Size')
+    
+    var  q_size = null;
+    arr_size.forEach(element => {
+        q_size =q_size+element+'*';
+    });
+    
+    var q_category = null;
+    arr_category.forEach(element => {
+        q_category =q_category+element+'*';
+    });
+    var q_brand = null;
+    arr_brand.forEach(element => {
+        q_brand =q_brand+element+'*';
+    });
+    backendQuery.set('search_q',searchTerm);
+    backendQuery.set('country',country);
+    backendQuery.set('category',q_category);
+    backendQuery.set('size',q_size);
+    backendQuery.set('brand',q_brand);
+        // console.log(backendQuery.toString());
+        return backendQuery.toString(); 
+  }
+
 
   let search = window.location.search;
+  
   let params = new URLSearchParams(search);
-  const newParams = new URLSearchParams();
-  const searchTerm = params.get('q');
-  const country_q = "United Kingdom";
-  const category_q = null;
-  const size_q = null;
-  const brand_q = null;
 
-  newParams.set('search_q',searchTerm)
-  // newParams.set('search_q',searchQuery)
-  newParams.set('country',country_q)
-  newParams.set('category',category_q)
-  newParams.set('size',size_q)
-  newParams.set('brand',brand_q)
-  // setsearchQuery(newParams.toString());
-  !searchQuery&&console.log("There is no searchQuery")
-  console.log(searchQuery)
+  console.log(params.toString())
+  const searchTerm = params.get('q');
+  let backendQuery = getBackenQuery(params);
+
+  console.log(backendQuery)
     
   useEffect(() => {
     let ignore = false;
     async function fetchProduct() {
       let result = null;
-      const response = await fetch('http://192.168.1.229:3000/products/search?'+newParams.toString());
+      const response = await fetch('http://192.168.1.229:3000/products/search?'+backendQuery);
       const json = await response.json();
       const [item] = json.products;
       const [categories] = json.category;
@@ -54,41 +76,21 @@ export default function App() {
       const [brands] = json.brand;
       [result] = json.results;
       setIsProduct(result)
-
-    
-   
-      let categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
-      let sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
-      let brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
-      let menuData_fetch = categoryData.concat(sizeData,brandData);
-      console.log(categoryData);
-      console.log("This is category");
-      console.log(categories);
-      console.log("This is size");
-      console.log(sizeData);
-     
+      if (result==='ok') {
+        const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"Category" }))
+        const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"Size" }))
+        const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"Brand" }));
+        const menu_Data_fetch = categoryData.concat(sizeData,brandData);
+        console.log(categoryData);
+        console.log("This is category");
+        console.log(categories);
+        console.log("This is size");
+        console.log(sizeData);
+        setMenu_Data(menu_Data_fetch);
+      }
 
       if (!ignore) {
-      
-        setProducts(item);
-        setMenuData(menuData_fetch);
-       
-       
-       
-
-      //   console.log("This is category");
-      // console.log(categories);
-      // console.log("This is size");
-      // console.log(sizes);
-      // console.log("This is brand");
-      // console.log(brands);
-      // let categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
-      // let sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
-      // let brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
-      // const menuData = categoryData.concat(sizeData,brandData);
-      // setMenuData(menuData);
-      // console.log(categoryData);
-      
+      setProducts(item);
       }
     }
 
@@ -106,21 +108,23 @@ export default function App() {
   }
 
   
+  
 
   return (
       <React.Fragment>
         <Header/>
        { console.log("This is paroducts and menu in use effect")}
        { console.log(products)}
-        {console.log(menuData)}
-       { console.log("This is MenuData")}
+        {console.log(menu_Data)}
+       { console.log("This is Menu_Data")}
      
    
         {!(isProduct=="no results")?
         <div>
           {products==null?<Loading/>:(<Container maxWidth = 'lg'>
-            {/* {console.log(menuData)} */}
-              <MenuBar menu={menuData}/>
+            {console.log(menu_Data)}
+              <MenuBar menu = {menu_Data}/>
+              <div></div>
               <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />
                 <Grid container spacing={3} direction = "row" justify = "flex-end">
                     <Grid item>

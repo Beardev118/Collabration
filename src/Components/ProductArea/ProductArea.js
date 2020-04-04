@@ -126,9 +126,9 @@ export default function ProdcutArea(props){
 
 }
 
-ProdcutArea.prototype = {
-    products: PropTypes.array,
-}
+// ProdcutArea.prototype = {
+//     products: PropTypes.array,
+// }
 
 
 
