@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useContext} from "react";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
@@ -16,8 +16,7 @@ import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
-
-
+import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,7 +27,6 @@ const useStyles = makeStyles(theme => ({
   chip: {
     margin: theme.spacing(0.5),
     transitionDuration:'1s',
-    
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -48,34 +46,41 @@ const useStyles = makeStyles(theme => ({
     boxShadow:'none',
     borderRadius:0,
     backgroundColor:'#EAEAEA'
-
-
   },
 }));
-
 
 export default function Menu(props) {
   
   const [menuData, setmenuData] = useState(props.menu)
-  console.log("This is menubar")
-  console.log(menuData);
-
-    useEffect(() => {
-        setmenuData(props.menu);
-    }, [props.menu])
-
-
-  const [category, setCategory] = useState(false);
-  const [size, setSize] = useState(false);
-  const [brand, setBrand] = useState(false);
-  const [sort, setSort] = useState(false);
-  const [sizeCallaps, setSizeCallaps] = useState(false);
-  const [brandCallaps, setBrandCallaps] = useState(false);
-  const [sortCallaps, setSortCallaps] = useState(false);
-  const [categoryCallaps, setCategoryCallaps] = useState(false);
-  const [hrVisible, setHrVisible] = useState(false);
+  const [category, setcategory] = useState(false);
+  const [country, setCountry] = useState("United Kingdom")
+  const [size, setsize] = useState(false);
+  const [brand, setbrand] = useState(false);
+  const [sort, setsort] = useState(false);
+  const [sizeCallaps, setsizeCallaps] = useState(false);
+  const [brandCallaps, setbrandCallaps] = useState(false);
+  const [sortCallaps, setsortCallaps] = useState(false);
+  const [categoryCallaps, setcategoryCallaps] = useState(false);
   const [chipappear, setChipappear] = useState(true);
-  const history = useHistory()
+  const history = useHistory();
+  const { searchData,menu_Data, searchQuery} = useContext(SearchContext);
+
+  // const [searchData_r, setSearchData_r] = searchData;
+  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+  // const [menu_Data_r, setMenu_Data_r] = menu_Data
+
+  
+ const DeleteQueryItem =(searchParams, value) =>{
+   var newSearchParams = new URLSearchParams();
+  for(var pair of searchParams.entries()) {
+    console.log(pair[0]+ ', '+ pair[1]); 
+    if (pair[1]!==value) {
+      newSearchParams.append(pair[0],pair[1]);
+    }
+  }
+
+  return newSearchParams;
+ }
   
   const handleChange = key=>{
     const newmenuData = [...menuData];
@@ -85,20 +90,20 @@ export default function Menu(props) {
     setmenuData(newmenuData);
 
     //Get menu name selected and get number of selected menu and if 0 then set the parent menu to uncheck.
-    var menuName = newmenuData.find(category => category.key === key).menuKind;
-    var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
+    let menuName = newmenuData.find(category => category.key === key).menuKind;
+    let numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length;
     console.log(numSelected);
-    if (menuName === "Category") {
-      numSelected===0?setCategory(false):setCategory(true);
-    } else if(menuName === "Size")
+    if (menuName === "category") {
+      numSelected===0?setcategory(false):setcategory(true);
+    } else if(menuName === "size")
     {
-      numSelected===0?setSize(false):setSize(true);
-    } else if(menuName === "Brand")
+      numSelected===0?setsize(false):setsize(true);
+    } else if(menuName === "brand")
     {
-      numSelected===0?setBrand(false):setBrand(true);
-    } else if(menuName === "Sort")
+      numSelected===0?setbrand(false):setbrand(true);
+    } else if(menuName === "sort")
     {
-      numSelected===0?setSort(false): setSort(true);
+      numSelected===0?setsort(false): setsort(true);
     }
 
     if (category||size||brand||sort) {
@@ -114,15 +119,18 @@ export default function Menu(props) {
 
     const query_key = newmenuData.find(category => category.key === key).menuKind;
     const query_value = newmenuData.find(category => category.key === key).label;
-
+    const key_statue = newmenuData.find(category => category.key === key).selected;
     let search = window.location.search;
     let params = new URLSearchParams(search);
-    params.append(query_key,query_value); 
+    params.set('country',country);
+    key_statue?params.append(query_key,query_value):DeleteQueryItem(params,query_value); 
+    key_statue?setSearchQuery_r(prevQuery=>prevQuery.append(query_key,query_value)):setSearchQuery_r(prevQuery=>DeleteQueryItem(prevQuery,query_value))
     history.push({
       pathname: '/search',
       search: params.toString()
     })
-    window.location.reload(false);
+
+    // window.location.reload(false);
   }
 
   const handleDelete = (key) => () => {
@@ -132,69 +140,81 @@ export default function Menu(props) {
     setmenuData(newmenuData);
     var menuName = newmenuData.find(category => category.key === key).menuKind;
     var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
-    console.log(numSelected);
-    if (menuName === "Category") {
-      numSelected===0?setCategory(false):setCategory(true);
-    } else if(menuName === "Size")
+    if (menuName === "category") {
+      numSelected===0?setcategory(false):setcategory(true);
+    } else if(menuName === "size")
     {
-      numSelected===0?setSize(false):setSize(true);
-    } else if(menuName === "Brand")
+      numSelected===0?setsize(false):setsize(true);
+    } else if(menuName === "brand")
     {
-      numSelected===0?setBrand(false):setBrand(true);
-    } else if(menuName === "Sort")
+      numSelected===0?setbrand(false):setbrand(true);
+    } else if(menuName === "sort")
     {
-      numSelected===0?setSort(false): setSort(true);
+      numSelected===0?setsort(false): setsort(true);
     }
+
+    const query_key = newmenuData.find(category => category.key === key).menuKind;
+    const query_value = newmenuData.find(category => category.key === key).label;
+
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let newParams = new URLSearchParams;
+    newParams = DeleteQueryItem(params,query_value); 
+    setSearchQuery_r(prevQuery=>DeleteQueryItem(prevQuery,query_value))
+
+    history.push({
+      pathname: '/search',
+      search: newParams.toString()
+    })
+
 
   };
 
   const closeColapse = ()=>{
-    setCategoryCallaps(false);
-    setSizeCallaps(false);
-    setBrandCallaps(false);
-    setSortCallaps(false);
+    setcategoryCallaps(false);
+    setsizeCallaps(false);
+    setbrandCallaps(false);
+    setsortCallaps(false);
 }
 
   // const handleChangeMenuCheck = e=>{
-  //   setCategory(!category);
+  //   setcategory(!category);
   //   var newmenuData =  menuData.map(category => category.menuKind === e.target.name?{ ...category, selected: true }:category);
   //   setmenuData(newmenuData);
-
   // }
 
 const matches = useMediaQuery('(min-width:600px)');
   const toggleCollapse = (menuName)=>e=>{
-    console.log(matches);
     if (!matches) {
-      if (menuName === "Category") {
-        setCategoryCallaps(!categoryCallaps);
-        setSizeCallaps(false);
-        setBrandCallaps(false);
-        setSortCallaps(false);
+      if (menuName === "category") {
+        setcategoryCallaps(!categoryCallaps);
+        setsizeCallaps(false);
+        setbrandCallaps(false);
+        setsortCallaps(false);
       }
-      if (menuName === "Size") {
-        setCategoryCallaps(false);
-        setSizeCallaps(!sizeCallaps);
-        setBrandCallaps(false);
-        setSortCallaps(false);
+      if (menuName === "size") {
+        setcategoryCallaps(false);
+        setsizeCallaps(!sizeCallaps);
+        setbrandCallaps(false);
+        setsortCallaps(false);
       }
-      if (menuName === "Brand") {
-        setCategoryCallaps(false);
-        setSizeCallaps(false);
-        setBrandCallaps(!brandCallaps);
-        setSortCallaps(false);
+      if (menuName === "brand") {
+        setcategoryCallaps(false);
+        setsizeCallaps(false);
+        setbrandCallaps(!brandCallaps);
+        setsortCallaps(false);
       }
-      if (menuName === "Sort") {
-        setCategoryCallaps(false);
-        setSizeCallaps(false);
-        setBrandCallaps(false);
-        setSortCallaps(!sortCallaps);
+      if (menuName === "sort") {
+        setcategoryCallaps(false);
+        setsizeCallaps(false);
+        setbrandCallaps(false);
+        setsortCallaps(!sortCallaps);
       }
     }else{
-      setCategoryCallaps(!categoryCallaps);
-      setSizeCallaps(!categoryCallaps);
-      setBrandCallaps(!categoryCallaps);
-      setSortCallaps(!categoryCallaps);
+      setcategoryCallaps(!categoryCallaps);
+      setsizeCallaps(!categoryCallaps);
+      setbrandCallaps(!categoryCallaps);
+      setsortCallaps(!categoryCallaps);
       }
       
 
@@ -205,15 +225,13 @@ const matches = useMediaQuery('(min-width:600px)');
   
   return (
           <div>
-            {console.log(menuData)}
              <ClickAwayListener onClickAway = {closeColapse}>
             <Container maxWidth = "lg" style = {{marginTop:"50px"}}>
               <Paper  className = {classes.menuContainer}>
               
                 <Grid xs = {12} md = {12}>
                 <Paper  className = {classes.menuContainer}>
-                          {/* <Paper className={classes.root}> */}
-                            {
+                            {/* {
                             menuData.map(data => {
                               let icon;
 
@@ -229,7 +247,7 @@ const matches = useMediaQuery('(min-width:600px)');
                                   />
                                 );
                               }
-                            })}
+                            })} */}
                       </Paper>
                     </Grid>
 
@@ -247,16 +265,16 @@ const matches = useMediaQuery('(min-width:600px)');
                     <Grid item >
                       <Checkbox
                       checked ={category}
-                      name = "Category" 
+                      name = "category" 
                       disableRipple
                       disableFocusRipple
                       />
-                        <Button onClick = {toggleCollapse('Category')}>Category</Button>
+                        <Button onClick = {toggleCollapse('category')}>category</Button>
                         <IconButton
                           className={clsx(classes.expand, {
                             [classes.expandOpen]: categoryCallaps,
                           })}
-                          onClick={toggleCollapse('Category')}
+                          onClick={toggleCollapse('category')}
                           aria-categoryCallaps={categoryCallaps}
                           aria-label="show more"
                           classes={{
@@ -271,7 +289,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Category').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'category').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -298,16 +316,16 @@ const matches = useMediaQuery('(min-width:600px)');
                     <Grid item >
                       <Checkbox
                       checked ={size}
-                      name = "Size" 
+                      name = "size" 
                       disableRipple
                       disableFocusRipple
                       />
-                        <Button onClick = {toggleCollapse('Size')}>Size</Button>
+                        <Button onClick = {toggleCollapse('size')}>size</Button>
                         <IconButton
                           className={clsx(classes.expand, {
                             [classes.expandOpen]: sizeCallaps,
                           })}
-                          onClick={toggleCollapse('Size')}
+                          onClick={toggleCollapse('size')}
                           aria-sizeCallaps={sizeCallaps}
                           aria-label="show more"
                           classes={{
@@ -322,7 +340,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Size').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'size').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -350,16 +368,16 @@ const matches = useMediaQuery('(min-width:600px)');
                     <Grid item >
                       <Checkbox
                       checked ={brand}
-                      name = "Brand" 
+                      name = "brand" 
                       disableRipple
                       disableFocusRipple
                       />
-                          <Button onClick = {toggleCollapse('Brand')}>Brand</Button>
+                          <Button onClick = {toggleCollapse('brand')}>brand</Button>
                           <IconButton
                             className={clsx(classes.expand, {
                               [classes.expandOpen]: brandCallaps,
                             })}
-                            onClick={toggleCollapse('Brand')}
+                            onClick={toggleCollapse('brand')}
                             aria-brandCallaps={brandCallaps}
                             aria-label="show more"
                             classes={{
@@ -372,7 +390,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Brand').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'brand').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={
@@ -399,16 +417,16 @@ const matches = useMediaQuery('(min-width:600px)');
                     <Grid item >
                       <Checkbox
                       checked ={sort}
-                      name = "Sort" 
+                      name = "sort" 
                       disableRipple
                       disableFocusRipple
                       />
-                        <Button onClick = {toggleCollapse('Sort')}>Sort By</Button>
+                        <Button onClick = {toggleCollapse('sort')}>sort By</Button>
                         <IconButton
                           className={clsx(classes.expand, {
                             [classes.expandOpen]: sortCallaps,
                           })}
-                          onClick={toggleCollapse('Sort')}
+                          onClick={toggleCollapse('sort')}
                           aria-sortCallaps={sortCallaps}
                           aria-label="show more"
                           classes={{
@@ -423,7 +441,7 @@ const matches = useMediaQuery('(min-width:600px)');
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
                               
-                              menuData.filter((item) => item.menuKind === 'Sort').map((item,index)=>(
+                              menuData.filter((item) => item.menuKind === 'sort').map((item,index)=>(
                                 <Grid xs = {12}>
                                   <FormControlLabel
                                     control={

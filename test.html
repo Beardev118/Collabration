@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <script>
+  
+  <script>
+    var str = "search_q=Frost+Grey&country=United%20Kingdom&category=Accessories&size=UK%203&brand=Earth%20Spirit&category=Accsssories&size=UK%2088";
+    var pos = str.search("locate");
 
-        let new_url = new URL('http://localhost:3000/search?q=white&country=United+KingdomeCategory=Bags&Category=Homeware&Size=UK+12+%2F+EU+46-47+%2F+US+13&Size=UK+8+%2F+EU+42+%2F+US+9&Brand=Polar+Skate+Co&Brand=Earth+Spirit&Size=UK+6+%2F+EU+39+%2F+US+7');
-        let cus_params = new URLSearchParams(new_url.search.slice(1));
+    // Create a test URLSearchParams object
+      var searchParams = new URLSearchParams("search_q=Frost+Grey&country=United%20Kingdom&category=Accessories&size=UK%203&brand=Earth%20Spirit&category=Accsssories&size=UK%2088");
+      var newSearchParams = new URLSearchParams();
+      var term = 'UK 3';
+      // Log the values
+     var res =  searchParams.forEach(function(value, key) { 
+        console.log(value, key);
+      });
 
-        var country = cus_params.get('Country')
-        var arr_category = cus_params.getAll('Category')
-        var arr_brand = cus_params.getAll('Brand')
-        var arr_size =  cus_params.getAll('Size')
-        
-        var  q_size = 'size=';
-        arr_size.forEach(element => {
-            q_size =q_size+element+'*';
-        });
-        
-        var q_category = 'category=';
-        arr_category.forEach(element => {
-            q_category =q_category+element+'*';
-        });
-        
-        var q_brand = 'brand=';
-        arr_brand.forEach(element => {
-            q_brand =q_brand+element+'*';
-        });
-        
-        var all_search_qurey = "country="+country+"&"+q_category.slice(0,-1)+"&"+q_size.slice(0,-1)+"&"+q_brand.slice(0,-1);
+      console.log(res);
 
-        let backendQuery = new URLSearchParams(all_search_qurey);
-        console.log(all_search_qurey);
-        console.log(backendQuery.toString());
+      var review = ['a', 'a', 'b', 'c', 'b', 'a', 'a'];
 
+      searchParams.forEach(function(value, key) {
+        if (value === term) {
+          console.log(value);
+          // searchParams.splice(key, 1);
+        }
+      });
+
+      for(var pair of searchParams.entries()) {
+          console.log(pair[0]+ ', '+ pair[1]); 
+          if (pair[1]!==term) {
+            newSearchParams.append(pair[0],pair[1]);
+          }
+        }
+      console.log('This is Deleted new search')  
+      console.log(newSearchParams.toString());
+      console.log(searchParams.toString());
+
+      var backendQuery = new URLSearchParams();
+      for(var key of searchParams.keys()) { 
+        console.log(key);
+        backendQuery.set(key,searchParams.getAll(key).join('*'));
+        console.log(key); 
+      }
+
+      console.log(backendQuery.toString());
     </script>
 </body>
 </html>

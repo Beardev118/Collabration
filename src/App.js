@@ -31,7 +31,7 @@ export default function ProminentAppBar() {
 
   return (
      <div className = {classes.pageContainer}>
-       {/* <SearchProvider> */}
+       <SearchProvider>
 
         <Router>
             <Switch>
@@ -50,7 +50,7 @@ export default function ProminentAppBar() {
                   <Product path="/register" />
                   <About path = "/about"/> */} 
         </Router>
-       {/* </SearchProvider> */}
+       </SearchProvider>
 
      </div>
   );

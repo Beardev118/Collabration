@@ -59,7 +59,7 @@ export default function ExpandSearch() {
       >
         <Fade in={open}>
       
-          <SearchBar className = "SearchBar"/>
+          <SearchBar className = "SearchBar" Close = {handleClose}/>
         </Fade>
       </Modal>
     </div>
