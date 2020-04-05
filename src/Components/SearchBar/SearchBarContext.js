@@ -5,11 +5,11 @@ export const SearchContext = createContext();
 
 export const SearchProvider = props=>{
   // const init = new URLSearchParams('country=United%20Kingdom');
-  const init = new URLSearchParams('country=United%20Kingdom');
+  const init = new URLSearchParams();
 
     const [searchQuery,setSearchQuery] = useState(init);
     const [searchData, setSearchData] = useState(null);
-    const [menu_Data, setMenuData] = useState(null);
+    const [menu_Data, setMenuData] = useState(null);  
 
 
     // const  GetBackenQuery = (searchParams)=>{
@@ -41,7 +41,7 @@ export const SearchProvider = props=>{
         let ignore = false;
         let result = null;
         console.log('This is search Quesry on useEffect')
-        console.log(searchQuery);
+        console.log(searchQuery.toString());
 
         console.log('This is the GetBackendQuery function');  
         console.log(searchQuery);

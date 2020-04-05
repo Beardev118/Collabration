@@ -62,16 +62,16 @@ export default function SerchBar({Close}){
     }
   }
   
-  var newSearchQuery = new URLSearchParams();
-  newSearchQuery = searchQuery_r;
-  newSearchQuery.set('search_q',searchTerm);
+  
 
   const hanldEnterDown = event=>{
     if (window.location.pathname==="/search") {
 
       if (event.key === "Enter") {
         event.preventDefault();
-       
+        var newSearchQuery = new URLSearchParams();
+        newSearchQuery = searchQuery_r;
+        newSearchQuery.set('search_q',searchTerm);
        history.push({
        pathname: '/search',
           search: searchQuery_r.toString()
@@ -84,6 +84,9 @@ export default function SerchBar({Close}){
     }else{
     
       if (event.key === "Enter") {
+        var newSearchQuery = new URLSearchParams();
+        newSearchQuery = searchQuery_r;
+        newSearchQuery.set('search_q',searchTerm);
         history.push({
             pathname: '/search',
             search: searchQuery_r.toString()

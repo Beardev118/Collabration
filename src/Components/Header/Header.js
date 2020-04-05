@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import {
   BrowserRouter as Router,
   Link
@@ -14,9 +14,7 @@ import Hidden from '@material-ui/core/Hidden';
 import ExpandSearch from '../ExpandSearch/ExpandSearch';
 import Drawer from '../Drawer/Drawer';
 import Logo from '../../Components/Logo/Logo'
-
-
-
+import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
 
 const useStyles = makeStyles(theme => ({
   rightMenu: {
@@ -36,9 +34,6 @@ const useStyles = makeStyles(theme => ({
   appbar:{
     boxShadow:'none',
   },
-
- 
-
 
   searchiconbut:{
 
@@ -115,6 +110,67 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProminentAppBar() {
   const classes = useStyles();
+  const [country, setCountry] = useState("United Kingdom");
+  const { searchData,menu_Data, searchQuery} = useContext(SearchContext);
+
+  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+
+ 
+  
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedIndex(index);
+    setAnchorEl(null);
+    var newSearchQuery = new URLSearchParams();
+    newSearchQuery.set('country',country);
+    setSearchQuery_r(newSearchQuery);
+  };
+
+  const StyledMenu = withStyles({
+    paper: {
+      border: '1px solid #d3d4d5',
+    },
+  })(props => (
+    <Menu
+      elevation={0}
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      {...props}
+    />
+  ));
+  
+  const options = [
+      'Select Country',
+      'United Kingdom',
+      'Czech Republic',
+      'Greece',
+      'Hungary',
+      'Romania',
+      'Austria',
+      'Ireland',
+      'Belgium',
+      'Spain',
+      'Italy',
+      'France',
+      'Netherlands',
+      'Germany',
+  ];
+
 
   return (
     <div style = {{width:'100%'}}>
@@ -129,7 +185,31 @@ export default function ProminentAppBar() {
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <CountrySelect/>
+                <ClickAwayListener onClickAway = {()=>{setAnchorEl(null);}}>
+    
+                      <div  >
+                        <p> </p>
+                            <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {options[selectedIndex] }</Button>
+                            <StyledMenu
+                              id="lock-menu"
+                              anchorEl = {anchorEl}
+                              keepMounted
+                              open={Boolean(anchorEl)}
+                              // onClose={handleClose}
+                            >
+                              {options.map((option, index) => (
+                                <MenuItem
+                                  key={option}
+                                  disabled={index === 0}
+                                  selected={index === selectedIndex}
+                                  onClick={event => handleMenuItemClick(event, index)}
+                                >
+                                  {option}
+                                </MenuItem>
+                              ))}
+                            </StyledMenu>
+                          </div>
+                    </ClickAwayListener>
                 </Grid>
                 <Grid item xs={5}>
                 </Grid>
@@ -189,93 +269,5 @@ export default function ProminentAppBar() {
     </div>
      
      
-  );
-}
-
-const StyledMenu = withStyles({
-  paper: {
-    border: '1px solid #d3d4d5',
-  },
-})(props => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    {...props}
-  />
-));
-
-const options = [
-    'Select Country',
-    'United Kingdom',
-    'Czech Republic',
-    'Greece',
-    'Hungary',
-    'Romania',
-    'Austria',
-    'Ireland',
-    'Belgium',
-    'Spain',
-    'Italy',
-    'France',
-    'Netherlands',
-    'Germany',
-];
-
- function CountrySelect() {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-
-  };
-
-  const handleMenuItemClick = (event, index) => {
-    setAnchorEl(event.currentTarget);
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
-  
-
- 
-
-  return (
-    
-    <ClickAwayListener onClickAway = {()=>{setAnchorEl(null);}}>
-    
-      <div  >
-        <p> </p>
-            <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {options[selectedIndex] }</Button>
-            <StyledMenu
-              id="lock-menu"
-              anchorEl = {anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              // onClose={handleClose}
-            >
-              {options.map((option, index) => (
-                <MenuItem
-                  key={option}
-                  disabled={index === 0}
-                  selected={index === selectedIndex}
-                  onClick={event => handleMenuItemClick(event, index)}
-                >
-                  {option}
-                </MenuItem>
-              ))}
-            </StyledMenu>
-          </div>
-    </ClickAwayListener>
-    
   );
 }

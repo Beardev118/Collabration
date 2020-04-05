@@ -53,7 +53,6 @@ export default function Menu(props) {
   
   const [menuData, setmenuData] = useState(props.menu)
   const [category, setcategory] = useState(false);
-  const [country, setCountry] = useState("United Kingdom")
   const [size, setsize] = useState(false);
   const [brand, setbrand] = useState(false);
   const [sort, setsort] = useState(false);
@@ -67,8 +66,10 @@ export default function Menu(props) {
 
   // const [searchData_r, setSearchData_r] = searchData;
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
-  // const [menu_Data_r, setMenu_Data_r] = menu_Data
 
+  var newSearchQuery = new URLSearchParams();
+  newSearchQuery.set('country',"United Kingdom");
+  setSearchQuery_r(newSearchQuery);
   
  const DeleteQueryItem =(searchParams, value) =>{
    var newSearchParams = new URLSearchParams();
@@ -122,7 +123,6 @@ export default function Menu(props) {
     const key_statue = newmenuData.find(category => category.key === key).selected;
     let search = window.location.search;
     let params = new URLSearchParams(search);
-    params.set('country',country);
     key_statue?params.append(query_key,query_value):DeleteQueryItem(params,query_value); 
     key_statue?setSearchQuery_r(prevQuery=>prevQuery.append(query_key,query_value)):setSearchQuery_r(prevQuery=>DeleteQueryItem(prevQuery,query_value))
     history.push({
