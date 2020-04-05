@@ -31,7 +31,12 @@ export default function App() {
   return (
       <React.Fragment>
         <Header/>
-        {!(searchData.result=="no results")?
+        {console.log('This is searchQeury on the ProductPage ')}
+        {console.log(searchQuery_r)};
+
+        {console.log(searchQuery_r.toString())}
+
+        {/* {!(searchData.result=="no results")? */}
         <div>
           {searchData_r==null?<Loading/>:(<Container maxWidth = 'lg'>
               {/* <MenuBar menu = {menu_Data_r.menu_Data}/> */}

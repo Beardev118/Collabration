@@ -95,10 +95,11 @@ export const SearchProvider = props=>{
         return () => { ignore = true };
       }, [searchQuery]);
 
-      console.log('search query');
+      console.log('****search query On Context');
           // console.log(searchData);  
           // console..products
       console.log(searchQuery);
+      console.log(searchQuery.toString());  
 
 
     return(
