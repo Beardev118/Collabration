@@ -72,10 +72,10 @@ export default function SerchBar({Close}){
         var newSearchQuery = new URLSearchParams();
         newSearchQuery = searchQuery_r;
         newSearchQuery.set('search_q',searchTerm);
-       history.push({
-       pathname: '/search',
-          search: searchQuery_r.toString()
-        })
+        history.push({
+        pathname: '/search',
+            search: searchQuery_r.toString()
+          })
        setSearchQuery_r(newSearchQuery);
         Close();
         

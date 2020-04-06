@@ -10,96 +10,78 @@ import Loading from '../../Components/Loading/Loading'
 import {useLocation} from "react-router-dom"
 import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
 
+const useFetch = (url)=>{
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData (){
+      const response = await fetch(url);
+      const data = await response.json();
+      const [item] = data.products;
+
+      console.log('This is Fetch');
+      if (!ignore) {
+        setData(item);
+        setLoading(false);
+      }
+    }
+    fetchData();
+    return () => { ignore = true };
+  }, [url]);
+
+  return {data,loading};
+}
+
+const BackendQuery = (queryParam)=>{
+  var keys = ['search_q','country','category','size','brand'];
+  var backendQuery = new URLSearchParams();
+
+  for(var key of keys) { 
+    if (queryParam.getAll(key).length===0) {
+      backendQuery.set(key,'null');
+    }else{
+      backendQuery.set(key,queryParam.getAll(key).join('*'));
+    }
+  }
+  return backendQuery.toString();
+}
+
 export default function App() {
 
   // const [products, setProducts] = useState(null);
   const {searchQuery} = useContext(SearchContext);
 
-  // const [menu_Data, setMenu_Data] = useState({}); 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(10);
-
-  // const [searchData_r, setSearchData_r] = searchData;
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
   const [searchData, setSearchData] = useState(null);
   const [menu_Data, setMenuData] = useState(null);  
 
+  console.log('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
+  const{data, loading} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
+     
+  console.log('Thsi is test')
+  console.log(data);
 
-  useEffect(() => {
-    let ignore = false;
-    let result = null;
-    console.log('This is search Quesry on useEffect')
-    console.log(searchQuery_r.toString());
-
-    console.log('This is the GetBackendQuery function');  
-    console.log(searchQuery_r);
-    console.log(searchQuery_r.toString());
-      var keys = ['search_q','country','category','size','brand'];
-
-
-      var backendQuery = new URLSearchParams();
-
-      for(var key of keys) { 
-        if (searchQuery_r.getAll(key).length===0) {
-          backendQuery.set(key,'null');
-        }else{
-          backendQuery.set(key,searchQuery_r.getAll(key).join('*'));
-        }
-      }
-    
-    async function fetchProduct() { 
-      const response = await fetch('http://3.10.195.126:3000/products/search?'+backendQuery);
-      const json = await response.json();
-      const [item] = json.products;
-      const [categories] = json.category;
-      const [sizes] = json.size;
-      const [brands] = json.brand;
-      [result] = json.results;
-      let menu_Data_fetch = null;
-      if (result==='ok') {
-        const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
-        const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
-        const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
-        menu_Data_fetch = categoryData.concat(sizeData,brandData);
-        setMenuData({menu_Data:menu_Data_fetch});
-      }
-      console.log('This is menu data')
-      console.log(menu_Data_fetch);
-      if (!ignore) {
-          setSearchData(
-          {
-            products:item,
-            result:result
-          }
-        )
-        console.log('This is prduct Data')
-      }
-    }
-
-    fetchProduct();
-    return () => { ignore = true };
-  }, [searchQuery_r]);
-
-  const handleChange = (event, value) => {
+    const handleChange = (event, value) => {
     setCurrentPage(value);
   };  
-
-
 
   return (
       <React.Fragment>
         <Header/>
         {console.log('This is searchQeury on the ProductPage ')}
-        {console.log(searchQuery_r)};
         {console.log(searchQuery_r.toString())};
-
 
         {/* {!(searchData.result=="no results")? */}
         <div>
-          {searchData==(null||undefined)?<Loading/>:(<Container maxWidth = 'lg'>
+          {loading?<Loading/>:(<Container maxWidth = 'lg'>
+
               {/* <MenuBar menu = {menu_Data.menu_Data}/> */}
               <div></div>
-              {/* <ProdcutArea products = {searchData.products.slice((currentPage-1)*12,currentPage*12)}   /> */}
+              <ProdcutArea products = {data.slice((currentPage-1)*12,currentPage*12)}   />
                 <Grid container spacing={3} direction = "row" justify = "flex-end">
                     <Grid item>
                     <Pagination count={totalPage} shape="rounded" page = {currentPage} onChange = {handleChange} />

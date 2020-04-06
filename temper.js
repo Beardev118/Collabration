@@ -30,3 +30,29 @@ export default function UserProvider({ children }) {
   );
 }
 UserProvider.context = context;
+
+
+const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
+const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
+const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
+menu_Data_fetch = categoryData.concat(sizeData,brandData);
+setMenuData({menu_Data:menu_Data_fetch});
+
+
+useEffect(() => {
+  let ignore = false;
+
+  async function fetchProduct() {
+    let result = null;
+    const response = await fetch('http://192.168.1.229:3000/products/search?'+backendQuery);
+    
+    
+
+    if (!ignore) {
+    setProducts(item);
+    }
+  }
+
+  fetchProduct();
+  return () => { ignore = true };
+}, []);
