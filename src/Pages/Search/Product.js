@@ -78,11 +78,9 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(10);
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
-  const [searchData, setSearchData] = useState(null);
-  const [menu_Data, setMenuData] = useState(null);  
 
-  console.log('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
-  const{products,menuData, loading} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
+  console.log('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
+  const{products,menuData, loading} = useFetch('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
      
   console.log('Thsi is test')
   console.log(menuData);

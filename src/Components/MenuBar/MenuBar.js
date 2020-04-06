@@ -62,7 +62,7 @@ export default function Menu(props) {
   const [categoryCallaps, setcategoryCallaps] = useState(false);
   const [chipappear, setChipappear] = useState(true);
   const history = useHistory();
-  const { searchData,menu_Data, searchQuery} = useContext(SearchContext);
+  const {searchQuery} = useContext(SearchContext);
 
   // const [searchData_r, setSearchData_r] = searchData;
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
@@ -76,8 +76,12 @@ export default function Menu(props) {
       newSearchParams.append(pair[0],pair[1]);
     }
   }
+  setSearchQuery_r(newSearchParams);
 
-  return newSearchParams;
+  history.push({
+    pathname: '/search',
+        search: searchQuery_r.toString()
+      });
  }
   
   const handleChange = key=>{
@@ -150,20 +154,9 @@ export default function Menu(props) {
       numSelected===0?setsort(false): setsort(true);
     }
 
-    const query_key = newmenuData.find(category => category.key === key).menuKind;
     const query_value = newmenuData.find(category => category.key === key).label;
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let newParams = new URLSearchParams;
-    newParams = DeleteQueryItem(params,query_value); 
-    setSearchQuery_r(prevQuery=>DeleteQueryItem(prevQuery,query_value))
-
-    history.push({
-      pathname: '/search',
-      search: newParams.toString()
-    })
-
+    DeleteQueryItem(searchQuery_r,query_value); 
 
   };
 
