@@ -110,7 +110,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProminentAppBar() {
   const classes = useStyles();
-  const [country, setCountry] = useState("United Kingdom");
   const { searchData,menu_Data, searchQuery} = useContext(SearchContext);
 
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
@@ -129,9 +128,7 @@ export default function ProminentAppBar() {
     setAnchorEl(event.currentTarget);
     setSelectedIndex(index);
     setAnchorEl(null);
-    var newSearchQuery = new URLSearchParams();
-    newSearchQuery.set('country',country);
-    setSearchQuery_r(newSearchQuery);
+    searchQuery_r.set('country',country[selectedIndex]);
   };
 
   const StyledMenu = withStyles({
@@ -154,7 +151,7 @@ export default function ProminentAppBar() {
     />
   ));
   
-  const options = [
+  const country = [
       'Select Country',
       'United Kingdom',
       'Czech Republic',
@@ -189,7 +186,7 @@ export default function ProminentAppBar() {
     
                       <div  >
                         <p> </p>
-                            <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {options[selectedIndex] }</Button>
+                            <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {country[selectedIndex] }</Button>
                             <StyledMenu
                               id="lock-menu"
                               anchorEl = {anchorEl}
@@ -197,7 +194,7 @@ export default function ProminentAppBar() {
                               open={Boolean(anchorEl)}
                               // onClose={handleClose}
                             >
-                              {options.map((option, index) => (
+                              {country.map((option, index) => (
                                 <MenuItem
                                   key={option}
                                   disabled={index === 0}

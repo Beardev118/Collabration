@@ -11,27 +11,49 @@ import {useLocation} from "react-router-dom"
 import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
 
 const useFetch = (url)=>{
-  const [data, setData] = useState(null);
+  const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [menuData, setMenuData] = useState(null);
   
   useEffect(() => {
     let ignore = false;
     async function fetchData (){
       const response = await fetch(url);
       const data = await response.json();
-      const [item] = data.products;
+      const [products] = data.products;
+      const [categories] = data.category;
+      const [sizes] = data.size;
+      const [brands] = data.brand;
+      const [result] = data.results;
+
+      console.log('Thsi is resullt'+result);
 
       console.log('This is Fetch');
       if (!ignore) {
-        setData(item);
-        setLoading(false);
+
+        if (result =='ok') {
+          const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
+          const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
+          const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
+          const menu_Data_fetch = categoryData.concat(sizeData,brandData);
+          setMenuData(menu_Data_fetch);
+          setProducts(products);
+          setLoading(false);
+
+        }else{
+          setMenuData(null);
+          setProducts(null);
+        }
+        
+
+       
       }
     }
     fetchData();
     return () => { ignore = true };
   }, [url]);
 
-  return {data,loading};
+  return {products,menuData,loading};
 }
 
 const BackendQuery = (queryParam)=>{
@@ -60,10 +82,10 @@ export default function App() {
   const [menu_Data, setMenuData] = useState(null);  
 
   console.log('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
-  const{data, loading} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
+  const{products,menuData, loading} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
      
   console.log('Thsi is test')
-  console.log(data);
+  console.log(menuData);
 
     const handleChange = (event, value) => {
     setCurrentPage(value);
@@ -79,9 +101,9 @@ export default function App() {
         <div>
           {loading?<Loading/>:(<Container maxWidth = 'lg'>
 
-              {/* <MenuBar menu = {menu_Data.menu_Data}/> */}
+              <MenuBar menu = {menuData}/>
               <div></div>
-              <ProdcutArea products = {data.slice((currentPage-1)*12,currentPage*12)}   />
+              <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />
                 <Grid container spacing={3} direction = "row" justify = "flex-end">
                     <Grid item>
                     <Pagination count={totalPage} shape="rounded" page = {currentPage} onChange = {handleChange} />

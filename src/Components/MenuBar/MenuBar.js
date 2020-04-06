@@ -67,9 +67,6 @@ export default function Menu(props) {
   // const [searchData_r, setSearchData_r] = searchData;
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
-  var newSearchQuery = new URLSearchParams();
-  newSearchQuery.set('country',"United Kingdom");
-  setSearchQuery_r(newSearchQuery);
   
  const DeleteQueryItem =(searchParams, value) =>{
    var newSearchParams = new URLSearchParams();
@@ -124,7 +121,7 @@ export default function Menu(props) {
     let search = window.location.search;
     let params = new URLSearchParams(search);
     key_statue?params.append(query_key,query_value):DeleteQueryItem(params,query_value); 
-    key_statue?setSearchQuery_r(prevQuery=>prevQuery.append(query_key,query_value)):setSearchQuery_r(prevQuery=>DeleteQueryItem(prevQuery,query_value))
+    key_statue?searchQuery_r.append(query_key,query_value):DeleteQueryItem(searchQuery_r,query_value)
     history.push({
       pathname: '/search',
       search: params.toString()
