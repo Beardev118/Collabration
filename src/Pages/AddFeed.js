@@ -66,6 +66,21 @@ export default function AddFeed() {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [termsOfServiceError, setTermsOfServiceError] = useState(false);
+  const [businessName, setBusinessName] = useState(null);
+  const [websiteUrl, setWebsiteUrl] = useState(null);
+  const [firsName, setFirsName] = useState(null);
+  const [secondName, setSecondName] = useState(null);
+  const [emailAddresss, setEmailAddresss] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [feedMethod, setFeedMethod] = useState(null);
+  const [feedURL, setFeedURL] = useState(null);
+  const [feedCountry, setfeedCountry] = useState(null);
+  const [feedInfo, setFeedInfo] = useState([]);
+
+  const AddFeedPanel = ()=>{
+    // setFeedInfo([...setFeedInfo])
+  }
 
   return (
     <div>
@@ -99,7 +114,6 @@ export default function AddFeed() {
                       autoFocus
                       autoComplete="off"
                       type="name"
-                      
                       variant="outlined"
                     />
                   </Grid>
@@ -211,30 +225,52 @@ export default function AddFeed() {
                     </Grid>
                   
                     <Container maxWidth = {"sm"} >
-                      <Paper className = {classes.paper} >
+                    <Paper className = {classes.paper} >
+                            <Grid container xs = {12}  justify = "center">
+                                <Grid item xs = {10}>
+                                        Feed 1
+                                </Grid>
+                                <Grid item xs = {2}>
+                                  <IconButton aria-label="delete">
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </Grid>
+                                <Grid xs = {6}>
+                                  <TextField id="feed-url" required label="Feed URL" />
+                                  </Grid>
+                                  <Grid>
+                                  <TextField id="contry" required label="Contry" />
+                                </Grid>
+                              </Grid>
+                         </Paper>
+                      {
+                        feedInfo.map((item,index)=>(
+                          <Paper className = {classes.paper} >
+                            <Grid container xs = {12}  justify = "center">
+                                <Grid item xs = {10}>
+                                        Feed 1
+                                </Grid>
+                                <Grid item xs = {2}>
+                                  <IconButton aria-label="delete">
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </Grid>
+                                <Grid xs = {6}>
+                                  <TextField id="feed-url" required label="Feed URL" />
+                                  </Grid>
+                                  <Grid>
+                                  <TextField id="contry" required label="Contry" />
+                                </Grid>
+                              </Grid>
+                         </Paper>
 
-                        <Grid container xs = {12}  justify = "center">
-                            <Grid item xs = {10}>
-                                Feed 1
-                            </Grid>
-                            <Grid item xs = {2}>
-                            <IconButton aria-label="delete">
-                              <DeleteIcon />
-                            </IconButton>
-                            </Grid>
-                            <Grid xs = {6}>
-                            <TextField id="feed-url" required label="Feed URL" />
-                            </Grid>
-                            <Grid>
-                            <TextField id="contry" required label="Contry" />
-                            </Grid>
-                        </Grid>
-                      </Paper>
+                        ))
+                      }
                     </Container>
                     <Container maxWidth = {"sm"} >
                     <Grid xs = {8}>
-                      <IconButton aria-label="add">
-                      <AddCircle/>
+                      <IconButton aria-label="add" onClick = {AddFeedPanel}>
+                         <AddCircle/>
                       </IconButton>
                     </Grid>
                     </Container>

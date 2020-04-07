@@ -30,20 +30,16 @@ const useStyles = makeStyles((theme: theme) =>
   }),
 );
 
+
+
 export default function SerchBar({Close}){
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocussed, setFocussed] = useState(false);
   const history = useHistory()
-    const {searchQuery} = useContext(SearchContext);
-    const [searchQuery_r, setSearchQuery_r] = searchQuery;
-
-  const onSearch = (event) => {
-    setFocussed(true);
-    if (event.key === "Enter") {
-      setFocussed(false);
-    }
-  }
+  const {searchQuery} = useContext(SearchContext);
+  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+  
 
   const hanldEnterDown = event=>{
       if (event.key === "Enter") {
@@ -61,7 +57,19 @@ export default function SerchBar({Close}){
           })
        setSearchQuery_r(newSearchQuery);
       
-      }
+    }else{
+    
+      if (event.key === "Enter") {
+        var newSearchQuery = new URLSearchParams();
+        // newSearchQuery = searchQuery_r;
+        newSearchQuery.set('search_q',searchTerm);
+        history.push({
+            pathname: '/search',
+            search: searchQuery_r.toString()
+          })
+          setSearchQuery_r(newSearchQuery);
+       } 
+    }
   }
 
   return(

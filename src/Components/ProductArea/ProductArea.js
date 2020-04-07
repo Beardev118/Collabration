@@ -12,7 +12,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box'
 import EarthIcon from '@material-ui/icons/LanguageOutlined';
 import Paper from '@material-ui/core/Paper'
 import Link from '@material-ui/core/Link'
@@ -32,7 +31,6 @@ const useStyles = makeStyles(theme => ({
         width:'100%',
         margin:'auto',
         minHeight:'80vh',
-       
     },
     
     root: {
@@ -86,9 +84,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent:'center',
         padding:10,
         marginTop:20
-        // textAlign:'center',
-        
-
       },
       cardMediaDrawer:{
         paddingTop:'56.25%',
@@ -102,15 +97,10 @@ const useStyles = makeStyles(theme => ({
 export default function ProdcutArea(props){
       const classes = useStyles();
       const {products} = props;
-     
-     
       return (
         <div className={classes.productArea}>
-          
           <Container className={classes.cardGrid} maxWidth="xl">
-
                 <Grid container spacing={4}>
-                 
                   {products.map(product => (
                     <Grid item  xs={12} sm={6} md={3}>
                       <ProductCard product ={product} />
@@ -118,7 +108,6 @@ export default function ProdcutArea(props){
                    ))} 
                 </Grid>
               </Container>
-          
         </div>
       );
 
@@ -145,7 +134,6 @@ const useFetchSkus = (productID) => {
         setLoading(false)
         if (json.results) {
           setSkus(json.results)
-        
         } else {
           setSkus([])
         }
@@ -154,10 +142,6 @@ const useFetchSkus = (productID) => {
         setError(err)
         // setLoading(false)
       })
-
-  // This is important. We pass the new search parameter into
-  // the empty array we had before. This means, the effect
-  // will run again if this parameter changes
   }, [productID])
 
   return { skus, loading, error }
@@ -198,14 +182,12 @@ const useFetchSkus = (productID) => {
               </CardContent>
             </CardActionArea >
             
-            
               <Typography variant="body1" align = {"left"} className = {classes.priceInfo}> 
                 {product.product_currency}{product.product_price}
               </Typography>
               <Typography variant="body2" align = {"left"} className = {classes.urlInfo}>
               {new URL(product.product_url).hostname}
               </Typography>
-          
           </Card>
 
           <Hidden mdDown>
@@ -215,8 +197,6 @@ const useFetchSkus = (productID) => {
                   onKeyDown={toggleDrawer(false)}
                   style = {{width:"500px"}}
                   >
-                 
-
                   <Card className={classes.root}>
                   <IconButton onClick = {toggleDrawer(false)} style = {{zIndex:2}}>
                     <CloseIcon/>

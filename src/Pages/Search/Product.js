@@ -89,9 +89,16 @@ export default function App() {
 
   if (error) return <div>{error}</div>
 
+  const{products,menuData, loading,returnVal} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
   const handleChange = (event, value) => {
     setCurrentPage(value);
-  };  
+  };
+
+  console.log('****_________*******This is products on product page.')
+  console.log(products);
+  console.log(searchQuery_r.toString());
+  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+
 
   return (
       <React.Fragment>
@@ -105,7 +112,7 @@ export default function App() {
          {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}/>}
             <Grid container spacing={3} direction = "row" justify = "flex-end">
                 <Grid item>
-                <Pagination count={Math.ceil(products.length/12)} shape="rounded" page = {currentPage} onChange = {handleChange} />
+               {products&&<Pagination count={Math.ceil(products.length/12)} shape="rounded" page = {currentPage} onChange = {handleChange} />}
                 </Grid>
             </Grid>
           <Footer/>
