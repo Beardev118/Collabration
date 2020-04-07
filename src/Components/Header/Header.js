@@ -15,6 +15,8 @@ import ExpandSearch from '../ExpandSearch/ExpandSearch';
 import Drawer from '../Drawer/Drawer';
 import Logo from '../../Components/Logo/Logo'
 import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
+import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   rightMenu: {
@@ -110,25 +112,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProminentAppBar() {
   const classes = useStyles();
-  const { searchData,menu_Data, searchQuery} = useContext(SearchContext);
-
-  const [searchQuery_r, setSearchQuery_r] = searchQuery;
-
- 
-  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-
+  const {searchQuery} = useContext(SearchContext);
+  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+  const history = useHistory()
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
-
   };
 
   const handleMenuItemClick = (event, index) => {
     setAnchorEl(event.currentTarget);
     setSelectedIndex(index);
     setAnchorEl(null);
+    const param =  new URLSearchParams
     searchQuery_r.set('country',country[selectedIndex]);
+
+    history.push({
+      pathname: '/search',
+          search: searchQuery_r.toString()
+        })
   };
 
   const StyledMenu = withStyles({

@@ -56,3 +56,49 @@ useEffect(() => {
   fetchProduct();
   return () => { ignore = true };
 }, []);
+
+
+const useFetch = (url)=>{
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [menuData, setMenuData] = useState(null);
+  const [returnVal, setReturnVal] = useState(null);
+  
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData (){
+      const response = await fetch(url);
+      const data = await response.json();
+      const [products] = data.products;
+      const [categories] = data.category;
+      const [sizes] = data.size;
+      const [brands] = data.brand;
+      const [result] = data.results;
+
+      if (!ignore) {
+
+        if (result =='ok') {
+          const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
+          const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
+          const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
+          const menu_Data_fetch = categoryData.concat(sizeData,brandData);
+          setMenuData(menu_Data_fetch);
+          setProducts(products);
+          setLoading(false);
+          setReturnVal(result);
+
+        }else{
+          setMenuData(null);
+          setProducts(null);
+          setLoading(false);
+          setReturnVal(result);
+        }
+       
+      }
+    }
+    fetchData();
+    return () => { ignore = true };
+  }, [url]);
+
+  return {products,menuData,loading,returnVal};
+}

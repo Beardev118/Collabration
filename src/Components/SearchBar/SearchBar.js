@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import {SearchContext} from './SearchBarContext'
@@ -31,71 +30,38 @@ const useStyles = makeStyles((theme: theme) =>
   }),
 );
 
-const GetBackenQuery = (searchParams)=>{
-    
-  // let backendQuery = new URLSearchParams();
-  var backendQuery = new URLSearchParams();
-  for(var key of searchParams.keys()) { 
-    backendQuery.set(key,searchParams.getAll(key).join('*'));
-  }
-  return backendQuery;
-}
-
 export default function SerchBar({Close}){
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocussed, setFocussed] = useState(false);
-  // const [searchQuery,setSearchQuery] = useContext(SearchContext)
   const history = useHistory()
-
-    // const [products, setProducts] = useState(null);
     const {searchQuery} = useContext(SearchContext);
-  
     const [searchQuery_r, setSearchQuery_r] = searchQuery;
-  
 
   const onSearch = (event) => {
     setFocussed(true);
     if (event.key === "Enter") {
-      // showToast(true);
       setFocussed(false);
     }
   }
-  
-  
 
   const hanldEnterDown = event=>{
-    if (window.location.pathname==="/search") {
-
       if (event.key === "Enter") {
         event.preventDefault();
+        if ((window.location.pathname==="/search")) {
+          Close();
+         } 
         var newSearchQuery = new URLSearchParams();
         newSearchQuery = searchQuery_r;
         newSearchQuery.set('search_q',searchTerm);
+       
         history.push({
         pathname: '/search',
             search: searchQuery_r.toString()
           })
        setSearchQuery_r(newSearchQuery);
-        Close();
-        
-      }
       
-    }else{
-    
-      if (event.key === "Enter") {
-        var newSearchQuery = new URLSearchParams();
-        newSearchQuery = searchQuery_r;
-        newSearchQuery.set('search_q',searchTerm);
-        history.push({
-            pathname: '/search',
-            search: searchQuery_r.toString()
-          })
-          setSearchQuery_r(newSearchQuery);
-       
-       } 
-    }
-   
+      }
   }
 
   return(
@@ -119,10 +85,8 @@ export default function SerchBar({Close}){
                   </IconButton>}
                   <Divider className={classes.divider} orientation="vertical" />
                 </Paper>
-                
-                </Grid>
-
               </Grid>
+          </Grid>
       
       </Container>
         

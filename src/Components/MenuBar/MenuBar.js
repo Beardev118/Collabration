@@ -52,6 +52,9 @@ const useStyles = makeStyles(theme => ({
 export default function Menu(props) {
   
   const [menuData, setmenuData] = useState(props.menu)
+
+  console.log('This is menuy')
+  console.log(menuData)
   const [category, setcategory] = useState(false);
   const [size, setsize] = useState(false);
   const [brand, setbrand] = useState(false);
@@ -84,10 +87,10 @@ export default function Menu(props) {
   }
   setSearchQuery_r(newSearchParams);
 
-  // history.push({
-  //   pathname: '/search',
-  //   search: newSearchParams.toString()
-  // })
+  history.push({
+    pathname: '/search',
+    search: newSearchParams.toString()
+  })
 
       console.log("&&&&&&&&&&&&&*Thsi is searchquery after delete")
       console.log(newSearchParams.toString());
@@ -140,11 +143,7 @@ export default function Menu(props) {
     const query_key = newmenuData.find(category => category.key === key).menuKind;
     const query_value = newmenuData.find(category => category.key === key).label;
     const key_statue = newmenuData.find(category => category.key === key).selected;
-    let search = window.location.search;
     key_statue?AddQueryItem(query_key,query_value):DeleteQueryItem(searchQuery_r,query_value)
-   
-
-    // window.location.reload(false);
   }
 
   const handleDelete = (key) => () => {
@@ -168,9 +167,7 @@ export default function Menu(props) {
     }
 
     const query_value = newmenuData.find(category => category.key === key).label;
-
     DeleteQueryItem(searchQuery_r,query_value); 
-
   };
 
   const closeColapse = ()=>{

@@ -137,7 +137,7 @@ const useFetchSkus = (productID) => {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    const apiUrl = `http://192.168.1.229:3000/products/compare?product_id=${productID}`
+    const apiUrl = `http://3.10.195.126:3000/products/compare?product_id=${productID}`
    
     fetch(apiUrl)
       .then(res => res.json())
