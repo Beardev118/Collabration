@@ -57,29 +57,25 @@ export default function SerchBar({Close}){
           })
        setSearchQuery_r(newSearchQuery);
       
-    }else{
-    
-      if (event.key === "Enter") {
-        var newSearchQuery = new URLSearchParams();
-        // newSearchQuery = searchQuery_r;
-        newSearchQuery.set('search_q',searchTerm);
-        history.push({
-            pathname: '/search',
-            search: searchQuery_r.toString()
-          })
-          setSearchQuery_r(newSearchQuery);
-       } 
+      
     }
   }
+
+
   const handleIconButton = ()=>{
 
+    if ((window.location.pathname==="/search")) {
+      Close();
+     } 
     var newSearchQuery = new URLSearchParams();
+    newSearchQuery = searchQuery_r;
     newSearchQuery.set('search_q',searchTerm);
+   
     history.push({
-        pathname: '/search',
+    pathname: '/search',
         search: searchQuery_r.toString()
       })
-      setSearchQuery_r(newSearchQuery);
+   setSearchQuery_r(newSearchQuery);
   }
 
   return(
