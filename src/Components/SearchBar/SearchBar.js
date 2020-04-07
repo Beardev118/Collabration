@@ -71,6 +71,16 @@ export default function SerchBar({Close}){
        } 
     }
   }
+  const handleIconButton = ()=>{
+
+    var newSearchQuery = new URLSearchParams();
+    newSearchQuery.set('search_q',searchTerm);
+    history.push({
+        pathname: '/search',
+        search: searchQuery_r.toString()
+      })
+      setSearchQuery_r(newSearchQuery);
+  }
 
   return(
       <Container maxWidth = 'lg'>
@@ -88,7 +98,7 @@ export default function SerchBar({Close}){
                     autoFocus
                     style = {{minHeight:'50px'}}
                   />
-                  {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {hanldEnterDown}>
+                  {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {handleIconButton}>
                     <SearchIcon />
                   </IconButton>}
                   <Divider className={classes.divider} orientation="vertical" />
