@@ -99,8 +99,6 @@ const useStyles = makeStyles(theme => ({
       },
   }));
 
-   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
-
 export default function ProdcutArea(props){
       const classes = useStyles();
       const {products} = props;
@@ -139,12 +137,7 @@ const useFetchSkus = (productID) => {
   useEffect(() => {
     setLoading(true)
     setError(null)
-
-    // Change the apiUrl according to the search string
-   
-    // const apiUrl = (search==0)?`https://api.randomuser.me`:`https://api.randomuser.me/?results=${search}`
     const apiUrl = `http://192.168.1.229:3000/products/compare?product_id=${productID}`
-
    
     fetch(apiUrl)
       .then(res => res.json())
@@ -152,8 +145,7 @@ const useFetchSkus = (productID) => {
         setLoading(false)
         if (json.results) {
           setSkus(json.results)
-          console.log('This is json')
-          console.log(json.results)
+        
         } else {
           setSkus([])
         }
@@ -180,15 +172,9 @@ const useFetchSkus = (productID) => {
   
 
     const { skus, loading, error } = useFetchSkus(product.product_id);
-    console.log('this is user list')
-    console.log(skus)
   
     // if (loading) return <div>Loading...</div>
     // if (error) return <div>{error}</div>
-  
-   
-    
-
     const toggleDrawer = (open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
@@ -197,7 +183,6 @@ const useFetchSkus = (productID) => {
     };
   
     return (
-
       <div> 
         <Card className={classes.root} elevation={3}>
             <CardActionArea onClick = {toggleDrawer(true)}>
@@ -218,13 +203,13 @@ const useFetchSkus = (productID) => {
                 {product.product_currency}{product.product_price}
               </Typography>
               <Typography variant="body2" align = {"left"} className = {classes.urlInfo}>
-              {product.product_url.replace(/(.{40})..+/, "$1…")}
+              {new URL(product.product_url).hostname}
               </Typography>
           
           </Card>
 
           <Hidden mdDown>
-          <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {1000}>
+          <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {700}>
                 <div
                   role="presentation"
                   onKeyDown={toggleDrawer(false)}
@@ -247,9 +232,9 @@ const useFetchSkus = (productID) => {
                     <CardContent>
                       
                       <Grid container xs = {12}>
-                        <Grid xs = {5} >
+                        {/* <Grid xs = {5} >
                         <Rating name="read-only" value={value} readOnly />
-                        </Grid>
+                        </Grid> */}
                         <Grid xs = {2}>
                         <Typography variant = "subtitle1">{product.product_currency}{product.product_price} </Typography>
                         </Grid>
@@ -263,15 +248,15 @@ const useFetchSkus = (productID) => {
                           {product.product_detail}
                         </Markdown>
                       </Typography>
-                      <Box component="fieldset" mb={3} borderColor="transparent">
-                      </Box>
+                      {/* <Box component="fieldset" mb={3} borderColor="transparent">
+                      </Box> */}
                     </CardContent>
                     <CardActions disableSpacing>
                       
                   </CardActions>
               
               </Card>
-              <Grid container>
+              <Grid container style = {{marginBottom:'50px'}}>
               { skus &&
                 skus.length > 0 &&
                 skus.map(sku => (
@@ -286,7 +271,10 @@ const useFetchSkus = (productID) => {
                         <EarthIcon></EarthIcon>
                         </Grid>
                          <Grid xs = {6}>
-                         <Link href = {sku.product_url} target="_blank"><Typography>{sku.product_url}</Typography></Link>
+                         <Link href = {sku.product_url} target="_blank">
+                        <Typography>{
+                        new URL( sku.product_url).hostname
+                         }</Typography></Link>
 
                          </Grid>
                           
@@ -304,7 +292,7 @@ const useFetchSkus = (productID) => {
         </Drawer>
           </Hidden>
           <Hidden mdUp>
-          <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {1000}>
+          <Drawer anchor = {'right'} open={state} onClose={toggleDrawer(false)} transitionDuration = {700}>
                 <div
                   role="presentation"
                   onKeyDown={toggleDrawer(false)}
@@ -345,8 +333,8 @@ const useFetchSkus = (productID) => {
                           {product.product_detail}
                         </Markdown>
                       </Typography>
-                      <Box component="fieldset" mb={3} borderColor="transparent">
-                      </Box>
+                      {/* <Box component="fieldset" mb={3} borderColor="transparent">
+                      </Box> */}
                     </CardContent>
                     <CardActions disableSpacing>
                       
@@ -357,7 +345,7 @@ const useFetchSkus = (productID) => {
               { skus &&
                 skus.length > 0 &&
                 skus.map(sku => (
-              <Grid container xs = {12} style = {{margin:'10px'}}>
+              <Grid container xs = {12} style = {{margin:'10px',marginBottom:'30px'}}>
                  
                     <Grid xs = {12} >
                       <Paper className = {classes.relatedItem} square>

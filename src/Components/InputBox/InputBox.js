@@ -47,8 +47,6 @@ const BootstrapInput = withStyles((theme: Theme) =>
   }),
 )(InputBase);
 
-
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -61,13 +59,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
-
-
 export default function CustomizedInputs() {
   const classes = useStyles();
-
   return (
     <form className={classes.root} noValidate>
      

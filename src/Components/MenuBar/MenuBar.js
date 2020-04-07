@@ -71,24 +71,35 @@ export default function Menu(props) {
  const DeleteQueryItem =(searchParams, value) =>{
 
   console.log("&&&&&&&&&&&&&*********Thsi is searchquery before delete")
-  console.log(searchQuery_r);
+  console.log(searchQuery_r.toString());
 
    var newSearchParams = new URLSearchParams();
   for(var pair of searchParams.entries()) {
     console.log(pair[0]+ ', '+ pair[1]); 
-    if (pair[1]!==value) {
+    if (pair[1]!=value) {
+      console.log(pair[1]);
+      console.log(value);
       newSearchParams.append(pair[0],pair[1]);
     }
   }
   setSearchQuery_r(newSearchParams);
 
-  history.push({
+  // history.push({
+  //   pathname: '/search',
+  //   search: newSearchParams.toString()
+  // })
+
+      console.log("&&&&&&&&&&&&&*Thsi is searchquery after delete")
+      console.log(newSearchParams.toString());
+ }
+ 
+ const AddQueryItem =(key, value) =>{
+    searchQuery_r.append(key,value);
+    history.push({
     pathname: '/search',
     search: searchQuery_r.toString()
   })
 
-      console.log("&&&&&&&&&&&&&*Thsi is searchquery after delete")
-      console.log(searchQuery_r);
  }
   
   const handleChange = key=>{
@@ -130,13 +141,8 @@ export default function Menu(props) {
     const query_value = newmenuData.find(category => category.key === key).label;
     const key_statue = newmenuData.find(category => category.key === key).selected;
     let search = window.location.search;
-    let params = new URLSearchParams(search);
-    key_statue?params.append(query_key,query_value):DeleteQueryItem(params,query_value); 
-    key_statue?searchQuery_r.append(query_key,query_value):DeleteQueryItem(searchQuery_r,query_value)
-    history.push({
-      pathname: '/search',
-      search: params.toString()
-    })
+    key_statue?AddQueryItem(query_key,query_value):DeleteQueryItem(searchQuery_r,query_value)
+   
 
     // window.location.reload(false);
   }

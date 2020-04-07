@@ -27,9 +27,6 @@ const useFetch = (url)=>{
       const [brands] = data.brand;
       const [result] = data.results;
 
-      console.log('Thsi is resullt'+result);
-
-      console.log('This is Fetch');
       if (!ignore) {
 
         if (result =='ok') {
@@ -48,8 +45,6 @@ const useFetch = (url)=>{
           setLoading(false);
           setReturnVal(result);
         }
-        
-
        
       }
     }
@@ -76,22 +71,15 @@ const BackendQuery = (queryParam)=>{
 
 export default function App() {
 
-  // const [products, setProducts] = useState(null);
   const {searchQuery} = useContext(SearchContext);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(10);
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
-  console.log('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
   const{products,menuData, loading,returnVal} = useFetch('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
-     
-  console.log('Thsi is test')
-  console.log(menuData);
-
-    const handleChange = (event, value) => {
+  const handleChange = (event, value) => {
     setCurrentPage(value);
-  };  
+  };
+  // setTotalPage(Math.ceil(products.length/12))
 
   return (
       <React.Fragment>
@@ -101,10 +89,11 @@ export default function App() {
 
           {menuData&&<MenuBar menu = {menuData}/>}
           <div></div>
+        
          {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />}
             <Grid container spacing={3} direction = "row" justify = "flex-end">
                 <Grid item>
-                <Pagination count={totalPage} shape="rounded" page = {currentPage} onChange = {handleChange} />
+                <Pagination count={Math.ceil(products.length/12)} shape="rounded" page = {currentPage} onChange = {handleChange} />
                 </Grid>
             </Grid>
           <Footer/>
