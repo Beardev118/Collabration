@@ -14,6 +14,7 @@ const useFetch = (url)=>{
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menuData, setMenuData] = useState(null);
+  const [returnVal, setReturnVal] = useState(null);
   
   useEffect(() => {
     let ignore = false;
@@ -39,10 +40,13 @@ const useFetch = (url)=>{
           setMenuData(menu_Data_fetch);
           setProducts(products);
           setLoading(false);
+          setReturnVal(result);
 
         }else{
           setMenuData(null);
           setProducts(null);
+          setLoading(false);
+          setReturnVal(result);
         }
         
 
@@ -53,7 +57,7 @@ const useFetch = (url)=>{
     return () => { ignore = true };
   }, [url]);
 
-  return {products,menuData,loading};
+  return {products,menuData,loading,returnVal};
 }
 
 const BackendQuery = (queryParam)=>{
@@ -80,7 +84,7 @@ export default function App() {
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
   console.log('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
-  const{products,menuData, loading} = useFetch('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
+  const{products,menuData, loading,returnVal} = useFetch('http://192.168.1.229:3000/products/search?'+BackendQuery(searchQuery_r));
      
   console.log('Thsi is test')
   console.log(menuData);
@@ -92,26 +96,19 @@ export default function App() {
   return (
       <React.Fragment>
         <Header/>
-        {console.log('This is searchQeury on the ProductPage ')}
-        {console.log(searchQuery_r.toString())};
+        {loading?<Loading/>:
+          (returnVal=='ok')?<Container maxWidth = 'lg'>
 
-        {/* {!(searchData.result=="no results")? */}
-        <div>
-          {loading?<Loading/>:(<Container maxWidth = 'lg'>
-
-              <MenuBar menu = {menuData}/>
-              <div></div>
-              <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />
-                <Grid container spacing={3} direction = "row" justify = "flex-end">
-                    <Grid item>
-                    <Pagination count={totalPage} shape="rounded" page = {currentPage} onChange = {handleChange} />
-                    </Grid>
+          {menuData&&<MenuBar menu = {menuData}/>}
+          <div></div>
+         {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />}
+            <Grid container spacing={3} direction = "row" justify = "flex-end">
+                <Grid item>
+                <Pagination count={totalPage} shape="rounded" page = {currentPage} onChange = {handleChange} />
                 </Grid>
-              <Footer/>
-              </Container>)
-                }
-            </div>:
-            <Container>
+            </Grid>
+          <Footer/>
+          </Container>:<Container>
              <div style = {{height:'10vh'}}></div>
               <Typography>Your search for did not return any results.</Typography>
               <Typography variant = 'h4'>Search Tips</Typography>

@@ -69,6 +69,10 @@ export default function Menu(props) {
 
   
  const DeleteQueryItem =(searchParams, value) =>{
+
+  console.log("&&&&&&&&&&&&&*********Thsi is searchquery before delete")
+  console.log(searchQuery_r);
+
    var newSearchParams = new URLSearchParams();
   for(var pair of searchParams.entries()) {
     console.log(pair[0]+ ', '+ pair[1]); 
@@ -80,8 +84,11 @@ export default function Menu(props) {
 
   history.push({
     pathname: '/search',
-        search: searchQuery_r.toString()
-      });
+    search: searchQuery_r.toString()
+  })
+
+      console.log("&&&&&&&&&&&&&*Thsi is searchquery after delete")
+      console.log(searchQuery_r);
  }
   
   const handleChange = key=>{
