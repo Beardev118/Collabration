@@ -14,6 +14,7 @@ import Hidden from '@material-ui/core/Hidden';
 import ExpandSearch from '../ExpandSearch/ExpandSearch';
 import Drawer from '../Drawer/Drawer';
 import Logo from '../../Components/Logo/Logo'
+import { useHistory } from "react-router-dom";
 import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
 
 const useStyles = makeStyles(theme => ({
@@ -110,25 +111,55 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProminentAppBar() {
   const classes = useStyles();
-  const { searchData,menu_Data, searchQuery} = useContext(SearchContext);
-
+  const {searchQuery} = useContext(SearchContext);
+  const history = useHistory()
   const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
- 
+  const country = [
+    'Select Country',
+    'United Kingdom',
+    'Czech Republic',
+    'Greece',
+    'Hungary',
+    'Romania',
+    'Austria',
+    'Ireland',
+    'Belgium',
+    'Spain',
+    'Italy',
+    'France',
+    'Netherlands',
+    'Germany',
+];
+
   
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
-
+   
   };
 
   const handleMenuItemClick = (event, index) => {
+    var newIndex;
+    newIndex = index;
     setAnchorEl(event.currentTarget);
-    setSelectedIndex(index);
+    setSelectedIndex(newIndex);
     setAnchorEl(null);
-    searchQuery_r.set('country',country[selectedIndex]);
+    
+
+    var newSearchQuery = new URLSearchParams();
+    newSearchQuery = searchQuery_r;
+    newSearchQuery.set('country',country[index])
+    setSearchQuery_r(newSearchQuery);
+    if (window.location.pathname==="/search") {
+      history.push({
+        pathname: '/search',
+        search: newSearchQuery.toString()
+      })
+    }
+
   };
 
   const StyledMenu = withStyles({
@@ -150,24 +181,6 @@ export default function ProminentAppBar() {
       {...props}
     />
   ));
-  
-  const country = [
-      'Select Country',
-      'United Kingdom',
-      'Czech Republic',
-      'Greece',
-      'Hungary',
-      'Romania',
-      'Austria',
-      'Ireland',
-      'Belgium',
-      'Spain',
-      'Italy',
-      'France',
-      'Netherlands',
-      'Germany',
-  ];
-
 
   return (
     <div style = {{width:'100%'}}>
@@ -187,6 +200,7 @@ export default function ProminentAppBar() {
                       <div  >
                         <p> </p>
                             <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {country[selectedIndex] }</Button>
+                            
                             <StyledMenu
                               id="lock-menu"
                               anchorEl = {anchorEl}

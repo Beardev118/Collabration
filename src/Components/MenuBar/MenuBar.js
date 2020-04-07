@@ -84,10 +84,10 @@ export default function Menu(props) {
   }
   setSearchQuery_r(newSearchParams);
 
-  // history.push({
-  //   pathname: '/search',
-  //   search: newSearchParams.toString()
-  // })
+  history.push({
+    pathname: '/search',
+    search: newSearchParams.toString()
+  })
 
       console.log("&&&&&&&&&&&&&*Thsi is searchquery after delete")
       console.log(newSearchParams.toString());

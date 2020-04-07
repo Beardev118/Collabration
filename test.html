@@ -32,7 +32,6 @@
       });
 
       for(var pair of searchParams.entries()) {
-          console.log(pair[0]+ ', '+ pair[1]); 
           if (pair[1]!==term) {
             newSearchParams.append(pair[0],pair[1]);
           }
@@ -52,3 +51,6 @@
     </script>
 </body>
 </html>
+
+
+http://localhost:3000/search?search_q=blue&country=United+Kingdom&category=Jeans&category=Watch&category=Dresses&size=UK+6+%2F+EU+39+%2F+US+8&size=UK+5+%2F+EU+38+%2F+US+7
