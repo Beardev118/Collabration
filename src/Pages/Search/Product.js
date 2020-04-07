@@ -89,7 +89,6 @@ export default function App() {
 
   if (error) return <div>{error}</div>
 
-  const{products,menuData, loading,returnVal} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };

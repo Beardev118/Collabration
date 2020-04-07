@@ -16,7 +16,6 @@ import Drawer from '../Drawer/Drawer';
 import Logo from '../../Components/Logo/Logo'
 import { useHistory } from "react-router-dom";
 import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
-import { useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
