@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { makeStyles} from "@material-ui/core/styles";
 import PropTypes from 'prop-types';
 import Grid from "@material-ui/core/Grid";
@@ -131,6 +131,46 @@ export default function ProdcutArea(props){
 // }
 
 
+const useFetchSkus = (productID) => {
+  const [skus, setSkus] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    setLoading(true)
+    setError(null)
+
+    // Change the apiUrl according to the search string
+   
+    // const apiUrl = (search==0)?`https://api.randomuser.me`:`https://api.randomuser.me/?results=${search}`
+    const apiUrl = `http://192.168.1.229:3000/products/compare?product_id=${productID}`
+
+   
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(json => {
+        setLoading(false)
+        if (json.results) {
+          setSkus(json.results)
+          console.log('This is json')
+          console.log(json.results)
+        } else {
+          setSkus([])
+        }
+      })
+      .catch(err => {
+        setError(err)
+        // setLoading(false)
+      })
+
+  // This is important. We pass the new search parameter into
+  // the empty array we had before. This means, the effect
+  // will run again if this parameter changes
+  }, [productID])
+
+  return { skus, loading, error }
+}
+
 
   function ProductCard(props) {
     const classes = useStyles();
@@ -138,6 +178,17 @@ export default function ProdcutArea(props){
     const [value, setValue] = React.useState(5);
     const {product} = props
   
+
+    const { skus, loading, error } = useFetchSkus(product.product_id);
+    console.log('this is user list')
+    console.log(skus)
+  
+    // if (loading) return <div>Loading...</div>
+    // if (error) return <div>{error}</div>
+  
+   
+    
+
     const toggleDrawer = (open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
@@ -148,7 +199,6 @@ export default function ProdcutArea(props){
     return (
 
       <div> 
-        
         <Card className={classes.root} elevation={3}>
             <CardActionArea onClick = {toggleDrawer(true)}>
               <CardMedia
@@ -222,19 +272,21 @@ export default function ProdcutArea(props){
               
               </Card>
               <Grid container>
-              {cards.map(card => (
+              { skus &&
+                skus.length > 0 &&
+                skus.map(sku => (
               <Grid container xs = {12} >
                   <Grid xs = {1}></Grid>
                     <Grid xs = {10} >
                       <Paper className = {classes.relatedItem} square>
                         <Grid xs = {2}>
-                        <Typography>$44.95</Typography>
+                            <Typography>{sku.product_currency} {sku.product_price}</Typography>
                         </Grid >
                         <Grid xs = {2}>
                         <EarthIcon></EarthIcon>
                         </Grid>
                          <Grid xs = {6}>
-                         <Link href = "https://bodaskins.com" target="_blank"><Typography>https://bodaskins.com</Typography></Link>
+                         <Link href = {sku.product_url} target="_blank"><Typography>{sku.product_url}</Typography></Link>
 
                          </Grid>
                           
@@ -302,19 +354,21 @@ export default function ProdcutArea(props){
               
               </Card>
               <Grid container>
-              {cards.map(card => (
+              { skus &&
+                skus.length > 0 &&
+                skus.map(sku => (
               <Grid container xs = {12} style = {{margin:'10px'}}>
                  
                     <Grid xs = {12} >
                       <Paper className = {classes.relatedItem} square>
                         <Grid xs = {3}>
-                        <Typography>$44.95</Typography>
+                            <Typography>{sku.product_currency} {sku.product_price}</Typography>
                         </Grid >
                         <Grid xs = {1}>
                         <EarthIcon></EarthIcon>
                         </Grid>
                          <Grid xs = {8}>
-                         <Link href = "https://bodaskins.com"><Typography>https://bodaskins.com</Typography></Link>
+                         <Link href = {sku.product_url}><Typography>{sku.product_url}</Typography></Link>
 
                          </Grid>
                           
