@@ -66,15 +66,15 @@ export default function Logo() {
         <Paper className={classes.paper}>
         <Hidden smDown>
               <Link to = "/" className = {classes.logoLink}>
-                <Typography   variant ="h1" >
-                  We are <b>Polymer.</b><span className = {classes.logoSmall}>SHOP</span>
+                <Typography   variant ="h1" style = {{color:'#000'}}>
+                  <b>ModaCompris</b>
                 </Typography>
               </Link>
           </Hidden>
           <Hidden mdUp>
               <Link to = "/" className = {classes.logoLink}>
                 <Typography   variant ="h1" className = {classes.lg_logoLarge}>
-                  We are <b>Polymer.</b><span className = {classes.lg_logoSmall}>SHOP</span>
+                <b>ModaCompris</b>
                 </Typography>
               </Link>
           </Hidden>

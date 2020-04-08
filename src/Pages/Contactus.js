@@ -17,6 +17,7 @@ import Container from '@material-ui/core/Container'
 import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
 import Footer from '../Components/Footer/Footer'
+import Captcha from '../Components/Captcha/Captcha'
 
 
 function Copyright() {
@@ -162,8 +163,11 @@ export default function Contact_us() {
                       inputProps={{ 'aria-label': 'bare' }}
                     />
                 </Grid>
+                <Grid item xs = {12}>
+                <Captcha/>
+                </Grid>
             
-            
+           
 
          </Grid>
               <Box display="flex" flexDirection="column" mt = {5}>

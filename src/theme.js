@@ -140,8 +140,8 @@ const theme = createMuiTheme({
         '"Libre Baskerville"',
       ].join(','),
       fontSize:'70px',
-      letterSpacing: '0.15px',
-      fontWeight:540,
+      letterSpacing: '1px',
+      fontWeight:700,
       whiteSpace:'nowrap',
     },
     h2:{

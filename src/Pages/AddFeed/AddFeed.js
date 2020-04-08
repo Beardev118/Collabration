@@ -74,7 +74,6 @@ export default function AddFeed() {
               as={
                 <Grid container spacing={4} alignItems = "center" justify = "flex-start">
                 <Grid item xs={12} md = {6} >
-                   
                     <TextField
                       id="outlined-bare"
                       fullWidth
@@ -86,7 +85,6 @@ export default function AddFeed() {
                       variant="outlined"
                     />
                   </Grid>
-                  
                     
                   <Grid item xs={12} sm = {6} >
                     <TextField
@@ -112,7 +110,6 @@ export default function AddFeed() {
                   </Grid>
                     
                   <Grid item xs={12} sm = {6}>
-                    
                     <TextField
                         id="outlined-bare"
                         required
@@ -134,7 +131,6 @@ export default function AddFeed() {
                       }}
                       autoComplete="off"
                       type="email"
-                     
                       FormHelperTextProps={{ error: true }}
                 />
                   </Grid>

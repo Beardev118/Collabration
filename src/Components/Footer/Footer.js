@@ -96,7 +96,7 @@ const socialIcons = [
         role="img"
         width="24px"
         height="24px"
-        viewBox="0 0 24 24"
+        // viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <title>Facebook</title>
@@ -181,27 +181,41 @@ function WeFooter(props) {
             <Typography  paragraph>
            We Are Polymer Ltd. Registered in England.<br/> Company Number 12354769.<br/>VAT No. GB340101275<br/> Registered Address 71-75 Shelton Street, London, WC2H 9JQ
             </Typography>
-            <Box display="flex">
+           
+          </Grid>
+        </Grid>
+      </div>
+      <Grid container alignItems = "center" style = {{marginBottom :'20px'}}>
+        <Grid item xs = {12} md = {4}>
+        <Copyright/>
+        </Grid>
+        <Grid item  xs = {12} md  = {4}>
+       
+        <Typography variant = 'body2'align = 'center'>
+        <Link color="inherit" href="/privacy"> Privacy Policy </Link>
+          </Typography>
+       
+        </Grid>
+        
+        <Grid container item xs= {12} md = {4} alignItems = "center" justify = 'center'>
+          <Grid>
+          <Box display="flex" alignItems = 'center'>
               {socialIcons.map((socialIcon, index) => (
                 <Box key={index} mr={index !== socialIcons.length - 1 ? 1 : 0}>
-                    <p> </p>
-                  {/* <IconButton
+                  <IconButton
                     aria-label={socialIcon.label}
-                    className={classes.socialIcon}
+                    // className={classes.socialIcon}
                     href={socialIcon.href}
-                    variant = "text"
-                    size = "small"
                   >
-                     {socialIcon.icon}
-                  
-                  </IconButton> */}
+                    {socialIcon.icon}
+                  </IconButton>
                 </Box>
               ))}
             </Box>
           </Grid>
         </Grid>
-      </div>
-      <Copyright/>
+      </Grid>
+     
     </footer>
   );
 }
@@ -214,7 +228,7 @@ function Copyright() {
             <Typography variant="body2" color="textSecondary" align="center">
                 {'Copyright © '}
                 <Link color="inherit" href="#">
-                We are Polymer
+                  ModaCompris
                 </Link>{' '}
                 {new Date().getFullYear()}
                 {'.'}

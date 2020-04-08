@@ -6,7 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu'
-import { Link } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider'
 
 const useStyles = makeStyles({
   list: {
@@ -14,6 +15,15 @@ const useStyles = makeStyles({
   },
   fullList: {
     width: 'auto',
+  },
+  text:{
+    marginLeft:'30px',
+  },
+  smallFont:{
+    fontSize: '24px',
+    width:'80%',
+    margin:'auto',
+    marginBottom:'20px'
   },
 });
 
@@ -33,8 +43,6 @@ export default function TemporaryDrawer() {
 
     setState({ ...state, [anchor]: open });
   };
-
-  
   return (
     <div>
       {['left'].map(anchor => (
@@ -50,21 +58,32 @@ export default function TemporaryDrawer() {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
           >
-              <div style  = {{marginTop:"10vh"}}></div>
-              
-                    <ListItem button key="about_us">
-                      <Link href = "/about"><ListItemText primary="About Us" /></Link>
-                    </ListItem>
-                    <ListItem button key="about_us">
-                      <Link href = "/faq"><ListItemText primary="FAQ" /></Link>
-                    </ListItem><ListItem button key="about_us">
-                      <Link href = "/add_feed"><ListItemText primary="Add Feed" /></Link>
-                    </ListItem><ListItem button key="about_us">
-                      <Link href = "/retailers"><ListItemText primary="Retailers" /></Link>
-                    </ListItem>
-              
-      
-    
+              <div style  = {{marginTop:"10vh",marginLeft:'40px'}}></div>
+                  <Typography variant = 'h1' className = {classes.smallFont}>ModaCompris</Typography>
+                  <Link href = "/about" style = {{textDecoration:'none'}}>
+                          <ListItem button key="about_us" >
+                            <ListItemText primary="About Us" className = {classes.text}/>
+                          </ListItem>
+                        </Link>
+                        <Divider/>
+                        <Link href = "/faq" style = {{textDecoration:'none'}}>
+                          <ListItem button key="faq">
+                            <ListItemText primary="FAQ" className = {classes.text}/>
+                          </ListItem>
+                        </Link>
+                        <Divider/>
+                        <Link href = "/add_feed" style = {{textDecoration:'none'}}>
+                          <ListItem button key="add_feed">
+                          <ListItemText primary="Add Feed" className = {classes.text}/>
+                          </ListItem>
+                        </Link>
+                        <Divider/>
+                        <Link href = "/retailers" style = {{textDecoration:'none'}}>
+                          <ListItem button key="retailers">
+                          <ListItemText primary="Retailers" className = {classes.text}/>
+                          </ListItem>
+                        </Link>
+                        <Divider/>
               </div>
           </Drawer>
         </React.Fragment>

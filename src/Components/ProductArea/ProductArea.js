@@ -154,7 +154,6 @@ const useFetchSkus = (productID) => {
   function ProductCard(props) {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
-    const [value, setValue] = React.useState(5);
     const {product} = props
   
 
