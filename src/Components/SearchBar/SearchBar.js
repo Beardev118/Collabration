@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme: theme) =>
   }),
 );
 
-
-
 export default function SerchBar({Close}){
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,11 +54,8 @@ export default function SerchBar({Close}){
             search: searchQuery_r.toString()
           })
        setSearchQuery_r(newSearchQuery);
-      
-      
     }
   }
-
 
   const handleIconButton = ()=>{
 

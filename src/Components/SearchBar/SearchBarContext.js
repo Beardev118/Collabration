@@ -2,7 +2,7 @@ import React ,{useState, createContext} from "react"
 
 export const SearchContext = createContext();
 export const SearchProvider = props=>{
-  const init = new URLSearchParams("search_q=blue&country=United%20Kingdom");
+  const init = new URLSearchParams();
   const [searchQuery,setSearchQuery] = useState(init);
   
     console.log('****search query On Context');

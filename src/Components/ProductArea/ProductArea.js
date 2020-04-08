@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
       media: {
         height: 250,
       },
+      smallMedia:{
+        height: 250,
+      },
       urlInfo:{
        
         marginLeft:15,
@@ -198,14 +201,17 @@ const useFetchSkus = (productID) => {
                   style = {{width:"500px"}}
                   >
                   <Card className={classes.root}>
-                  <IconButton onClick = {toggleDrawer(false)} style = {{zIndex:2}}>
-                    <CloseIcon/>
-                  </IconButton>
+                 
                     <CardMedia
                       className={classes.mediaDrawer}
                       image={product.product_imgurl}
                       title={product.product_title}
-                    />
+                    >
+                     <IconButton onClick = {toggleDrawer(false)} style = {{zIndex:2,backgroundColor:'rgb(0,0,0,0.3)',padding:0,margin:10}}>
+                        <CloseIcon style={{ color:"#FFF" }}/>
+                      </IconButton>
+                    </CardMedia>
+
                     <CardHeader
                       title={product.product_title}
                     />
@@ -228,8 +234,7 @@ const useFetchSkus = (productID) => {
                           {product.product_detail}
                         </Markdown>
                       </Typography>
-                      {/* <Box component="fieldset" mb={3} borderColor="transparent">
-                      </Box> */}
+                     
                     </CardContent>
                     <CardActions disableSpacing>
                       
@@ -257,15 +262,12 @@ const useFetchSkus = (productID) => {
                          }</Typography></Link>
 
                          </Grid>
-                          
                       </Paper>
-                        
                     </Grid>
                     <Grid xs = {1} ></Grid>
               </Grid>
                
                ))}
-               
               </Grid>
                 
            </div>
@@ -276,19 +278,15 @@ const useFetchSkus = (productID) => {
                 <div
                   role="presentation"
                   onKeyDown={toggleDrawer(false)}
-                  style = {{width:'100%'}}
                   >
-                 
-                  <Card className={classes.root}>
-                  
+                  <Card style = {{width:'100%'}}>
                     <CardMedia
-                      className={classes.media}
+                      className={classes.smallMedia}
                       image={product.product_imgurl}
                       title={product.product_title}
-                      style = {{position:"absolute", top:'0px'}}
                     >
-                    <IconButton onClick = {toggleDrawer(false)} style = {{position:"relative"}}>
-                         <CloseIcon/>
+                    <IconButton onClick = {toggleDrawer(false)} style = {{backgroundColor:'rgb(0,0,0,0.3)',padding:0,margin:10}}>
+                         <CloseIcon style = {{color:'#FFF'}}/>
                    </IconButton>
                     </CardMedia>
                     <CardHeader
@@ -297,27 +295,20 @@ const useFetchSkus = (productID) => {
                     <CardContent>
                       
                       <Grid container xs = {12}>
-                        <Grid xs = {5} >
-                        <Rating name="read-only" value={value} readOnly />
-                        </Grid>
-                        <Grid xs = {2}>
+                        <Grid xs = {5}>
                         <Typography variant = "subtitle1">{product.product_currency} {product.product_price} </Typography>
                         </Grid>
                         <Grid xs = {5}>
                           <Typography variant = "subtitle1">{product.product_brand} </Typography>
                         </Grid>
                       </Grid>
-
                       <Typography variant="body2" color="textSecondary" component="p">
                       <Markdown>
                           {product.product_detail}
                         </Markdown>
                       </Typography>
-                      {/* <Box component="fieldset" mb={3} borderColor="transparent">
-                      </Box> */}
                     </CardContent>
                     <CardActions disableSpacing>
-                      
                   </CardActions>
               
               </Card>
@@ -329,14 +320,14 @@ const useFetchSkus = (productID) => {
                  
                     <Grid xs = {12} >
                       <Paper className = {classes.relatedItem} square>
-                        <Grid xs = {3}>
+                        <Grid xs = {4}>
                             <Typography>{sku.product_currency} {sku.product_price}</Typography>
                         </Grid >
-                        <Grid xs = {1}>
+                        <Grid xs = {2}>
                         <EarthIcon></EarthIcon>
                         </Grid>
-                         <Grid xs = {8}>
-                         <Link href = {sku.product_url}><Typography>{sku.product_url}</Typography></Link>
+                         <Grid xs = {6}>
+                         <Link href = {sku.product_url}><Typography>{new URL(sku.product_url).hostname}</Typography></Link>
 
                          </Grid>
                           
@@ -350,8 +341,8 @@ const useFetchSkus = (productID) => {
                 
            </div>
         </Drawer>
-          </Hidden>
-      </div>
+      </Hidden>
+    </div>
      
     );
   }

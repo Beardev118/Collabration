@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import Header from '../Components/Header/Header'
 import SearchBar from '../Components/SearchBar/SearchBar'
 import Grid from '@material-ui/core/Grid'
@@ -6,8 +6,13 @@ import Container from '@material-ui/core/Container'
 import { Typography, Link } from '@material-ui/core';
 import MetaTags from 'react-meta-tags';
 import Logo from '../Components/Logo/Logo'
+import {SearchContext} from '../Components/SearchBar/SearchBarContext'
+
+
 
 export default function Home(){
+  const {searchQuery} = useContext(SearchContext);
+  const [searchQuery_r, setSearchQuery_r] = searchQuery;
   return(
     <React.Fragment>
 

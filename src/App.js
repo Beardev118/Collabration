@@ -11,9 +11,9 @@ import About from './Pages/about';
 import FAQ from './Pages/Faq';
 import Retailers from './Pages/Retailer';
 import AddFeed from './Pages/AddFeed';
-import Admin from './Pages/Admin/Admin'
 import Contact from './Pages/Contactus'
 import Privacy from './Pages/Privacy/Privacy'
+import Main from './Pages/Admin/Dashboard'
 import {SearchProvider} from './Components/SearchBar/SearchBarContext'
 // import { Router, Link } from "@reach/router"
 
@@ -41,9 +41,9 @@ export default function ProminentAppBar() {
                   <Route exact path="/retailers" component = {Retailers}/>
                   <Route exact path = '/add_feed' component = {AddFeed}/>
                   <Route exact path="/search" component = {Product}/>
-                  <Route exact path="/admin" component = {Admin}/>
                   <Route exact path="/privacy" component = {Privacy}/>
                   <Route exact path="/contact" component = {Contact}/>
+                  <Route exact path="/main" component = {Main}/>
            </Switch> 
                   {/* <Home path="/" />
                   {/* {/* <FAQ path="/faq" />
