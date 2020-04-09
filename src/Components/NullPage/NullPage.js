@@ -11,6 +11,7 @@ import SearchBox from '../../Components/SearchBar/SearchBar'
 import {useHistory} from 'react-router-dom'
 
 export default function FormDialog({status}) {
+   
   const [open, setOpen] = React.useState(status);
 
   const handleClickOpen = () => {

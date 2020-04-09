@@ -40,18 +40,22 @@ export default function SerchBar({Close}){
   const hanldEnterDown = event=>{
       if (event.key === "Enter") {
         event.preventDefault();
-        if ((window.location.pathname==="/search")) {
-          Close();
-         } 
-        let url = new URL(window.location.href);
-        let newSearchQuery = new URLSearchParams(url.search.slice(1));
-
-        newSearchQuery.set('search_q',searchTerm);
        
-        history.push({
-        pathname: '/search',
-        search: newSearchQuery.toString().toLowerCase(),
-          })
+          if ((window.location.pathname==="/search")) {
+            Close();
+          } 
+          let url = new URL(window.location.href);
+          let oldSearchQuery = new URLSearchParams(url.search.slice(1));
+          let country = oldSearchQuery.get('country');
+          let newSearchQuery = new URLSearchParams();
+          newSearchQuery.set('country',country)
+          newSearchQuery.set('search_q',searchTerm);
+        
+          history.push({
+          pathname: '/search',
+          search:newSearchQuery.toString().toLocaleLowerCase()
+
+            })
     }
   }
 
@@ -61,11 +65,16 @@ export default function SerchBar({Close}){
       Close();
      } 
     let url = new URL(window.location.href);
-    let newSearchQuery = new URLSearchParams(url.search.slice(1));
+    let oldSearchQuery = new URLSearchParams(url.search.slice(1));
+    let country = oldSearchQuery.get('country');
+    let newSearchQuery = new URLSearchParams();
+    newSearchQuery.set('country',country)
     newSearchQuery.set('search_q',searchTerm);
    
     history.push({
     pathname: '/search',
+    search:newSearchQuery.toString().toLocaleLowerCase()
+
       })
   }
 

@@ -49,12 +49,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Menu({menu}) {
-  
-  const [menuData, setmenuData] = useState(menu)
+export default function Menu({menuData}) {
 
-  console.log('This is menuy')
-  console.log(menuData)
   const [category, setcategory] = useState(false);
   const [size, setsize] = useState(false);
   const [brand, setbrand] = useState(false);
@@ -67,14 +63,11 @@ export default function Menu({menu}) {
   const history = useHistory();
   const {searchQuery} = useContext(SearchContext);
 
-  // const [searchData_r, setSearchData_r] = searchData;
-  // // const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
   
  const DeleteQueryItem =(value) =>{
 
   console.log("&&&&&&&&&&&&&*********Thsi is searchquery before delete")
-  // console.log(searchQuery_r.toString());
 
   let url = new URL(window.location.href);
   let searchParams = new URLSearchParams(url.search.slice(1));
@@ -115,7 +108,8 @@ export default function Menu({menu}) {
     newmenuData.find(category => category.key === key).selected = !newmenuData.find(category => category.key === key).selected;
     
     // Set menuData
-    setmenuData(newmenuData);
+    // setmenuData(newmenuData);
+    menuData = newmenuData;
 
     //Get menu name selected and get number of selected menu and if 0 then set the parent menu to uncheck.
     let menuName = newmenuData.find(category => category.key === key).menuKind;
@@ -156,7 +150,8 @@ export default function Menu({menu}) {
    
     const newmenuData = [...menuData];
     newmenuData.find(v => v.key === key).selected = false;
-    setmenuData(newmenuData);
+    // setmenuData(newmenuData);
+    menuData = newmenuData;
     var menuName = newmenuData.find(category => category.key === key).menuKind;
     var numSelected =newmenuData.filter(category => category.menuKind === menuName).filter(item=>item.selected ===true).length
     if (menuName === "category") {
@@ -293,27 +288,29 @@ const matches = useMediaQuery('(min-width:600px)');
 
                         <Collapse in = {categoryCallaps} timeout = {1000}>
                         <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
-                              {
+                              {<>
+                                  {
+                                      menuData&&menuData.filter((item) => item.menuKind === 'category').map((item,index)=>(
+                                        <>{item.label&&<Grid xs = {12}>
+                                          <FormControlLabel
+                                            control={
+                                              <Checkbox
+                                                key = {item.key}
+                                                checked={item.selected}
+                                                onChange={()=>handleChange(item.key)}
+                                                name={item.label}
+                                                color="primary"
+                                              />
+                                            }
+                                            label={item.label}
+                                          />
+                                        
+                                        </Grid>}</>
+                                        
+                                      ))
+                                  }
                               
-                              menuData.filter((item) => item.menuKind === 'category').map((item,index)=>(
-                                <>{item.label&&<Grid xs = {12}>
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        key = {item.key}
-                                        checked={item.selected}
-                                        onChange={()=>handleChange(item.key)}
-                                        name={item.label}
-                                        color="primary"
-                                      />
-                                    }
-                                    label={item.label}
-                                  />
-                                 
-                                </Grid>}</>
-                                
-                              ))
-                            }
+                            </>}
                           </GridList>
                           </Collapse>
 
@@ -346,24 +343,28 @@ const matches = useMediaQuery('(min-width:600px)');
                         <Collapse in = {sizeCallaps} timeout = {1000}>
                         <GridList cellHeight = {40} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"20px",marginBottom:"10px",marginTop:'10px '}}>
                               {
-                              
-                              menuData.filter((item) => item.menuKind === 'size').map((item,index)=>(
-                                <>{item.label&&<Grid xs = {12}>
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        key = {item.key}
-                                        checked={item.selected}
-                                        onChange={()=>handleChange(item.key)}
-                                        name={item.label}
-                                        color="primary"
+                              <>
+                              {
+                                  menuData&&menuData.filter((item) => item.menuKind === 'size').map((item,index)=>(
+                                    <>{item.label&&<Grid xs = {12}>
+                                      <FormControlLabel
+                                        control={
+                                          <Checkbox
+                                            key = {item.key}
+                                            checked={item.selected}
+                                            onChange={()=>handleChange(item.key)}
+                                            name={item.label}
+                                            color="primary"
+                                          />
+                                        }
+                                        label={item.label}
                                       />
-                                    }
-                                    label={item.label}
-                                  />
-                                </Grid>}</>
-                                
-                              ))
+                                    </Grid>}</>
+                                    
+                                  ))
+                              }
+                              </>
+                             
                             }
                           </GridList>
                           </Collapse>
@@ -396,24 +397,28 @@ const matches = useMediaQuery('(min-width:600px)');
                         <Collapse in = {brandCallaps} timeout = {1000}>
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
-                              
-                              menuData.filter((item) => item.menuKind === 'brand').map((item,index)=>(
-                                <>{item.label&&<Grid xs = {12}>
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        key = {item.key}
-                                        checked={item.selected}
-                                        onChange={()=>handleChange(item.key)}
-                                        name={item.label}
-                                        color="primary"
+                                <>{
+                                  menuData&&menuData.filter((item) => item.menuKind === 'brand').map((item,index)=>(
+                                    <>{item.label&&<Grid xs = {12}>
+                                      <FormControlLabel
+                                        control={
+                                          <Checkbox
+                                            key = {item.key}
+                                            checked={item.selected}
+                                            onChange={()=>handleChange(item.key)}
+                                            name={item.label}
+                                            color="primary"
+                                          />
+                                        }
+                                        label={item.label}
                                       />
-                                    }
-                                    label={item.label}
-                                  />
-                                </Grid>}</>
-                                
-                              ))
+                                    </Grid>}</>
+                                    
+                                  ))
+                                }
+                                </>
+                              
+                              
                             }
                           </GridList>
                           </Collapse>
@@ -447,24 +452,27 @@ const matches = useMediaQuery('(min-width:600px)');
                         <Collapse in = {sortCallaps} timeout = {1000}>
                         <GridList cellHeight = {35} spacing = {1} style = {{maxHeight:'30vh',paddingLeft:"30px",marginTop:'10px'}}>
                               {
-                              
-                              menuData.filter((item) => item.menuKind === 'sort').map((item,index)=>(
-                                <>{item.label&&<Grid xs = {12}>
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        key = {item.key}
-                                        checked={item.selected}
-                                        onChange={()=>handleChange(item.key)}
-                                        name={item.label}
-                                        color="primary"
-                                      />
-                                    }
-                                    label={item.label}
-                                  />
-                                </Grid>}</>
-                                
-                              ))
+                              <>{
+                                menuData&&menuData.filter((item) => item.menuKind === 'sort').map((item,index)=>(
+                                  <>{item.label&&<Grid xs = {12}>
+                                    <FormControlLabel
+                                      control={
+                                        <Checkbox
+                                          key = {item.key}
+                                          checked={item.selected}
+                                          onChange={()=>handleChange(item.key)}
+                                          name={item.label}
+                                          color="primary"
+                                        />
+                                      }
+                                      label={item.label}
+                                    />
+                                  </Grid>}</>
+                                  
+                                ))
+                              }
+                              </>
+                             
                             }
                           </GridList>
                           </Collapse>

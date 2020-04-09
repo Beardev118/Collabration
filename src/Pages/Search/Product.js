@@ -11,15 +11,26 @@ import {useLocation} from "react-router-dom"
 import NullPage from '../../Components/NullPage/NullPage'
 import { useHistory } from "react-router-dom";
 
+let prevQuery = null;
+
+
+
 
 const useFetch = (search)=>{
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menuData, setMenuData] = useState(null);
   const [returnVal, setReturnVal] = useState(null);
+
+ 
   
   useEffect(() => {
     let ignore = false;
+
+    let url_out = new URL(window.location.href);
+    let searchQuery_out = new URLSearchParams(url_out.search.slice(1));
+    let curQuery = searchQuery_out.get('search_q');
+
     async function fetchData (){
       const url = `http://3.10.195.126:3000/products/search?${search}`
       const response = await fetch(url);
@@ -29,19 +40,25 @@ const useFetch = (search)=>{
       const [sizes] = data.size;
       const [brands] = data.brand;
       const [result] = data.results;
+      console.log(prevQuery)
+      console.log(curQuery);
 
       if (!ignore) {
 
         if (result =='ok') {
-          const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
-          const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
-          const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
-          const menu_Data_fetch = categoryData.concat(sizeData,brandData);
-          setMenuData(menu_Data_fetch);
+          if (prevQuery!==curQuery) {
+            const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category" }))
+            const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size" }))
+            const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
+            const menu_Data_fetch = categoryData.concat(sizeData,brandData);
+            setMenuData(menu_Data_fetch);
+            
+           
+  
+          }
           setProducts(products);
           setLoading(false);
-          setReturnVal(result);
-
+            setReturnVal(result);
         }else{
           // setMenuData(null);
           // setProducts(null);
@@ -52,7 +69,10 @@ const useFetch = (search)=>{
       }
     }
     fetchData();
-    return () => { ignore = true };
+    return () => { 
+      ignore = true
+      prevQuery = curQuery;
+    };
   }, [search]);
 
   return {products,menuData,loading,returnVal};
@@ -96,7 +116,8 @@ export default function App() {
          
           <Container maxWidth = 'lg'>
             {(returnVal=='no results')&& <NullPage status = {true}/>}
-          {menuData&&<MenuBar menu = {menuData}/>}
+            {console.log(menuData)}
+          {menuData&&<MenuBar menuData = {menuData}/>}
           <div></div>
         
          {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />}
@@ -107,18 +128,7 @@ export default function App() {
             </Grid>
           <Footer/>
           </Container>
-          // :
-          //  <Container>
-            
-          //   <div style = {{height:'10vh'}}></div>
-          //     <Typography>Your search for did not return any results.</Typography>
-          //     <Typography variant = 'h4'>Search Tips</Typography>
-          //     <ul>
-          //       <li> Try searching by product type, brand or description </li>
-          //       <li>Check your spelling</li>
-          //       <li>Broaden your search by using fewer or more general words</li>
-          //     </ul>
-          //   </Container> 
+          
         }
       </React.Fragment>
         
