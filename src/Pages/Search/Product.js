@@ -13,20 +13,14 @@ import { useHistory } from "react-router-dom";
 
 let prevQuery = null;
 
-
-
-
 const useFetch = (search)=>{
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menuData, setMenuData] = useState(null);
   const [returnVal, setReturnVal] = useState(null);
-
- 
   
   useEffect(() => {
     let ignore = false;
-
     let url_out = new URL(window.location.href);
     let searchQuery_out = new URLSearchParams(url_out.search.slice(1));
     let curQuery = searchQuery_out.get('search_q');
@@ -52,16 +46,12 @@ const useFetch = (search)=>{
             const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand" }));
             const menu_Data_fetch = categoryData.concat(sizeData,brandData);
             setMenuData(menu_Data_fetch);
-            
-           
   
           }
           setProducts(products);
           setLoading(false);
             setReturnVal(result);
         }else{
-          // setMenuData(null);
-          // setProducts(null);
           setLoading(false);
           setReturnVal(result);
         }
@@ -104,6 +94,8 @@ export default function App() {
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
+
+  // console].log
 
   
   
