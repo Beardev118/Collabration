@@ -139,7 +139,7 @@ const theme = createMuiTheme({
       fontFamily: [
         '"Libre Baskerville"',
       ].join(','),
-      fontSize:'100px',
+      fontSize:'80px',
       letterSpacing: '1px',
       fontWeight:700,
       whiteSpace:'nowrap',
