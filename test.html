@@ -1,49 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Get Current URL in JavaScript</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <script>
-   
-      let fileter = JSON.stringify({"title":"bar"})
-      let sort= JSON.stringify(["title","ASC"]);
-      let range= JSON.stringify([0, 24])
 
-      console.log('This is filter');
-      console.log(fileter);
-
-      const apiUrl = 'http://192.168.1.192:3000/api';
-      const resource = 'feeds'
-
-      let url_old = new URL('http://192.168.1.229:3000/api/feeds?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D');
-      let searchParams = new URLSearchParams(url_old.search.slice(1));
-
-      const query = {
-            sort:sort,
-            range: range,
-            filter:fileter,
-        };
-        const url = `${apiUrl}/${resource}?${JSON.stringify(query)}`;
-
-        console.log(url);
-        let newSearchparm = new URLSearchParams(url);
-      console.log('///////////////new')
-      for(var pair of newSearchparm.entries()) {
-              console.log(pair[0]+ ', '+ pair[1]); 
-      }
-      console.log('*************old')
-
-
-      for(var pair of searchParams.entries()) {
-        console.log(pair[0]+ ', '+ pair[1]); 
-      }
-     
-   
-
-    </script>
-     
-    
+  <meta name="theme-color" content="#702465" />
+  #702465
+  
 </body>
 </html>

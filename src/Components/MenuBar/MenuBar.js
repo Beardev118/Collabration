@@ -296,7 +296,7 @@ const matches = useMediaQuery('(min-width:600px)');
                               {
                               
                               menuData.filter((item) => item.menuKind === 'category').map((item,index)=>(
-                                <Grid xs = {12}>
+                                <>{item.label&&<Grid xs = {12}>
                                   <FormControlLabel
                                     control={
                                       <Checkbox
@@ -309,7 +309,8 @@ const matches = useMediaQuery('(min-width:600px)');
                                     }
                                     label={item.label}
                                   />
-                                </Grid>
+                                 
+                                </Grid>}</>
                                 
                               ))
                             }
@@ -347,7 +348,7 @@ const matches = useMediaQuery('(min-width:600px)');
                               {
                               
                               menuData.filter((item) => item.menuKind === 'size').map((item,index)=>(
-                                <Grid xs = {12}>
+                                <>{item.label&&<Grid xs = {12}>
                                   <FormControlLabel
                                     control={
                                       <Checkbox
@@ -360,7 +361,7 @@ const matches = useMediaQuery('(min-width:600px)');
                                     }
                                     label={item.label}
                                   />
-                                </Grid>
+                                </Grid>}</>
                                 
                               ))
                             }
@@ -397,7 +398,7 @@ const matches = useMediaQuery('(min-width:600px)');
                               {
                               
                               menuData.filter((item) => item.menuKind === 'brand').map((item,index)=>(
-                                <Grid xs = {12}>
+                                <>{item.label&&<Grid xs = {12}>
                                   <FormControlLabel
                                     control={
                                       <Checkbox
@@ -410,7 +411,7 @@ const matches = useMediaQuery('(min-width:600px)');
                                     }
                                     label={item.label}
                                   />
-                                </Grid>
+                                </Grid>}</>
                                 
                               ))
                             }
@@ -448,7 +449,7 @@ const matches = useMediaQuery('(min-width:600px)');
                               {
                               
                               menuData.filter((item) => item.menuKind === 'sort').map((item,index)=>(
-                                <Grid xs = {12}>
+                                <>{item.label&&<Grid xs = {12}>
                                   <FormControlLabel
                                     control={
                                       <Checkbox
@@ -461,7 +462,7 @@ const matches = useMediaQuery('(min-width:600px)');
                                     }
                                     label={item.label}
                                   />
-                                </Grid>
+                                </Grid>}</>
                                 
                               ))
                             }

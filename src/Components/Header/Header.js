@@ -154,13 +154,12 @@ export default function ProminentAppBar() {
     let newSearchQuery = new URLSearchParams(url.search.slice(1));
     // newSearchQuery = searchQuery_r;
     newSearchQuery.set('country',country[index])
-    // setSearchQuery_r(newSearchQuery);
-    // if (window.location.pathname==="/search") {
+    if (window.location.pathname==="/search") {
       history.push({
         pathname: '/search',
         search: newSearchQuery.toString().toLowerCase()
       })
-    // }
+    }
 
   };
 
