@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect} from 'react';
 import ProdcutArea from '../../Components/ProductArea/ProductArea'
 import MenuBar from '../../Components/MenuBar/MenuBar'
 import Pagination from '@material-ui/lab/Pagination';
@@ -8,9 +8,11 @@ import Container from '@material-ui/core/Container'
 import Footer from '../../Components/Footer/Footer'
 import Loading from '../../Components/Loading/Loading'
 import {useLocation} from "react-router-dom"
-import {SearchContext} from '../../Components/SearchBar/SearchBarContext'
+import NullPage from '../../Components/NullPage/NullPage'
+import { useHistory } from "react-router-dom";
 
-const useFetch = (url)=>{
+
+const useFetch = (search)=>{
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menuData, setMenuData] = useState(null);
@@ -19,6 +21,7 @@ const useFetch = (url)=>{
   useEffect(() => {
     let ignore = false;
     async function fetchData (){
+      const url = `http://3.10.195.126:3000/products/search?${search}`
       const response = await fetch(url);
       const data = await response.json();
       const [products] = data.products;
@@ -40,8 +43,8 @@ const useFetch = (url)=>{
           setReturnVal(result);
 
         }else{
-          setMenuData(null);
-          setProducts(null);
+          // setMenuData(null);
+          // setProducts(null);
           setLoading(false);
           setReturnVal(result);
         }
@@ -50,7 +53,7 @@ const useFetch = (url)=>{
     }
     fetchData();
     return () => { ignore = true };
-  }, [url]);
+  }, [search]);
 
   return {products,menuData,loading,returnVal};
 }
@@ -71,27 +74,28 @@ const BackendQuery = (queryParam)=>{
 
 export default function App() {
 
-  const {searchQuery} = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+  const history = useHistory()
 
-  const{products,menuData, loading,returnVal} = useFetch('http://3.10.195.126:3000/products/search?'+BackendQuery(searchQuery_r));
+  let url = new URL(window.location.href);
+  let searchQuery = new URLSearchParams(url.search.slice(1));
+  
+  const {products,menuData, loading,returnVal} = useFetch(BackendQuery(searchQuery));
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
 
-  console.log('****_________*******This is products on product page.')
-  console.log(products);
-  console.log(searchQuery_r.toString());
-  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-
+  
+  
 
   return (
       <React.Fragment>
         <Header/>
-        {loading?<Loading/>:
-          (returnVal=='ok')?<Container maxWidth = 'lg'>
 
+        {loading?<Loading/>:
+         
+          <Container maxWidth = 'lg'>
+            {(returnVal=='no results')&& <NullPage status = {true}/>}
           {menuData&&<MenuBar menu = {menuData}/>}
           <div></div>
         
@@ -102,16 +106,19 @@ export default function App() {
                 </Grid>
             </Grid>
           <Footer/>
-          </Container>:<Container>
-             <div style = {{height:'10vh'}}></div>
-              <Typography>Your search for did not return any results.</Typography>
-              <Typography variant = 'h4'>Search Tips</Typography>
-              <ul>
-                <li> Try searching by product type, brand or description </li>
-                <li>Check your spelling</li>
-                <li>Broaden your search by using fewer or more general words</li>
-              </ul>
-            </Container>
+          </Container>
+          // :
+          //  <Container>
+            
+          //   <div style = {{height:'10vh'}}></div>
+          //     <Typography>Your search for did not return any results.</Typography>
+          //     <Typography variant = 'h4'>Search Tips</Typography>
+          //     <ul>
+          //       <li> Try searching by product type, brand or description </li>
+          //       <li>Check your spelling</li>
+          //       <li>Broaden your search by using fewer or more general words</li>
+          //     </ul>
+          //   </Container> 
         }
       </React.Fragment>
         

@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
-import {SearchContext} from './SearchBarContext'
+// import {SearchContext} from './SearchBarContext'
 
 const useStyles = makeStyles((theme: theme) =>
   createStyles({
@@ -35,8 +35,6 @@ export default function SerchBar({Close}){
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocussed, setFocussed] = useState(false);
   const history = useHistory()
-  const {searchQuery} = useContext(SearchContext);
-  const [searchQuery_r, setSearchQuery_r] = searchQuery;
   
 
   const hanldEnterDown = event=>{
@@ -45,15 +43,15 @@ export default function SerchBar({Close}){
         if ((window.location.pathname==="/search")) {
           Close();
          } 
-        var newSearchQuery = new URLSearchParams();
-        newSearchQuery = searchQuery_r;
+        let url = new URL(window.location.href);
+        let newSearchQuery = new URLSearchParams(url.search.slice(1));
+
         newSearchQuery.set('search_q',searchTerm);
        
         history.push({
         pathname: '/search',
-            search: searchQuery_r.toString()
+        search: newSearchQuery.toString().toLowerCase(),
           })
-       setSearchQuery_r(newSearchQuery);
     }
   }
 
@@ -62,42 +60,34 @@ export default function SerchBar({Close}){
     if ((window.location.pathname==="/search")) {
       Close();
      } 
-    var newSearchQuery = new URLSearchParams();
-    newSearchQuery = searchQuery_r;
+    let url = new URL(window.location.href);
+    let newSearchQuery = new URLSearchParams(url.search.slice(1));
     newSearchQuery.set('search_q',searchTerm);
    
     history.push({
     pathname: '/search',
-        search: searchQuery_r.toString()
       })
-   setSearchQuery_r(newSearchQuery);
   }
 
   return(
-      <Container maxWidth = 'lg'>
-          <Grid container justify = "center" >
-              <Grid xs = {11} md = {9}>
-                <Paper component="form" className={classes.root} elevation = {2} >
-                  <InputBase
-                    className={classes.input}
-                    type="search"
-                    placeholder="What are you looking for?"
-                    value={searchTerm}
-                    onClick={() => setFocussed(true)}
-                    onChange={event => setSearchTerm(event.target.value)}
-                    onKeyDown={hanldEnterDown}
-                    autoFocus
-                    style = {{minHeight:'50px'}}
-                  />
-                  {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {handleIconButton}>
-                    <SearchIcon />
-                  </IconButton>}
-                  <Divider className={classes.divider} orientation="vertical" />
-                </Paper>
-              </Grid>
-          </Grid>
-      
-      </Container>
+        <Paper component="form" className={classes.root} elevation = {4} >
+          <InputBase
+            className={classes.input}
+            type="search"
+            placeholder="What are you looking for?"
+            value={searchTerm}
+            onClick={() => setFocussed(true)}
+            onChange={event => setSearchTerm(event.target.value)}
+            onKeyDown={hanldEnterDown}
+            autoFocus
+            style = {{minHeight:'50px'}}
+            fullWidth
+          />
+          {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {handleIconButton}>
+            <SearchIcon />
+          </IconButton>}
+          <Divider className={classes.divider} orientation="vertical" />
+        </Paper>
         
   );
 

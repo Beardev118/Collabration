@@ -6,13 +6,9 @@ import Container from '@material-ui/core/Container'
 import { Typography, Link } from '@material-ui/core';
 import MetaTags from 'react-meta-tags';
 import Logo from '../Components/Logo/Logo'
-import {SearchContext} from '../Components/SearchBar/SearchBarContext'
-
 
 
 export default function Home(){
-  const {searchQuery} = useContext(SearchContext);
-  const [searchQuery_r, setSearchQuery_r] = searchQuery;
   return(
     <React.Fragment>
 
@@ -28,19 +24,16 @@ export default function Home(){
                 <Grid item xs = {12}>
                    <Logo/>
                 </Grid>
-                <Grid item xs = {12}>
+                <Grid item xs = {12} md = {8}>
                   <SearchBar/>
                 </Grid>
-                <Grid container xs = {9} md = {8} justify = 'flex-end'>
+                <Grid container xs = {9} md = {7} justify = 'flex-end'>
                   <Grid >
                      <Typography variant = "h6"> <Link href = "/privacy">Privacy Policy</Link>/<Link href = "/contact">Contact Us</Link></Typography>
                   </Grid>
                 </Grid>
               </Grid>
-             
-             
             </Container>
-             
     </React.Fragment>
       
   );

@@ -25,10 +25,10 @@ const useStyles = makeStyles(theme => ({
   },
   
   lg_logoLarge:{
-    fontSize: '24px',
+    fontSize: '40px',
   },
   lg_logoLargebold:{
-    fontSize: '24px',
+    fontSize: '30px',
   },
   lg_logoSmall:{
     fontSize: '12px',

@@ -1,56 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+<meta charset="utf-8">
+<title>Get Current URL in JavaScript</title>
 </head>
 <body>
-  
-  <script>
-    var str = "search_q=Frost+Grey&country=United%20Kingdom&category=Accessories&size=UK%203&brand=Earth%20Spirit&category=Accsssories&size=UK%2088";
-    var pos = str.search("locate");
+    <script>
+   
+      let fileter = JSON.stringify({"title":"bar"})
+      let sort= JSON.stringify(["title","ASC"]);
+      let range= JSON.stringify([0, 24])
 
-    // Create a test URLSearchParams object
-      var searchParams = new URLSearchParams("search_q=Frost+Grey&country=United%20Kingdom&category=Accessories&size=UK%203&brand=Earth%20Spirit&category=Accsssories&size=UK%2088");
-      var newSearchParams = new URLSearchParams();
-      var term = 'UK 3';
-      // Log the values
-     var res =  searchParams.forEach(function(value, key) { 
-        console.log(value, key);
-      });
+      console.log('This is filter');
+      console.log(fileter);
 
-      console.log(res);
+      const apiUrl = 'http://192.168.1.192:3000/api';
+      const resource = 'feeds'
 
-      var review = ['a', 'a', 'b', 'c', 'b', 'a', 'a'];
+      let url_old = new URL('http://192.168.1.229:3000/api/feeds?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D');
+      let searchParams = new URLSearchParams(url_old.search.slice(1));
 
-      searchParams.forEach(function(value, key) {
-        if (value === term) {
-          console.log(value);
-          // searchParams.splice(key, 1);
-        }
-      });
+      const query = {
+            sort:sort,
+            range: range,
+            filter:fileter,
+        };
+        const url = `${apiUrl}/${resource}?${JSON.stringify(query)}`;
+
+        console.log(url);
+        let newSearchparm = new URLSearchParams(url);
+      console.log('///////////////new')
+      for(var pair of newSearchparm.entries()) {
+              console.log(pair[0]+ ', '+ pair[1]); 
+      }
+      console.log('*************old')
+
 
       for(var pair of searchParams.entries()) {
-          if (pair[1]!==term) {
-            newSearchParams.append(pair[0],pair[1]);
-          }
-        }
-      console.log('This is Deleted new search')  
-      console.log(newSearchParams.toString());
-      console.log(searchParams.toString());
-
-      var backendQuery = new URLSearchParams();
-      for(var key of searchParams.keys()) { 
-        console.log(key);
-        backendQuery.set(key,searchParams.getAll(key).join('*'));
-        console.log(key); 
+        console.log(pair[0]+ ', '+ pair[1]); 
       }
+     
+   
 
-      console.log(backendQuery.toString());
     </script>
+     
+    
 </body>
 </html>
-
-
-http://localhost:3000/search?search_q=blue&country=United+Kingdom&category=Jeans&category=Watch&category=Dresses&size=UK+6+%2F+EU+39+%2F+US+8&size=UK+5+%2F+EU+38+%2F+US+7

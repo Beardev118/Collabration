@@ -114,7 +114,7 @@ export default function ProminentAppBar() {
   const classes = useStyles();
   const {searchQuery} = useContext(SearchContext);
   const history = useHistory()
-  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+  // const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
   const country = [
     'Select Country',
@@ -150,16 +150,17 @@ export default function ProminentAppBar() {
     setAnchorEl(null);
     
 
-    var newSearchQuery = new URLSearchParams();
-    newSearchQuery = searchQuery_r;
+    let url = new URL(window.location.href);
+    let newSearchQuery = new URLSearchParams(url.search.slice(1));
+    // newSearchQuery = searchQuery_r;
     newSearchQuery.set('country',country[index])
-    setSearchQuery_r(newSearchQuery);
-    if (window.location.pathname==="/search") {
+    // setSearchQuery_r(newSearchQuery);
+    // if (window.location.pathname==="/search") {
       history.push({
         pathname: '/search',
-        search: newSearchQuery.toString()
+        search: newSearchQuery.toString().toLowerCase()
       })
-    }
+    // }
 
   };
 

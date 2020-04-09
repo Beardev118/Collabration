@@ -7,6 +7,7 @@ import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchBar from '../SearchBar/SearchBar';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,9 +58,12 @@ export default function ExpandSearch() {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
-      
-          <SearchBar className = "SearchBar" Close = {handleClose}/>
+      <Fade in={open}>
+       <Grid container xs = {12} justify = 'center'>
+         <Grid item xs = {5}>
+         <SearchBar className = "SearchBar" Close = {handleClose}/>
+         </Grid>
+       </Grid>
         </Fade>
       </Modal>
     </div>

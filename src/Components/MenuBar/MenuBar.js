@@ -49,9 +49,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Menu(props) {
+export default function Menu({menu}) {
   
-  const [menuData, setmenuData] = useState(props.menu)
+  const [menuData, setmenuData] = useState(menu)
 
   console.log('This is menuy')
   console.log(menuData)
@@ -68,39 +68,44 @@ export default function Menu(props) {
   const {searchQuery} = useContext(SearchContext);
 
   // const [searchData_r, setSearchData_r] = searchData;
-  const [searchQuery_r, setSearchQuery_r] = searchQuery;
+  // // const [searchQuery_r, setSearchQuery_r] = searchQuery;
 
   
- const DeleteQueryItem =(searchParams, value) =>{
+ const DeleteQueryItem =(value) =>{
 
   console.log("&&&&&&&&&&&&&*********Thsi is searchquery before delete")
-  console.log(searchQuery_r.toString());
+  // console.log(searchQuery_r.toString());
 
-   var newSearchParams = new URLSearchParams();
+  let url = new URL(window.location.href);
+  let searchParams = new URLSearchParams(url.search.slice(1));
+  let newSearchParams = new URLSearchParams();
   for(var pair of searchParams.entries()) {
     console.log(pair[0]+ ', '+ pair[1]); 
-    if (pair[1]!=value) {
+    if (pair[1].toLowerCase()!=value.toLowerCase()) {
       console.log(pair[1]);
       console.log(value);
       newSearchParams.append(pair[0],pair[1]);
     }
   }
-  setSearchQuery_r(newSearchParams);
+  // setSearchQuery_r(newSearchParams);
 
   history.push({
     pathname: '/search',
-    search: newSearchParams.toString()
+    search: newSearchParams.toString().toLowerCase(),
   })
 
       console.log("&&&&&&&&&&&&&*Thsi is searchquery after delete")
       console.log(newSearchParams.toString());
  }
  
- const AddQueryItem =(key, value) =>{
-    searchQuery_r.append(key,value);
+ const AddQueryItem =(key,value) =>{
+    // searchQuery_r.append(key,value);
+    let url = new URL(window.location.href);
+    let newSearchQuery = new URLSearchParams(url.search.slice(1));
+    newSearchQuery.append(key,value);
     history.push({
     pathname: '/search',
-    search: searchQuery_r.toString()
+    search: newSearchQuery.toString().toLowerCase(),
   })
 
  }
@@ -143,7 +148,8 @@ export default function Menu(props) {
     const query_key = newmenuData.find(category => category.key === key).menuKind;
     const query_value = newmenuData.find(category => category.key === key).label;
     const key_statue = newmenuData.find(category => category.key === key).selected;
-    key_statue?AddQueryItem(query_key,query_value):DeleteQueryItem(searchQuery_r,query_value)
+
+    key_statue?AddQueryItem(query_key,query_value):DeleteQueryItem(query_value)
   }
 
   const handleDelete = (key) => () => {
@@ -167,7 +173,7 @@ export default function Menu(props) {
     }
 
     const query_value = newmenuData.find(category => category.key === key).label;
-    DeleteQueryItem(searchQuery_r,query_value); 
+    DeleteQueryItem(query_value); 
   };
 
   const closeColapse = ()=>{
