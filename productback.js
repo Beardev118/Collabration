@@ -22,7 +22,7 @@ const useFetchdata = (search) => {
 
     // Change the apiUrl according to the search string
    
-    const apiUrl = `http://3.10.195.126:3000/products/search?${search}`
+    const apiUrl = `http://192.168.1.229:3000/api/products?${search}`
 
    
     fetch(apiUrl)
@@ -72,7 +72,6 @@ export default function App() {
   
   const { data, loading, error } = useFetchdata(BackendQuery(searchQuery_r));
 
-      console.log('this is user list')
       let menuData = null;
       let products = [];
       if (data!==null) {
@@ -99,8 +98,7 @@ export default function App() {
         {loading?<Loading/>:
          <Container maxWidth = 'lg'>
           {menuData&&<MenuBar menu = {menuData}/>}
-          {console.log('This is menuData')}
-          {console.log(menuData)}
+        
           <div></div>
          {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}/>}
             <Grid container spacing={3} direction = "row" justify = "flex-end">

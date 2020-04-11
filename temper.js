@@ -44,7 +44,7 @@ useEffect(() => {
 
   async function fetchProduct() {
     let result = null;
-    const response = await fetch('http://192.168.1.229:3000/products/search?'+backendQuery);
+    const response = await fetch('http://192.168.1.229:3000/api/products?'+backendQuery);
     
     
 

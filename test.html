@@ -3,12 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="https://companyfilotimo.com/wp-content/uploads/2020/04/favicon-32x32-2.png"/>
   <title>Document</title>
 </head>
 <body>
+  <script>
 
-  <meta name="theme-color" content="#702465" />
-  #702465
-  
+const test = new URLSearchParams(    'http://192.168.1.229:3000/api/products?search_q=f&sort=%5B%22price%22%2C%22ASC%22%5D&range=%5B0%2C24%5D&filter=%7B%22country%22%3A%22null%22%2C%22category%22%3A%5B%22footwear%22%5D%2C%22size%22%3A%5B%5D%2C%22brand%22%3A%5B%5D%7D');
+let url = new URL("http://192.168.1.229:3000/api/products?search_q=blue&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%5d%2c%22size%22%3a%5b%5d%2c%22brand%22%3a%5b%5d%7d");
+
+const test_url = new URLSearchParams(url.search.slice(1));
+
+const testquery = new URLSearchParams("search_q=blue&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%5d%2c%22size%22%3a%5b%2228+%2f+28%22%5d%2c%22brand%22%3a%5b%5d%7d");
+
+// const keyValue = test_url.getAll('category');
+
+// console.log("**********");
+// console.log(test_url.get('search_q'));
+// console.log(test_url.get('sort'));
+// console.log(test_url.get('range'));
+// console.log(test_url.get('filter'));
+// console.log("************")
+
+
+console.log("**********");
+console.log(testquery.get('search_q'));
+console.log(testquery.get('sort'));
+console.log(testquery.get('range'));
+console.log(testquery.get('filter'));
+console.log("************")
+
+
+
+
+        var urlquery = new URLSearchParams(query);
+
+
+        console.log(urlquery.toString());
+
+// const url = `${apiUrl}/${resource}?${stringify(query)}`;
+var test_check = test.entries();
+
+console.log(test_check);
+console.log(query);
+
+
+        // http://192.168.1.229:3000/api/products?search_q=frost+grey&sort=["price", "ASC"]&range=[0,24]&filter={"country":"null", "category":["footwear"], "size" : [], "brand" :[]}
+
+        
+  </script>
 </body>
 </html>

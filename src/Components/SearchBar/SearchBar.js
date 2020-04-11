@@ -70,6 +70,9 @@ export default function SerchBar({Close}){
     let newSearchQuery = new URLSearchParams();
     newSearchQuery.set('country',country)
     newSearchQuery.set('search_q',searchTerm);
+    newSearchQuery.delete('category');
+    newSearchQuery.delete('size');
+    newSearchQuery.delete('brand');
    
     history.push({
     pathname: '/search',

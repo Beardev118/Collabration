@@ -42,7 +42,7 @@ const useFetchRetailers = () => {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    const apiUrl = `http://3.10.195.126:3000/vendors/all`
+    const apiUrl = `http://192.168.1.229:3000/vendors/all`
    
     fetch(apiUrl)
       .then(res => res.json())
