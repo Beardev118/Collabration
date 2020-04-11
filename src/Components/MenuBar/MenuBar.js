@@ -109,25 +109,25 @@ export default function Menu({menuData}) {
   const [selectedMenu, setSelectedMenu] = useState(null);
 
   const  {menuDataUpdated,loading,returnVal} = useFetchMenu(BackendQuery(menuQuery));
-  console.log(BackendQuery(menuQuery));
+  console.log(`http://192.168.1.229:3000/api/products?${BackendQuery(menuQuery)}`);
   
   console.log('************Selected menu');
   console.log(selectedMenu);
 
-  if(menuDataUpdated != null){
+  // if(menuDataUpdated != null){
     
-    menuData = menuDataUpdated&&menuData.map((item)=>{
-      if(item.menuKind===selectedMenu.menu){
-        return item;
-      }else{
-        if (menuDataUpdated.some(obj=>obj.label===item.label)) {
-          return selectedMenu.checked?{...item, 'visible':true}:{...item, 'visible':false};
-        } else {
-          return selectedMenu.checked?{...item, 'visible':false}:{...item, 'visible':true};
-        }
-      }
-    });
-  }
+  //   menuData = menuDataUpdated&&menuData.map((item)=>{
+  //     if(item.menuKind===selectedMenu.menu){
+  //       return item;
+  //     }else{
+  //       if (menuDataUpdated.some(obj=>obj.label===item.label)) {
+  //         return selectedMenu.checked?{...item, 'visible':true}:{...item, 'visible':false};
+  //       } else {
+  //         return selectedMenu.checked?{...item, 'visible':false}:{...item, 'visible':true};
+  //       }
+  //     }
+  //   });
+  // }
 
   
   
@@ -136,7 +136,12 @@ export default function Menu({menuData}) {
     let url = new URL(window.location.href);
     let searchParams = new URLSearchParams(url.search.slice(1));
     let newSearchParams = new URLSearchParams();
+    let country = searchParams.get('country');
+    let search_q = searchParams.get('search_q');
     let menuSearchQuery = new URLSearchParams();
+
+    menuSearchQuery.set('country',country);
+    menuSearchQuery.set('search_q',search_q);
     for(var pair of searchParams.entries()) {
       if (pair[1].toLowerCase()!=value.toLowerCase()) {
         newSearchParams.append(pair[0],pair[1]);
