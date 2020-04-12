@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import {BackendQuery} from './BackendQuery'
 
 let prevQuery = null;
+let oldMenuData = null;
 
 const useFetch = (search)=>{
   const [products, setProducts] = useState(null);
@@ -22,9 +23,7 @@ const useFetch = (search)=>{
   
   useEffect(() => {
     let ignore = false;
-    let url_out = new URL(window.location.href);
-    let searchQuery_out = new URLSearchParams(url_out.search.slice(1));
-    let curQuery = searchQuery_out.get('search_q');
+   
 
     async function fetchData (){
       const url = `http://192.168.1.229:3000/api/products?${search}`
@@ -39,13 +38,12 @@ const useFetch = (search)=>{
       if (!ignore) {
 
         if (result =='ok') {
-          if (prevQuery!==curQuery) {
             const categoryData = categories.map((label,index) => ({"key":'category'+index, "label":label,"selected":false,"menuKind":"category","visible":true }))
             const sizeData =  sizes.map((label,index) => ({"key":'size'+index, "label":label,"selected":false,"menuKind":"size","visible":true }))
             const brandData = brands.map((label,index) => ({"key":'brand'+index, "label":label,"selected":false,"menuKind":"brand","visible":true }));
             const menu_Data_fetch = categoryData.concat(sizeData,brandData);
             setMenuData(menu_Data_fetch);
-          }
+          
           setProducts(products);
           setLoading(false);
             setReturnVal(result);
@@ -59,7 +57,7 @@ const useFetch = (search)=>{
     fetchData();
     return () => { 
       ignore = true
-      prevQuery = curQuery;
+    
     };
   }, [search]);
 
@@ -75,6 +73,16 @@ export default function App() {
   let searchQuery = new URLSearchParams(url.search.slice(1));
   
   const {products,menuData, loading,returnVal} = useFetch(BackendQuery(searchQuery));
+  let url_out = new URL(window.location.href);
+  let searchQuery_out = new URLSearchParams(url_out.search.slice(1));
+  let curQuery = searchQuery_out.get('search_q');
+
+  if (prevQuery!==curQuery) {
+    oldMenuData = menuData;
+    prevQuery = curQuery;
+
+  }
+  
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -86,9 +94,13 @@ export default function App() {
         {loading?<Loading/>:
          
           <Container maxWidth = 'lg'>
+            {console.log("This is result")}
+            {console.log(returnVal)}
             {(returnVal=='no results')&& <NullPage status = {true}/>}
-          {menuData&&<MenuBar menuData = {menuData}/>}
+          {(prevQuery!==curQuery)?oldMenuData&&<MenuBar menuData = {oldMenuData}/>:menuData&&<MenuBar menuData = {menuData}/>}
           <div></div>
+          {console.log('This is product out put')}
+          {console.log(products)}
          {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}   />}
             <Grid container spacing={3} direction = "row" justify = "flex-end">
                 <Grid item>

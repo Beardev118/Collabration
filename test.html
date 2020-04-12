@@ -14,7 +14,7 @@ let url = new URL("http://192.168.1.229:3000/api/products?search_q=blue&sort=%5b
 
 const test_url = new URLSearchParams(url.search.slice(1));
 
-const testquery = new URLSearchParams("search_q=blue&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%5d%2c%22size%22%3a%5b%2228+%2f+28%22%5d%2c%22brand%22%3a%5b%5d%7d");
+const testquery = new URLSearchParams("search_q=socks&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%22accessories%22%5d%2c%22size%22%3a%5b%5d%2c%22brand%22%3a%5b%5d%7d");
 
 // const keyValue = test_url.getAll('category');
 

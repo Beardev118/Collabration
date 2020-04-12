@@ -11,7 +11,7 @@ export const BackendQuery = (queryParam)=>{
     const query = {
       search_q: searchQuery,
       sort: JSON.stringify([]),
-      range: JSON.stringify([0,24]),
+      range: JSON.stringify([0,60]),
       filter: JSON.stringify({
           "country":country,
           "category":category,

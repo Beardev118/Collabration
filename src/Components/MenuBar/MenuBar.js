@@ -112,22 +112,37 @@ export default function Menu({menuData}) {
   console.log(`http://192.168.1.229:3000/api/products?${BackendQuery(menuQuery)}`);
   
   console.log('************Selected menu');
-  console.log(selectedMenu);
+  // console.log(selectedMenu);
 
-  // if(menuDataUpdated != null){
+  var selectedItem = (menuQuery&&selectedMenu)&&menuQuery.getAll(selectedMenu.menu);
+  console.log(selectedItem);
+
+
+
+  if(menuDataUpdated != null){
     
-  //   menuData = menuDataUpdated&&menuData.map((item)=>{
-  //     if(item.menuKind===selectedMenu.menu){
-  //       return item;
-  //     }else{
-  //       if (menuDataUpdated.some(obj=>obj.label===item.label)) {
-  //         return selectedMenu.checked?{...item, 'visible':true}:{...item, 'visible':false};
-  //       } else {
-  //         return selectedMenu.checked?{...item, 'visible':false}:{...item, 'visible':true};
-  //       }
-  //     }
-  //   });
-  // }
+    menuData = menuDataUpdated&&menuData.map((item)=>{
+      if(item.menuKind===selectedMenu.menu){
+        if (selectedItem.includes(item.label.toLowerCase())) {
+          item.selected = true;
+          console.log(item.label);
+        }
+        else{
+          item.selected = false;
+        }
+        return item;
+      }else{
+        if (menuDataUpdated.some(obj=>obj.label===item.label)) {
+          return {...item, 'visible':true};
+        } else {
+          return {...item, 'visible':false};
+        }
+      }
+    });
+
+    console.log("menudata in the upadated");
+    // console.log(menuData);
+  }
 
   
   
@@ -146,7 +161,7 @@ export default function Menu({menuData}) {
       if (pair[1].toLowerCase()!=value.toLowerCase()) {
         newSearchParams.append(pair[0],pair[1]);
         if (pair[0]==key) {
-          menuSearchQuery.append(pair[0],pair[1]);
+          menuSearchQuery.append(pair[0].toLowerCase(),pair[1].toLowerCase());
         }
       }else{
         
@@ -168,7 +183,7 @@ export default function Menu({menuData}) {
 
     let url = new URL(window.location.href);
     let newSearchQuery = new URLSearchParams(url.search.slice(1));
-    newSearchQuery.append(key,value);
+    newSearchQuery.append(key,value.toLowerCase());
     history.push({
       pathname: '/search',
       search: newSearchQuery.toString().toLowerCase(),
