@@ -55,6 +55,7 @@ const useFetchMenu = (search)=>{
   const [loading, setLoading] = useState(true);
   const [menuDataUpdated, setMenuData] = useState(null);
   const [returnVal, setReturnVal] = useState(null);
+
   
   useEffect(() => {
    
@@ -94,7 +95,9 @@ const useFetchMenu = (search)=>{
   return {menuDataUpdated,loading,returnVal};
 }
 
-export default function Menu({menuData}) {
+let prevQuery = null
+
+export default function Menu(props) {
   const [category, setcategory] = useState(false);
   const [size, setsize] = useState(false);
   const [brand, setbrand] = useState(false);
@@ -107,6 +110,39 @@ export default function Menu({menuData}) {
   const history = useHistory();
   const [menuQuery, setMenuQuery] = useState(new URLSearchParams());
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [isChangeSearch, setIsChangeSearch] = useState(true);
+
+  let url = new URL(window.location.href);
+  let searchQuery = new URLSearchParams(url.search.slice(1));
+  let currQuery = searchQuery.get('search_q');
+  let currcountry = searchQuery.get('country');
+  let currcategory = searchQuery.get('category');
+  let currsize = searchQuery.get('size');
+  let currbrand = searchQuery.get('brand');
+
+  console.log("currQuery");
+  console.log(currQuery);
+  let menuData = null;
+  // isChangeSearch&&(menuData = props.menu);
+  (menuData = props.menu);
+
+
+  //Gold Cat
+  // if (currQuery!==prevQuery&&currcategory==null&&currsize==null&&currbrand==null) {
+  //   prevQuery = currQuery;
+  //   setIsChangeSearch(false);
+  // }
+
+  
+  //END
+
+  // console.log("menuQuery");
+  // console.log(menuQuery);
+
+  if ((prevQuery != currQuery) & (currcountry == "null") & (currcategory == null) & (currsize == null) & (currbrand == null)) {
+    prevQuery = currQuery;
+    setIsChangeSearch(false);
+  }
 
   const  {menuDataUpdated,loading,returnVal} = useFetchMenu(BackendQuery(menuQuery));
   console.log(`http://192.168.1.229:3000/api/products?${BackendQuery(menuQuery)}`);
@@ -114,32 +150,37 @@ export default function Menu({menuData}) {
   console.log('************Selected menu');
   // console.log(selectedMenu);
 
-  var selectedItem = (menuQuery&&selectedMenu)&&menuQuery.getAll(selectedMenu.menu);
+  var selectedItem = menuQuery && selectedMenu && menuQuery.getAll(selectedMenu.menu);
   console.log(selectedItem);
 
+  if(menuDataUpdated != null && menuData!=null){
+    if(isChangeSearch != false){
 
-
-  if(menuDataUpdated != null){
+      console.log("XXXXAAAA");
+      menuData = menuDataUpdated && menuData.map((item)=>{
+        if(item.menuKind===selectedMenu.menu){
+          if (selectedItem.includes(item.label.toLowerCase())) {
+            item.selected = true;
+            console.log(item.label);
+          }
+          else{
+            item.selected = false;
+          }
+          return item;
+        }else{
+          if (menuDataUpdated.some(obj=>obj.label===item.label)) {
+            return {...item, 'visible':true};
+          } else {
+            return {...item, 'visible':false};
+          }
+        }
+      });
+    }
+    else {
+      console.log("XXXXAAAABBBB");
+      menuData = menuDataUpdated;
+    }
     
-    menuData = menuDataUpdated&&menuData.map((item)=>{
-      if(item.menuKind===selectedMenu.menu){
-        if (selectedItem.includes(item.label.toLowerCase())) {
-          item.selected = true;
-          console.log(item.label);
-        }
-        else{
-          item.selected = false;
-        }
-        return item;
-      }else{
-        if (menuDataUpdated.some(obj=>obj.label===item.label)) {
-          return {...item, 'visible':true};
-        } else {
-          return {...item, 'visible':false};
-        }
-      }
-    });
-
     console.log("menudata in the upadated");
     // console.log(menuData);
   }
