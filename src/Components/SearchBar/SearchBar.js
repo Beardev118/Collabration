@@ -10,7 +10,7 @@ import { Container } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 // import {SearchContext} from './SearchBarContext'
 
-const useStyles = makeStyles((theme: theme) =>
+const useStyles = makeStyles((theme:theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -38,24 +38,23 @@ export default function SerchBar({Close}){
   
 
   const hanldEnterDown = event=>{
-      if (event.key === "Enter") {
-        event.preventDefault();
+    if (event.key === "Enter") {
+      event.preventDefault();
        
-          if ((window.location.pathname==="/search")) {
-            Close();
-          } 
-          let url = new URL(window.location.href);
-          let oldSearchQuery = new URLSearchParams(url.search.slice(1));
-          let country = oldSearchQuery.get('country');
-          let newSearchQuery = new URLSearchParams();
-          newSearchQuery.set('country',country)
-          newSearchQuery.set('search_q',searchTerm);
-        
-          history.push({
-          pathname: '/search',
-          search:newSearchQuery.toString().toLocaleLowerCase()
-
-            })
+      if ((window.location.pathname==="/search")) {
+        Close();
+      } 
+      let url = new URL(window.location.href);
+      let oldSearchQuery = new URLSearchParams(url.search.slice(1));
+      let country = oldSearchQuery.get('country');
+      let newSearchQuery = new URLSearchParams();
+      newSearchQuery.set('country',country)
+      newSearchQuery.set('search_q',searchTerm);
+    
+      history.push({
+        pathname: '/search',
+        search:newSearchQuery.toString().toLocaleLowerCase()
+      })
     }
   }
 
@@ -63,7 +62,7 @@ export default function SerchBar({Close}){
 
     if ((window.location.pathname==="/search")) {
       Close();
-     } 
+    } 
     let url = new URL(window.location.href);
     let oldSearchQuery = new URLSearchParams(url.search.slice(1));
     let country = oldSearchQuery.get('country');
@@ -75,31 +74,32 @@ export default function SerchBar({Close}){
     newSearchQuery.delete('brand');
    
     history.push({
-    pathname: '/search',
-    search:newSearchQuery.toString().toLocaleLowerCase()
-
-      })
+      pathname: '/search',
+      search:newSearchQuery.toString().toLocaleLowerCase()
+    })
   }
 
   return(
-        <Paper component="form" className={classes.root} elevation = {4} >
-          <InputBase
-            className={classes.input}
-            type="search"
-            placeholder="What are you looking for?"
-            value={searchTerm}
-            onClick={() => setFocussed(true)}
-            onChange={event => setSearchTerm(event.target.value)}
-            onKeyDown={hanldEnterDown}
-            autoFocus
-            style = {{minHeight:'50px'}}
-            fullWidth
-          />
-          {searchTerm&&<IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {handleIconButton}>
-            <SearchIcon />
-          </IconButton>}
-          <Divider className={classes.divider} orientation="vertical" />
-        </Paper>
+    <Paper component="form" className={classes.root} elevation = {4} >
+      <InputBase
+        className={classes.input}
+        type="search"
+        placeholder="What are you looking for?"
+        value={searchTerm}
+        onClick={() => setFocussed(true)}
+        onChange={event => setSearchTerm(event.target.value)}
+        onKeyDown={hanldEnterDown}
+        autoFocus
+        style = {{minHeight:'50px'}}
+        fullWidth
+      />
+      { searchTerm && <IconButton type="button" className={ classes.iconButton } aria-label="search" onClick = { handleIconButton }>
+          <SearchIcon />
+        </IconButton>
+      }
+        
+      <Divider className={ classes.divider } orientation="vertical" />
+    </Paper>
         
   );
 

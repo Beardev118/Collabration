@@ -97,7 +97,8 @@ export default function App() {
         <Header/>
         {loading?<Loading/>:
          <Container maxWidth = 'lg'>
-          {menuData&&<MenuBar menu = {menuData}/>}
+          {menuData&&<MenuBar menu = { menuData }/>}
+          {console.log("Productback.js")}
         
           <div></div>
          {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}/>}
