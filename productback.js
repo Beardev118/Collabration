@@ -22,7 +22,7 @@ const useFetchdata = (search) => {
 
     // Change the apiUrl according to the search string
    
-    const apiUrl = `http://192.168.1.229:3000/api/products?${search}`
+    const apiUrl = `http://3.10.195.126:3000/api/products?${search}`
 
    
     fetch(apiUrl)

@@ -99,7 +99,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProductArea(props){
       const classes = useStyles();
-      const {products} = props;
+      const { products } = props;
+
       return (
         <div className={classes.productArea}>
           <Container className={classes.cardGrid} maxWidth="xl">
@@ -129,7 +130,7 @@ const useFetchSkus = (productID) => {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    const apiUrl = `http://192.168.1.229:3000/api/products/${productID}`
+    const apiUrl = `http://3.10.195.126:3000/api/products/${productID}`
 
     if(productID != null && productID != undefined && productID > 0){
       fetch(apiUrl)
@@ -160,9 +161,7 @@ const useFetchSkus = (productID) => {
   
 
     const { skus, loading, error } = useFetchSkus(product.id);
-  
-    // if (loading) return <div>Loading...</div>
-    // if (error) return <div>{error}</div>
+    
     const toggleDrawer = (open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
