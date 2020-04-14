@@ -143,7 +143,7 @@ export default function ProminentAppBar() {
   };
 
   const handleMenuItemClick = (event, index) => {
-    var newIndex;
+    let newIndex;
     newIndex = index;
     setAnchorEl(event.currentTarget);
     setSelectedIndex(newIndex);
@@ -200,7 +200,7 @@ export default function ProminentAppBar() {
     
                       <div  >
                         <p> </p>
-                            <Button onClick  ={handleClick} style = {{marginTop:'-10px'}}> {country[selectedIndex] }</Button>
+                            <Button onClick  ={ handleClick } style = {{marginTop:'-10px'}}> { country[selectedIndex] }</Button>
                             
                             <StyledMenu
                               id="lock-menu"
@@ -228,16 +228,19 @@ export default function ProminentAppBar() {
                   <Grid item xs={4}>
                     <Typography variant = "h6" className={classes.rightMenu} align = "right">
                       <Link className = {classes.menulink} to="/about"  className = {classes.menulink}>
-                        About Us  |
+                        About Us  | 
                       </Link >
                       <Link className = {classes.menulink} to="/faq"  >
-                        FAQ  |
+                        FAQ  | 
                       </Link >
                       <Link className = {classes.menulink} to="/add_feed">
-                        Add Feed  |
+                        Add Feed  | 
                       </Link >
                       <Link className = {classes.menulink} to="/retailers">
-                        Retailers
+                        Retailers  | 
+                      </Link >
+                      <Link className = {classes.menulink} to="/contact">
+                        Contact Us
                       </Link >
                     </Typography>
                   </Grid>

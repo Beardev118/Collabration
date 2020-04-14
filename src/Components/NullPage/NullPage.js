@@ -24,7 +24,8 @@ export default function FormDialog({status}) {
 
   let url = new URL(window.location.href);
   let searchQuery = new URLSearchParams(url.search.slice(1));
-  let searchTerm = searchQuery.get('search_q');
+  // let searchTerm = searchQuery.get('search_q');
+  let searchTerm = searchQuery.get('q');
 
 
   return (

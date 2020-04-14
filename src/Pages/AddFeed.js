@@ -82,6 +82,30 @@ export default function AddFeed() {
     // setFeedInfo([...setFeedInfo])
   }
 
+  const handleEnterDown = event=>{
+    if (event.key === "Enter") {
+      event.preventDefault();
+       
+      // if ((window.location.pathname==="/search")) {
+      //   Close();
+      // } 
+      // let url = new URL(window.location.href);
+      // let oldSearchQuery = new URLSearchParams(url.search.slice(1));
+      // let country = oldSearchQuery.get('country');
+      // let newSearchQuery = new URLSearchParams();
+      // if(country != null){
+      //   newSearchQuery.set('country',country)
+      // }
+      // // newSearchQuery.set('search_q',searchTerm);
+      // newSearchQuery.set('q',searchTerm);
+      
+      // history.push({
+      //   pathname: '/search',
+      //   search:newSearchQuery.toString().toLocaleLowerCase()
+      // })
+    }
+  }
+
   return (
     <div>
       <MetaTags>
@@ -115,6 +139,7 @@ export default function AddFeed() {
                       autoComplete="off"
                       type="name"
                       variant="outlined"
+                      onKeyDown={ handleEnterDown }
                     />
                   </Grid>
                   
@@ -127,7 +152,7 @@ export default function AddFeed() {
                       required
                       label = "Website URL"
                       variant="outlined"
-
+                      onKeyDown={ handleEnterDown }
                       inputProps={{ 'aria-label': 'bare' }}
                     />
                   </Grid>
@@ -139,7 +164,7 @@ export default function AddFeed() {
                       fullWidth
                       required
                       label= 'First Name'
-                      
+                      onKeyDown={ handleEnterDown }
                       variant="outlined"
                       inputProps={{ 'aria-label': 'bare' }}
                     />
@@ -151,9 +176,9 @@ export default function AddFeed() {
                     </InputLabel> */}
                     <TextField
                         id="outlined-bare"
-                        
                         required
                         fullWidth
+                        onKeyDown={ handleEnterDown }
                         label = "Last Name"
                         variant="outlined"
                         inputProps={{ 'aria-label': 'bare' }}
@@ -179,6 +204,7 @@ export default function AddFeed() {
                       //     setStatus(null);
                       //   }
                       // }}
+                      onKeyDown={ handleEnterDown }
                       FormHelperTextProps={{ error: true }}
                 />
                   </Grid>
@@ -186,11 +212,11 @@ export default function AddFeed() {
                     
                     <TextField
                         id="outlined-bare"
-                        
                         fullWidth
                         required
                         label = 'Country'
                         variant="outlined"
+                        onKeyDown={ handleEnterDown }
                         inputProps={{ 'aria-label': 'bare' }}
                       />
                   </Grid>
@@ -198,11 +224,11 @@ export default function AddFeed() {
                     
                     <TextField
                         id="outlined-bare"
-                        
                         fullWidth
                         required
                         label = 'Phone'
                         variant="outlined"
+                        onKeyDown={ handleEnterDown }
                         inputProps={{ 'aria-label': 'bare' }}
                       />
                   </Grid>

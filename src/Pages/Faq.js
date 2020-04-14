@@ -7,7 +7,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
-import { Container, Grid } from '@material-ui/core';
+import { Container} from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
 import Footer from '../Components/Footer/Footer'

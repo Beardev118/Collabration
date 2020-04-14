@@ -8,7 +8,7 @@ import Header from '../Components/Header/Header';
 import MetaTags from 'react-meta-tags';
 import Footer from '../Components/Footer/Footer'
 import Aboutus from '../asset/img/about.jpg'
-import Paper from '@material-ui/core/Paper'
+// import Paper from '@material-ui/core/Paper'
 
 
 const useStyles = makeStyles(theme => ({

@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => ({
       },
   }));
 
-export default function ProdcutArea(props){
+export default function ProductArea(props){
       const classes = useStyles();
       const {products} = props;
       return (
@@ -130,8 +130,9 @@ const useFetchSkus = (productID) => {
     setLoading(true)
     setError(null)
     const apiUrl = `http://192.168.1.229:3000/api/products/${productID}`
-   
-    fetch(apiUrl)
+
+    if(productID != null && productID != undefined && productID > 0){
+      fetch(apiUrl)
       .then(res => res.json())
       .then(json => {
         setLoading(false)
@@ -145,6 +146,7 @@ const useFetchSkus = (productID) => {
         setError(err)
         // setLoading(false)
       })
+    }
   }, [productID])
 
   return { skus, loading, error }
@@ -157,7 +159,7 @@ const useFetchSkus = (productID) => {
     const {product} = props
   
 
-    const { skus, loading, error } = useFetchSkus(product.product_id);
+    const { skus, loading, error } = useFetchSkus(product.id);
   
     // if (loading) return <div>Loading...</div>
     // if (error) return <div>{error}</div>

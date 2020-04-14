@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useContext} from 'react';
-import ProdcutArea from '../../Components/ProductArea/ProductArea'
+import ProductArea from '../../Components/ProductArea/ProductArea'
 import MenuBar from '../../Components/MenuBar/MenuBar'
 import Pagination from '@material-ui/lab/Pagination';
 import { Grid, Typography } from '@material-ui/core';
@@ -51,7 +51,8 @@ const useFetchdata = (search) => {
 }
 
 const BackendQuery = (queryParam)=>{
-  var keys = ['search_q','country','category','size','brand'];
+  // var keys = ['search_q','country','category','size','brand'];
+  var keys = ['q','country','category','size','brand'];
   var backendQuery = new URLSearchParams();
 
   for(var key of keys) { 
@@ -101,7 +102,7 @@ export default function App() {
           {console.log("Productback.js")}
         
           <div></div>
-         {products&& <ProdcutArea products = {products.slice((currentPage-1)*12,currentPage*12)}/>}
+         {products&& <ProductArea products = {products.slice((currentPage-1)*12,currentPage*12)}/>}
             <Grid container spacing={3} direction = "row" justify = "flex-end">
                 <Grid item>
                 <Pagination count={Math.ceil(products.length/12)} shape="rounded" page = {currentPage} onChange = {handleChange} />

@@ -16,33 +16,18 @@ const test_url = new URLSearchParams(url.search.slice(1));
 
 const testquery = new URLSearchParams("search_q=socks&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%22accessories%22%5d%2c%22size%22%3a%5b%5d%2c%22brand%22%3a%5b%5d%7d");
 
-// const keyValue = test_url.getAll('category');
-
-// console.log("**********");
-// console.log(test_url.get('search_q'));
-// console.log(test_url.get('sort'));
-// console.log(test_url.get('range'));
-// console.log(test_url.get('filter'));
-// console.log("************")
-
-
 console.log("**********");
 console.log(testquery.get('search_q'));
 console.log(testquery.get('sort'));
 console.log(testquery.get('range'));
 console.log(testquery.get('filter'));
-console.log("************")
+console.log("************");
 
-
-
-
-        var urlquery = new URLSearchParams(query);
-
-
-        console.log(urlquery.toString());
+let urlquery = new URLSearchParams(query);
+console.log(urlquery.toString());
 
 // const url = `${apiUrl}/${resource}?${stringify(query)}`;
-var test_check = test.entries();
+let test_check = test.entries();
 
 console.log(test_check);
 console.log(query);

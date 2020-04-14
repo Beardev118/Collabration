@@ -37,7 +37,7 @@ export default function SerchBar({Close}){
   const history = useHistory()
   
 
-  const hanldEnterDown = event=>{
+  const handleEnterDown = event=>{
     if (event.key === "Enter") {
       event.preventDefault();
        
@@ -48,9 +48,12 @@ export default function SerchBar({Close}){
       let oldSearchQuery = new URLSearchParams(url.search.slice(1));
       let country = oldSearchQuery.get('country');
       let newSearchQuery = new URLSearchParams();
-      newSearchQuery.set('country',country)
-      newSearchQuery.set('search_q',searchTerm);
-    
+      if(country != null){
+        newSearchQuery.set('country',country)
+      }
+      // newSearchQuery.set('search_q',searchTerm);
+      newSearchQuery.set('q',searchTerm);
+      
       history.push({
         pathname: '/search',
         search:newSearchQuery.toString().toLocaleLowerCase()
@@ -67,8 +70,11 @@ export default function SerchBar({Close}){
     let oldSearchQuery = new URLSearchParams(url.search.slice(1));
     let country = oldSearchQuery.get('country');
     let newSearchQuery = new URLSearchParams();
-    newSearchQuery.set('country',country)
-    newSearchQuery.set('search_q',searchTerm);
+    if(country != null){
+      newSearchQuery.set('country',country)
+    }
+    // newSearchQuery.set('search_q',searchTerm);
+    newSearchQuery.set('q',searchTerm);
     newSearchQuery.delete('category');
     newSearchQuery.delete('size');
     newSearchQuery.delete('brand');
@@ -88,7 +94,7 @@ export default function SerchBar({Close}){
         value={searchTerm}
         onClick={() => setFocussed(true)}
         onChange={event => setSearchTerm(event.target.value)}
-        onKeyDown={hanldEnterDown}
+        onKeyDown={ handleEnterDown }
         autoFocus
         style = {{minHeight:'50px'}}
         fullWidth
