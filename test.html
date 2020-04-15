@@ -9,8 +9,8 @@
 <body>
   <script>
 
-const test = new URLSearchParams(    'http://3.10.195.126:3000/api/products?search_q=f&sort=%5B%22price%22%2C%22ASC%22%5D&range=%5B0%2C24%5D&filter=%7B%22country%22%3A%22null%22%2C%22category%22%3A%5B%22footwear%22%5D%2C%22size%22%3A%5B%5D%2C%22brand%22%3A%5B%5D%7D');
-let url = new URL("http://3.10.195.126:3000/api/products?search_q=blue&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%5d%2c%22size%22%3a%5b%5d%2c%22brand%22%3a%5b%5d%7d");
+const test = new URLSearchParams(    'http://localhost:3000/api/products?search_q=f&sort=%5B%22price%22%2C%22ASC%22%5D&range=%5B0%2C24%5D&filter=%7B%22country%22%3A%22null%22%2C%22category%22%3A%5B%22footwear%22%5D%2C%22size%22%3A%5B%5D%2C%22brand%22%3A%5B%5D%7D');
+let url = new URL("http://localhost:3000/api/products?search_q=blue&sort=%5b%5d&range=%5b0%2c24%5d&filter=%7b%22country%22%3a%22null%22%2c%22category%22%3a%5b%5d%2c%22size%22%3a%5b%5d%2c%22brand%22%3a%5b%5d%7d");
 
 const test_url = new URLSearchParams(url.search.slice(1));
 

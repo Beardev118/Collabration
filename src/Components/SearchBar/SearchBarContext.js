@@ -5,11 +5,6 @@ export const SearchProvider = props=>{
   const init = new URLSearchParams();
   const [searchQuery,setSearchQuery] = useState(init);
   
-    console.log('****search query On Context');
-    console.log(searchQuery);
-    console.log(searchQuery.toString());
-
-
     return(
         <SearchContext.Provider
         value={{searchQuery: [searchQuery, setSearchQuery]}}

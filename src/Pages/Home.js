@@ -29,7 +29,7 @@ export default function Home(){
                 </Grid>
                 <Grid container xs = {9} md = {7} justify = 'flex-end'>
                   <Grid >
-                     <Typography variant = "h6"> <Link href = "/privacy">Privacy Policy</Link>/<Link href = "/contact">Contact Us</Link></Typography>
+                     <Typography variant = "h6"> <Link href = "/privacy">Privacy Policy</Link></Typography>
                   </Grid>
                 </Grid>
               </Grid>

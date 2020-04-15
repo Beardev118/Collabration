@@ -10,7 +10,7 @@ import Product from './Pages/Search/Product';
 import About from './Pages/about';
 import FAQ from './Pages/Faq';
 import Retailers from './Pages/Retailer';
-import AddFeed from './Pages/AddFeed';
+import AddFeed from './Pages/AddFeed/AddFeed';
 import Contact from './Pages/Contactus'
 import Privacy from './Pages/Privacy/Privacy'
 import Main from './Pages/Admin/Dashboard'
@@ -44,7 +44,7 @@ export default function ProminentAppBar() {
                   <Route exact path="/privacy" component = {Privacy}/>
                   <Route exact path="/contact" component = {Contact}/>
                   <Route exact path="/main" component = {Main}/>
-           </Switch> 
+            </Switch> 
                   {/* <Home path="/" />
                   {/* {/* <FAQ path="/faq" />
                   <Product path="/register" />

@@ -166,9 +166,6 @@ export default function Contact_us() {
                 <Grid item xs = {12}>
                 <Captcha/>
                 </Grid>
-            
-           
-
          </Grid>
               <Box display="flex" flexDirection="column" mt = {5}>
                 <Box mb={1} my = {5}>

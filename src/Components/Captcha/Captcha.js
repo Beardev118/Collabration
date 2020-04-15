@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 // import "./styles.css";
 
-const TEST_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+const TEST_SITE_KEY = "6Lfp5-kUAAAAAL6zgVweflCawd3mXS59PkA8_oLB";
 const DELAY = 1500;
 
 class App extends React.Component {

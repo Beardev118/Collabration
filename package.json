@@ -21,6 +21,7 @@
     "clsx": "^1.1.0",
     "date-fns": "^2.11.1",
     "emoji-mart": "^3.0.0",
+    "libphonenumber-js": "^1.7.50",
     "markdown-to-jsx": "^6.11.0",
     "material-ui-popup-state": "^1.5.3",
     "prop-types": "^15.7.2",
