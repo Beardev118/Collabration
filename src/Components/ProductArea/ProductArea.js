@@ -130,7 +130,7 @@ const useFetchSkus = (productID) => {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    const apiUrl = `http://localhost:3000/api/products/${productID}`
+    const apiUrl = `http://3.10.195.126:3000/api/products/${productID}`
 
     if(productID != null && productID != undefined && productID > 0){
       fetch(apiUrl)

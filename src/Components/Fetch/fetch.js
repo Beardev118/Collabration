@@ -9,7 +9,7 @@ function Fetch(props) {
 
 
     useEffect( async() => {
-        const response  = await fetch('http://localhost:3000/');
+        const response  = await fetch('http://3.10.195.126:3000/');
         const data = await response.json();
         const [item] = data.results;
         setPerson(item);
