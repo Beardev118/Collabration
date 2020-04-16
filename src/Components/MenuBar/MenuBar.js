@@ -58,7 +58,7 @@ const useFetchMenu = (search)=>{
 
   useEffect(() => {
     async function fetchData (){
-      const url = `http://35.179.64.176/api/products?${search}`;
+      const url = `http://localhost:3000/api/products?${search}`;
       if(search != null && search != undefined && search.length > 1){
         const response = await fetch(url);
         const data = await response.json();

@@ -110,6 +110,10 @@ function isBusinessNameValid(str) {
     return flag;
 }
 
+function isEmailValid(str){
+    return new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(str);
+}
+
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
@@ -219,13 +223,13 @@ export default function AddFeed() {
 
             // check the website url
 
-            if(websiteUrl != null && !isUrlValid(websiteUrl)){
+            if(websiteUrl == null || !isUrlValid(websiteUrl)){
                 isAllReady = false;
                 setErrorWebsiteUrl('#FF1744');
             }
 
             // check the email address
-            if(errorEmail == '#FF1744'){
+            if(!isEmailValid(emailAddress)){
                 isAllReady = false;
                 setErrorEmail('#FF1744');
             }
@@ -261,7 +265,7 @@ export default function AddFeed() {
             }
 
             // check the feed url
-            if(feedURL != null && !isFeedUrlValid(feedURL)){
+            if(feedURL == null || !isFeedUrlValid(feedURL)){
                 isAllReady = false;
                 setErrorFeedUrl('#FF1744');
             }
@@ -306,7 +310,7 @@ export default function AddFeed() {
                 return;
             case 'email':
                 setEmailAddress(event.target.value);
-                if(new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(event.target.value)){
+                if(isEmailValid(event.target.value)){
                     setErrorEmail('#FFFFFF');
                 } else {
                     setErrorEmail('#FF1744');
@@ -378,7 +382,7 @@ export default function AddFeed() {
                     return;
                 case 'email':
                     setEmailAddress(event.target.value);
-                    if(new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(event.target.value)){
+                    if(isEmailValid(event.target.value)){
                         setErrorEmail('#FFFFFF');
                     } else {
                         setErrorEmail('#FF1744');
@@ -416,7 +420,7 @@ export default function AddFeed() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setSubmit(false);
-        const newurl = `http://35.179.64.176/api/feeds/`;
+        const newurl = `http://localhost:3000/api/feeds/`;
         fetch(newurl, {
             method: 'POST',
             headers: {
@@ -720,4 +724,3 @@ export default function AddFeed() {
         </div>  
     );
 }
-
