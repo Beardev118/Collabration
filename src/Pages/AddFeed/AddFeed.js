@@ -416,7 +416,7 @@ export default function AddFeed() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setSubmit(false);
-        const newurl = `http://localhost:3000/api/feeds/`;
+        const newurl = `http://35.179.64.176/api/feeds/`;
         fetch(newurl, {
             method: 'POST',
             headers: {

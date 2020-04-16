@@ -24,7 +24,7 @@ const useFetch = (search)=>{
   useEffect(() => {
     let ignore = false;
     async function fetchData (){
-      const url = `http://localhost:3000/api/products?${search}`
+      const url = `http://35.179.64.176/api/products?${search}`
       const response = await fetch(url);
       const data = await response.json();
       const products = data.products;
