@@ -141,59 +141,39 @@ const useStyles = makeStyles(theme => ({
 
 export default function AddFeed() {
     const classes = useStyles();
-    const [loading, setLoading] = useState(false);
-    const [termsOfServiceError, setTermsOfServiceError] = useState(false);
-
+    
     const [businessName, setBusinessName] = useState(null);
     const [errorBusinessName, setErrorBusinessName] = useState('#FFFFFF');
-    const [helperTextBusinessName, setHelperTextBusinessName] = useState('Please input your business name.');
-
+    
     const [websiteUrl, setWebsiteUrl] = useState(null);
     const [errorWebsiteUrl, setErrorWebsiteUrl] = useState('#FFFFFF');
-    const [helperTextWebsiteUrl, setHelperTextWebsiteUrl] = useState('Please input your website url correctly. ex : https://my.example.com');
 
     const [firstName, setFirstName] = useState(null);
     const [errorFirstName, setErrorFirstName] = useState('#FFFFFF');
-    const [helperTextFirstName, setHelperTextFirstName] = useState('Please input your first name.');
 
     const [lastName, setLastName] = useState(null);
     const [errorLastName, setErrorLastName] = useState('#FFFFFF');
-    const [helperTextLastName, setHelperTextLastName] = useState('Please input your last name.');
 
     const [emailAddress, setEmailAddress] = useState(null);
     const [errorEmail, setErrorEmail] = useState('#FFFFFF');
-    const [helperTextEmail, setHelperTextEmail] = useState('Please input your email correctly.');
 
     const [country, setCountry] = useState(null);
     const [errorCountry, setErrorCountry] = useState('#FFFFFF');
-    const [helperTextCountry, setHelperTextCountry] = useState('Please select a country.');
 
     const [phoneNumber, setPhoneNumber] = useState('');
     const [errorPhoneNumber, setErrorPhoneNumber] = useState('#FFFFFF');
-    const [helperTextPhoneNumber, setHelperTextPhoneNumber] = useState('Please input your phonenumber correctly. ex : +12345678900');
-
-    const [feedMethod, setFeedMethod] = useState(null);
 
     const [feedURL, setFeedURL] = useState(null);
     const [errorFeedUrl, setErrorFeedUrl] = useState('#FFFFFF');
-    const [helperTextFeedUrl, setHelperTextFeedUrl] = useState('Please input your feed url. ex : https://my.example.com/products.json');
-
-    const [feedInfo, setFeedInfo] = useState([]);
 
     const [kindOfFeed, setKindOfFeed] = useState('');
-    const [errorFeedKind, setErrorFeedKind] = useState(true);
-    const [helperTextFeedKind, setHelperTextFeedKind] = useState('');
+    const [errorFeedKind, setErrorFeedKind] = useState('#FFFFFF');
 
     const [checkSubmit, setSubmit] = useState(false);
 
-    const AddFeedPanel = ()=>{
-        // setFeedInfo([...setFeedInfo])
-    }
-
     const handleRadioChange = (event) => {
         setKindOfFeed(event.target.value);
-        setHelperTextFeedKind(' ');
-        setErrorFeedKind(false);
+        setErrorFeedKind('#FFFFFF');
     };
 
     const handleCheckboxChange = (event) => {
@@ -256,12 +236,10 @@ export default function AddFeed() {
 
             // check the kind of feed
             if ((kindOfFeed === 'google') || (kindOfFeed === 'shopify')) {
-                setHelperTextFeedKind(' ');
-                setErrorFeedKind(false);
+                setErrorFeedKind('#FFFFFF');
             } else {
                 isAllReady = false;
-                setHelperTextFeedKind('Please select an option.');
-                setErrorFeedKind(true);
+                setErrorFeedKind('#FF1744');
             }
 
             // check the feed url
@@ -486,7 +464,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{color: errorBusinessName}} >
-                                        { helperTextBusinessName }
+                                        Please input your business name.
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -507,7 +485,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{color: errorWebsiteUrl}} >
-                                        { helperTextWebsiteUrl }
+                                        Please input your website url correctly. ex : https://my.example.com
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -528,7 +506,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{ color: errorFirstName }} >
-                                        { helperTextFirstName }
+                                        Please input your first name.
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -549,7 +527,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{ color: errorLastName }} >
-                                        { helperTextLastName }
+                                        Please input your last name.
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -570,7 +548,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{color: errorEmail}} >
-                                        { helperTextEmail }
+                                        Please input your email correctly.
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -619,7 +597,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{color: errorCountry}} >
-                                        { helperTextCountry }
+                                        Please select a country.
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -640,7 +618,7 @@ export default function AddFeed() {
                                 />
                                 <FormHelperText>
                                     <Typography variant = "h5" style = {{color: errorPhoneNumber}} >
-                                        { helperTextPhoneNumber }
+                                        Please input your phonenumber correctly. ex : +12345678900
                                     </Typography>
                                 </FormHelperText>
                             </Grid>
@@ -660,8 +638,8 @@ export default function AddFeed() {
                                             label="Shopify Product Feed" />
                                     </RadioGroup>
                                     <FormHelperText>
-                                        <Typography variant = "h5" color = 'error'>
-                                            { helperTextFeedKind }
+                                        <Typography variant = "h5" style = {{color: errorFeedKind}}>
+                                            Please select an option.
                                         </Typography>
                                     </FormHelperText>
                                 </FormControl>
@@ -684,7 +662,7 @@ export default function AddFeed() {
                                             />
                                             <FormHelperText>
                                                 <Typography variant = "h5" style = {{color: errorFeedUrl}} >
-                                                    { helperTextFeedUrl }
+                                                    Please input your feed url. ex : https://my.example.com/products.json
                                                 </Typography>
                                             </FormHelperText>
                                         </Grid>
